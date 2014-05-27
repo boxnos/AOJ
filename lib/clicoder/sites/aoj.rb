@@ -6,7 +6,12 @@ module Clicoder
 
     def initialize(problem_number)
       config.local['problem_number'] = problem_number
-      @problem_id = "%04d" % problem_number
+      @problem_id =
+        if problem_number =~ /^+d$/
+          "%04d" % problem_number
+        else
+          problem_number
+        end
     end
 
     def submit
