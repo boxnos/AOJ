@@ -50,11 +50,11 @@ module Clicoder
     end
 
     def inputs_xpath
-      '//*[self::pre or self::div/pre][preceding-sibling::*[self::h2 or self::h3][1][text()="Sample Input"]]'
+      '//div[@class="description"]/h2[starts-with(.,"Sample Input")]/following-sibling::pre[1]'
     end
 
     def outputs_xpath
-      '//*[self::pre or self::div/pre][preceding-sibling::*[self::h2 or self::h3][text()="Output for the Sample Input"]]'
+      '//div[@class="description"]/h2[starts-with(.,"Sample Output") or starts-with(.,"Output for the Sample Input")]/following-sibling::pre[1]'
     end
 
     def working_directory
