@@ -3,7 +3,7 @@ require 'nokogiri'
 require 'yaml'
 require 'net/http'
 require 'abstract_method'
-require 'reverse_markdown'
+require 'kconv'
 
 require 'clicoder'
 require 'clicoder/config'
@@ -60,7 +60,11 @@ module Clicoder
     def download_description
       Dir.chdir(working_directory) do
         File.open('description.md', 'w') do |f|
-          f.write(ReverseMarkdown.parse(fetch_description))
+          IO.popen("pandoc -f html -t markdown", "r+") do |io|
+            io.write fetch_description
+            io.close_write
+            f.write io.read
+          end
         end
       end
     end
@@ -121,7 +125,7 @@ module Clicoder
     end
 
     def xml_document
-      @xml_document ||= Nokogiri::HTML(open(problem_url))
+      @xml_document ||= Nokogiri::HTML(open(problem_url).read.toutf8)
     end
 
     def config
