@@ -5,10 +5,15 @@ endif
 test:
 	clicoder all
 
-build:
-	g++ main.cpp
-
-execute:
+a.out: main.cpp
+	g++ $^
+binary: a.out
 	./a.out < in.txt > out.txt
 
+Main.class: Main.java
+	javac $^
+class: Main.class
+	java Main < in.txt > out.txt
 
+build: Main.class
+execute: class
