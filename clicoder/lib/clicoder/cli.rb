@@ -38,6 +38,8 @@ module Clicoder
   end
 
   class CLI < Thor
+    MAKE = "make --no-print-directory"
+
     desc "all", "build, execute, and judge"
     def all
       invoke :build
@@ -48,7 +50,7 @@ module Clicoder
     desc "build", "Build your program using `make build`"
     def build
       load_local_config
-      system('make build')
+      system("#{MAKE} build")
     end
 
     desc "execute", "Execute your program using `make execute`"
@@ -57,7 +59,7 @@ module Clicoder
       Dir.glob("#{INPUTS_DIRNAME}/*.txt").each do |input|
         puts "executing #{input}"
         FileUtils.cp(input, TEMP_INPUT_FILENAME)
-        system("make execute")
+        system("#{MAKE} execute")
         FileUtils.cp(TEMP_OUTPUT_FILENAME, "#{MY_OUTPUTS_DIRNAME}/#{File.basename(input)}")
       end
       FileUtils.rm([TEMP_INPUT_FILENAME, TEMP_OUTPUT_FILENAME])
