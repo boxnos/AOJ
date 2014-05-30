@@ -22,7 +22,6 @@ Gem::Specification.new do |spec|
   spec.add_dependency "thor", "~> 0.19.1"
   spec.add_dependency "abstract_method", "~> 1.2.1"
   spec.add_dependency "launchy", "~> 2.4.2"
-  spec.add_dependency "reverse_markdown", "~> 0.4.7"
   spec.add_dependency "mechanize", "~> 2.7.3"
 
   spec.add_development_dependency "bundler", "~> 1.3"

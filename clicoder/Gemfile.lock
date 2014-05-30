@@ -6,7 +6,6 @@ PATH
       launchy (~> 2.4.2)
       mechanize (~> 2.7.3)
       nokogiri (~> 1.6.2.1)
-      reverse_markdown (~> 0.4.7)
       thor (~> 0.19.1)
 
 GEM
@@ -64,8 +63,6 @@ GEM
       method_source (~> 0.8)
       slop (~> 3.4)
     rake (10.3.2)
-    reverse_markdown (0.4.7)
-      nokogiri
     rspec (2.14.1)
       rspec-core (~> 2.14.0)
       rspec-expectations (~> 2.14.0)
