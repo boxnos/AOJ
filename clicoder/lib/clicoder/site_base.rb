@@ -50,41 +50,33 @@ module Clicoder
 
     def prepare_directories
       FileUtils.mkdir_p(working_directory)
-      Dir.chdir(working_directory) do
-        FileUtils.mkdir_p(INPUTS_DIRNAME)
-        FileUtils.mkdir_p(OUTPUTS_DIRNAME)
-        FileUtils.mkdir_p(MY_OUTPUTS_DIRNAME)
+      [INPUTS_DIRNAME, OUTPUTS_DIRNAME, MY_OUTPUTS_DIRNAME].each do |dir|
+        FileUtils.mkdir_p("#{working_directory}/#{dir}")
       end
     end
 
     def download_description
-      Dir.chdir(working_directory) do
-        File.open('description.md', 'w') do |f|
-          IO.popen("pandoc -f html -t markdown", "r+") do |io|
-            io.write fetch_description
-            io.close_write
-            f.write io.read
-          end
+      File.open("#{working_directory}/description.md", 'w') do |f|
+        IO.popen("pandoc -f html -t markdown", "r+") do |io|
+          io.write fetch_description
+          io.close_write
+          f.write io.read
         end
       end
     end
 
     def download_inputs
-      Dir.chdir("#{working_directory}/#{INPUTS_DIRNAME}") do
-        fetch_inputs.each_with_index do |input, i|
-          File.open("#{i}.txt", 'w') do |f|
-            f.write(input.strip + "\n")
-          end
+      fetch_inputs.each_with_index do |input, i|
+        File.open("#{working_directory}/#{INPUTS_DIRNAME}/#{i}.txt", 'w') do |f|
+          f.write(input.strip + "\n")
         end
       end
     end
 
     def download_outputs
-      Dir.chdir("#{working_directory}/#{OUTPUTS_DIRNAME}") do
-        fetch_outputs.each_with_index do |output, i|
-          File.open("#{i}.txt", 'w') do |f|
-            f.write(output.strip + "\n")
-          end
+      fetch_outputs.each_with_index do |output, i|
+        File.open("#{working_directory}/#{OUTPUTS_DIRNAME}/#{i}.txt", 'w') do |f|
+          f.write(output.strip + "\n")
         end
       end
     end
