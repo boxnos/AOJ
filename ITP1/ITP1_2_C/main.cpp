@@ -10,10 +10,10 @@ template <typename T>
 string join(vector<T> &v, const string &delimiter)
 {
     stringstream buffer;
-    for(auto it = v.begin(); it != v.end(); it++) {
-        if (it != v.begin())
-            buffer << delimiter;
-        buffer << *it;
+    if (v.size() > 0) {
+        buffer << v[0];
+        for (auto it = v.begin() + 1; it != v.end(); it++)
+            buffer << delimiter << *it;
     }
     return buffer.str();
 }
