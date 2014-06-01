@@ -65,10 +65,11 @@ module Clicoder
       end
     end
 
+
     def download_inputs
       fetch_inputs.each_with_index do |input, i|
         File.open("#{working_directory}/#{INPUTS_DIRNAME}/#{i}.txt", 'w') do |f|
-          f.write(input.strip + "\n")
+          f.write(clean_io input)
         end
       end
     end
@@ -76,7 +77,7 @@ module Clicoder
     def download_outputs
       fetch_outputs.each_with_index do |output, i|
         File.open("#{working_directory}/#{OUTPUTS_DIRNAME}/#{i}.txt", 'w') do |f|
-          f.write(output.strip + "\n")
+          f.write(clean_io output)
         end
       end
     end
@@ -122,6 +123,11 @@ module Clicoder
 
     def config
       @config ||= Config.new
+    end
+
+    private
+    def clean_io(text)
+      text.strip.gsub(/\r/, '') + "\n"
     end
   end
 end
