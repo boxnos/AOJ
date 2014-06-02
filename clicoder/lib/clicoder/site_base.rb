@@ -127,7 +127,7 @@ module Clicoder
 
     private
     def clean_io(text)
-      text.strip.gsub(/\r/, '') + "\n"
+      text.lstrip.gsub(/\r/, '')
     end
   end
 end
