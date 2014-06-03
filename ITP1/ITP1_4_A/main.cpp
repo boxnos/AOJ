@@ -3,8 +3,11 @@ using namespace std;
 
 int main()
 {
-    cin;
-    cout << endl;
+    int a, b;
+    cin >> a >> b;
+
+    // memo : 
+    cout << a / b << " " << a % b << " " << fixed << (double) a / b << endl;
 
     return 0;
 }
