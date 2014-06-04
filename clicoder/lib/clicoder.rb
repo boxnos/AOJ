@@ -17,6 +17,7 @@ module Clicoder
     def ext_to_language_name(ext)
       @map ||= {
         cpp: 'C++',
+        cxx: 'C++11',
         cc: 'C++',
         c: 'C',
         java: 'JAVA',
