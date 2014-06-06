@@ -18,7 +18,7 @@ int main()
     int length;
     cin >> length;
 
-    for (vector<int> sides(3); length > 0 && cin >> sides[0] >> sides[1] >> sides[2]; length--)
+    for (vector<int> sides(3); length-- && cin >> sides[0] >> sides[1] >> sides[2];)
         cout << (is_right_triangle(sides) ? "YES" : "NO") << endl;
 
     return 0;
