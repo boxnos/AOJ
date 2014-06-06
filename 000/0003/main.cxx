@@ -7,7 +7,7 @@ inline int square(int x) {
     return x * x;
 }
 
-bool is_right_triangle(vector<int> &sides)
+bool is_right_triangle(vector<int> sides)
 {
     sort(sides.begin(), sides.end());
     return square(sides[0]) + square(sides[1]) == square(sides[2]);
