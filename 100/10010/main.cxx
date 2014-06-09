@@ -5,10 +5,10 @@ using namespace std;
 function<int (int, int)> make_lambda(char &op)
 {
     switch (op) {
-    case '+': return [](int a, int b) {return a + b;}; break;
-    case '-': return [](int a, int b) {return a - b;}; break;
-    case '*': return [](int a, int b) {return a * b;}; break;
-    case '/': return [](int a, int b) {return a / b;}; break;
+    case '+': return plus<int>(); break;
+    case '-': return minus<int>(); break;
+    case '*': return multiplies<int>(); break;
+    case '/': return divides<int>(); break;
     }
 }
 
