@@ -26,9 +26,7 @@ int main()
 
     cin >> n;
     for (int buffer; cin >> buffer && n; n--)
-        a.push_back(buffer);
-
-    reverse(all(a));
+        a.insert(a.begin(), buffer);
 
     cout << join(a, " ") << endl;
 
