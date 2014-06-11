@@ -1,7 +1,7 @@
 test:
 	clicoder all
 
-a.out: main.cpp
+a.out: main.cxx
 	g++ $^ -std=c++11
 binary: a.out
 	./a.out < in.txt > out.txt
