@@ -1,5 +1,5 @@
 #include <iostream>
-#include <deque>
+#include <list>
 #include <algorithm>
 #include <iterator>
 #include <sstream>
@@ -12,8 +12,8 @@ string join(T &v, const string &delimiter)
 {
     stringstream buffer;
     if (v.size() > 0) {
-        buffer << v[0];
-        for (typename T::iterator it = v.begin() + 1; it != v.end(); it++)
+        buffer << v.front();
+        for (typename T::iterator it = ++(v.begin()); it != v.end(); it++)
             buffer << delimiter << *it;
     }
     return buffer.str();
@@ -22,7 +22,7 @@ string join(T &v, const string &delimiter)
 int main()
 {
     int n;
-    deque<int> a;
+    list<int> a;
 
     cin >> n;
     for (int buffer; cin >> buffer && n; n--)
