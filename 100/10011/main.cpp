@@ -5,8 +5,6 @@
 #include <sstream>
 using namespace std;
 
-#define all(bind) bind.begin(), bind.end()
-
 template <typename T>
 string join(T &v, const string &delimiter)
 {
