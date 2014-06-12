@@ -9,14 +9,15 @@ void sieve(int n, vector<int> &primes)
     vector<bool> v(n + 1, true);
 
     // check
-    for (int i = 2, end = sqrt(n); i <= end; i++) {
+    for (int i = 3, end = sqrt(n); i <= end; i += 2) {
         if (!v[i])
             continue;
-        for (int j = i + i; j <= n; j += i)
+        for (int j = i * i, skip = i * 2; j <= n; j += skip)
             v[j] = false;
     }
 
-    for (int i = 2; i <= n; i++)
+    primes.push_back(2);
+    for (int i = 3; i <= n; i += 2)
          if (v[i])
             primes.push_back(i);
 }
