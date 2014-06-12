@@ -10,7 +10,7 @@ void sieve(int n, vector<int> &primes)
 
     // check
     for (int i = 2, end = sqrt(n); i <= end; i++) {
-        if (!i)
+        if (!v[i])
             continue;
         for (int j = i + i; j <= n; j += i)
             v[j] = false;
