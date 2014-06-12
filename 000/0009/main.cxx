@@ -1,10 +1,11 @@
 #include <iostream>
 #include <vector>
+#include <list>
 #include <algorithm>
 #include <cmath>
 using namespace std;
 
-void sieve(int n, vector<int> &primes)
+void sieve(int n, list<int> &primes)
 {
     vector<bool> v(n + 1, true);
 
@@ -24,9 +25,8 @@ void sieve(int n, vector<int> &primes)
 
 int main()
 {
-    vector<int> primes;
+    list<int> primes;
     vector<int> inputs;
-    int i;
 
     // read all inputs
     for (int x; cin >> x;)
@@ -36,13 +36,16 @@ int main()
     sieve(*max_element(inputs.begin(), inputs.end()), primes);
 
     for (auto x : inputs) {
-        for (i = 0; i < primes.size(); i++) // find
-            if (primes[i] == x) {
-                i++;
+        int count = 0;
+        for (auto p : primes) // find
+            if (p == x) {
+                count++;
                 break;
-            } else if (primes[i] > x)
+            } else if (p > x)
                 break;
-        cout << i << endl;
+            else
+                count++;
+        cout << count << endl;
     }
 
     return 0;
