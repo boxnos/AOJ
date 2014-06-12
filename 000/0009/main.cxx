@@ -7,19 +7,19 @@ using namespace std;
 
 void sieve(int n, list<int> &primes)
 {
-    vector<bool> v(n + 1, true);
+    vector<bool> v(n / 2 + 1, true);
 
     // check
     for (int i = 3, end = sqrt(n); i <= end; i += 2) {
-        if (!v[i])
+        if (!v[i / 2])
             continue;
-        for (int j = i * i, skip = i * 2; j <= n; j += skip)
+        for (int j = i * i / 2; j <= n / 2; j += i)
             v[j] = false;
     }
 
     primes.push_back(2);
     for (int i = 3; i <= n; i += 2)
-         if (v[i])
+         if (v[i / 2])
             primes.push_back(i);
 }
 
