@@ -2,7 +2,7 @@
 #include <vector>
 using namespace std;
 
-int symbol_to_index(char &s)
+inline int symbol_to_index(char &s)
 {
     switch(s) {
     case 'S' : return 0;
@@ -12,14 +12,10 @@ int symbol_to_index(char &s)
     }
 }
 
-char index_to_symbol(int &i)
+inline char index_to_symbol(int &i)
 {
-    switch(i) {
-    case 0 : return 'S';
-    case 1 : return 'H';
-    case 2 : return 'C';
-    case 3 : return 'D';
-    }
+    const char symbols[] = "SHCD";
+    return symbols[i];
 }
 
 int main()
