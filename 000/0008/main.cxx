@@ -33,8 +33,8 @@ int calc(int n, int k)
 {
     int count = 0;
 
-    if (k == 0)
-        if (n == 0)
+    if (k == 1)
+        if (0 <= n && n <= 9)
             return 1;
         else
             return 0;
