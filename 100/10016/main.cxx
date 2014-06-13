@@ -8,22 +8,13 @@ inline char grade(int &m, int &f, int &r)
 
     // binary search
     int sum = m + f;
-    if (sum >= 50)
-        if (sum >= 65)
-            if (sum >= 80)
-                return 'A';
-            else
-                return 'B';
-        else
-            return 'C';
-    else
-        if (sum >= 30)
-            if (r >= 50)
-                return 'C';
-            else
-                return 'D';
-        else
-            return 'F';
+    return (sum >= 50) ?
+            (sum >= 65) ?
+                (sum >= 80) ? 'A' : 'B'
+            : 'C'
+        : (sum >= 30) ?
+            (r >= 50) ? 'C' : 'D'
+            : 'F';
 }
 
 int main()
