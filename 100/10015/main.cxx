@@ -1,40 +1,31 @@
 #include <iostream>
 #include <vector>
+#include <map>
 using namespace std;
 
-inline int symbol_to_index(char &s)
-{
-    switch(s) {
-    case 'S' : return 0;
-    case 'H' : return 1;
-    case 'C' : return 2;
-    case 'D' : return 3;
-    }
-}
-
-inline char index_to_symbol(int &i)
-{
-    const char symbols[] = "SHCD";
-    return symbols[i];
-}
 
 int main()
 {
-    vector<vector <bool>> cards(4, vector<bool>(14, false));
+    // init cards
+    const char symbols[] = "SHCD";
+    map<char, vector <bool>> cards;
+    for(auto c : symbols)
+        cards[c] = vector<bool>(14, false);
+
+    // input
     int n, x;
     char symbol;
-
     cin >> n;
     for (;cin >> symbol >> x && n; n--)
-        cards[symbol_to_index(symbol)][x] = true;
+        cards[symbol][x] = true;
 
-    for (int i = 0; i < cards.size(); i++) {
-        char s = index_to_symbol(i);
-        for (int j = 1; j < cards[i].size(); j++)
-            if (!cards[i][j])
-                cout << s << " " << j << endl;
+    // output
+    for (int i = 0; i < 4; i++) {
+        char symbol = symbols[i];
+        for (int j = 1; j < cards[symbol].size(); j++)
+            if (!cards[symbol][j])
+                cout << symbol << " " << j << endl;
     }
-
 
     return 0;
 }
