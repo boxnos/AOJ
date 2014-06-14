@@ -5,15 +5,12 @@ int count_conbination(int n, int k)
 {
     if (k == 1)
         return (n <= 9) ? 1 : 0;
+    else if (n > k * 9)
+        return 0;
 
     int count = 0;
-    for (int i = 0, rest; i <= 9; i++) {
-        rest = n - i;
-        if (rest < 0)
-            break;
-        else
-            count += count_conbination(rest, k - 1);
-    }
+    for (int rest = n, end = rest - 9; rest >= 0 && rest >= end; rest--)
+        count += count_conbination(rest, k - 1);
 
     return count;
 }
