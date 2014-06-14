@@ -4,13 +4,14 @@ using namespace std;
 
 int how_many_ways(int n, int x, int length, int start)
 {
-    if (length == 0)
-        return (x == 0) ? 1 : 0;
+    if (length == 1)
+        return (start <= x && x <= n) ? 1 : 0;
     else if (start > x)
         return 0;
 
     int count = 0;
 
+    cout << x << endl;
     for (int i = start; i <= n; i++)
         count += how_many_ways(n, x - i, length - 1, i + 1);
 
