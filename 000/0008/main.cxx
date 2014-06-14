@@ -29,22 +29,22 @@ inline int homogeneous(int n, int r)
 }
 */
 
-int calc(int n, int k)
+int count_conbination(int n, int k)
 {
     int count = 0;
 
     if (k == 1)
-        if (0 <= n && n <= 9)
+        if (n <= 9)
             return 1;
         else
             return 0;
 
     for (int i = 0; i <= 9; i++) {
-        int tmp = n - i;
-        if (tmp < 0)
+        int rest = n - i;
+        if (rest < 0)
             break;
         else
-            count += calc(tmp, k - 1);
+            count += count_conbination(rest, k - 1);
     }
 
     return count;
@@ -53,7 +53,7 @@ int calc(int n, int k)
 int main()
 {
     for (int n; cin >> n;)
-        cout << calc(n, 4) << endl;
+        cout << count_conbination(n, 4) << endl;
 
     return 0;
 }
