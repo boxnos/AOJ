@@ -3,8 +3,8 @@ using namespace std;
 
 inline char toggle_case(char c)
 {
-    char upper = c | ' ';
-    return (0x61 <= upper && upper <= 0x7A) ? c ^ ' ' : c;
+    char upper = c & ~' ';
+    return (0x41 <= upper && upper <= 0x5A) ? c ^ ' ' : c;
 }
 
 int main()
