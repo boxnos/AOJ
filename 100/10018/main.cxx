@@ -1,11 +1,9 @@
 #include <iostream>
 using namespace std;
 
-char toggle_case(char c)
+inline char toggle_case(char c)
 {
-    return
-        (0x41 <= c && c <= 0x5A) ? c | 0x20 :
-        (0x61 <= c && c <= 0x7A) ? c & ~0x20 : c;
+    return (0x41 <= c && c <= 0x5A || 0x61 <= c && c <= 0x7A) ? c ^ ' ' : c;
 }
 
 int main()
