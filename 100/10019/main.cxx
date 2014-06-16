@@ -1,18 +1,27 @@
 #include <iostream>
+#include <cctype>
 using namespace std;
 
-inline int sum_of_numbers(int x)
+int sum_of_numbers(int first_number)
 {
-    int sum = 0;
-    for (;x > 0; x /= 10)
-        sum += x % 10;
+    int sum = first_number - '0';
+
+    for (int c; isdigit(c = cin.get());)
+        sum += c - '0';
+
     return sum;
 }
 
 int main()
 {
-    for (int x; cin >> x && x;)
-        cout << sum_of_numbers(x) << endl;
+    int sum = 0;
+    bool start = true;
+    for (int c; (c = cin.get()) != -1;) {
+        if (c == '0')
+            break;
+        else
+            cout << sum_of_numbers(c) << endl;
+    }
 
     return 0;
 }
