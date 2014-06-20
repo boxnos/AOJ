@@ -1,29 +1,23 @@
 #include <iostream>
 #include <vector>
-#include <list>
+#include <algorithm>
 using namespace std;
 
 int main()
 {
     int w, n;
-    char c;
+    char comma;
 
     cin >> w >> n;
 
-    list<vector <int>> routes;
+    vector<int> lines(w);
+    iota(lines.begin(), lines.end(), 1);
 
-    for (vector<int> r(2); n-- && cin >> r[0] >> c >> r[1];)
-        routes.push_front(r);
+    for (int a, b; cin >> a >> comma >> b;)
+        swap(lines[a - 1], lines[b - 1]);
 
-    for (int i = 1, pos = i; i <= w; pos = ++i) {
-        for (auto r: routes)
-            if (r[0] == pos)
-                pos = r[1];
-            else if(r[1] == pos)
-                pos = r[0];
-
-        cout << pos << endl;
-    }
+    for (auto x: lines)
+        cout << x << endl;
 
     return 0;
 }
