@@ -1,17 +1,9 @@
 #include <iostream>
-#include <cctype>
+#include <algorithm>
+#include <locale>
 using namespace std;
 
-bool find(string a, string b)
-{
-    auto ai = a.begin(), bi = b.begin();
-
-    for (; ai != a.end() || bi != b.end() ; ai++, bi++)
-        if (tolower(*ai) != tolower(*bi))
-            return false;
-
-    return (ai == a.end() && bi == b.end()) ? true : false;
-}
+#define all(bind) (bind).begin(), (bind).end()
 
 int main()
 {
@@ -19,9 +11,10 @@ int main()
     int count = 0;
 
     cin >> input;
+    transform(all(input), input.begin(), [] (char a) {return tolower(a);});
 
     for (string buffer; cin >> buffer && buffer != "END_OF_TEXT";)
-        if (find(input, buffer))
+        if (equal(all(input), buffer.begin(), [](char a,char b) {return a == tolower(b);}))
             count++;
 
     cout << count << endl;
