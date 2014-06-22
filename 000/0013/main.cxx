@@ -1,17 +1,17 @@
 #include <iostream>
-#include <list>
+#include <stack>
 using namespace std;
 
 int main()
 {
-    list<int> stack;
+    stack<int> s;
 
     for (int n; cin >> n;)
         if (n == 0) {
-            cout << stack.front() << endl;
-            stack.pop_front();
+            cout << s.top() << endl;
+            s.pop();
         } else
-            stack.push_front(n);
+            s.push(n);
 
     return 0;
 }
