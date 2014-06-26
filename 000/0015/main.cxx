@@ -9,7 +9,7 @@ class BigInt {
     deque<int> digits;
     BigInt() {
     }
-    BigInt operator +(BigInt x) {
+    BigInt operator +(const BigInt x) const {
         BigInt res;
 
         // add
@@ -39,7 +39,7 @@ class BigInt {
         if (carry)
             digits.push_back(carry);
     }
-    int size() {
+    int size() const {
         return digits.size();
     }
     istream &read(istream &is) {
@@ -53,7 +53,7 @@ class BigInt {
 
         return is;
     }
-    ostream &write(ostream &os) {
+    ostream &write(ostream &os) const {
         for (auto di = digits.rbegin(); di != digits.rend(); di++)
             cout << *di;
         return os;
@@ -61,7 +61,7 @@ class BigInt {
 };
 
 istream &operator>>(istream &is, BigInt &b) { return b.read(is); }
-ostream &operator<<(ostream &os, BigInt &b) { return b.write(os); }
+ostream &operator<<(ostream &os, const BigInt &b) { return b.write(os); }
 
 int main()
 {
