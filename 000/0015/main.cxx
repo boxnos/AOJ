@@ -10,12 +10,12 @@ class BigInt {
     BigInt() {
     }
     BigInt operator +(BigInt x) {
-        BigInt c;
+        BigInt res;
 
         // add
         auto di = digits.begin(), xi = x.digits.begin(), end = digits.end();
         for (; di != end && xi != x.digits.end(); di++, xi++)
-            c.digits.push_back(*di + *xi);
+            res.digits.push_back(*di + *xi);
 
         // set rest
         if (di == digits.end()) {
@@ -23,19 +23,19 @@ class BigInt {
             end = x.digits.end();
         }
         for (; di != end; di++)
-            c.digits.push_back(*di);
+            res.digits.push_back(*di);
 
         // nomalize
         int carry = 0;
-        for (int i = 0; i < c.size(); i++) {
-            c.digits[i] += carry;
-            carry = c.digits[i] / base;
-            c.digits[i] %= base;
+        for (int i = 0; i < res.size(); i++) {
+            res.digits[i] += carry;
+            carry = res.digits[i] / base;
+            res.digits[i] %= base;
         }
         if (carry)
-            c.digits.push_back(carry);
+            res.digits.push_back(carry);
 
-        return c;
+        return res;
     }
     int size() {
         return digits.size();
