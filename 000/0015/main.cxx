@@ -1,11 +1,11 @@
 #include <iostream>
-#include <vector>
+#include <deque>
 #include <cctype>
 using namespace std;
 
 class BigInt {
     static const int base = 10;
-    vector<int> digits;
+    deque<int> digits;
     public:
     BigInt() {
     }
@@ -15,14 +15,14 @@ class BigInt {
 
         int s;
         while (s = cin.get(), isdigit(s))
-            digits.push_back(s - '0');
+            digits.push_front(s - '0');
         is.putback(s);
 
         return is;
     }
     ostream &write(ostream &os) {
-        for (int x : digits)
-            cout << x;
+        for (auto di = digits.rbegin(); di != digits.rend(); di++)
+            cout << *di;
         return os;
     }
 };
