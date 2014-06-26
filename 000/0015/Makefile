@@ -2,7 +2,7 @@ test:
 	clicoder all
 
 a.out: main.cxx
-	g++ -std=c++11 $^
+	g++ -std=c++11 $^ -Wall
 binary: a.out
 	./a.out < in.txt > out.txt
 
