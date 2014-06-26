@@ -18,24 +18,26 @@ class BigInt {
             res.digits.push_back(*di + *xi);
 
         // set rest
-        if (di == digits.end()) {
+        if (di == end) {
             di = xi;
             end = x.digits.end();
         }
         for (; di != end; di++)
             res.digits.push_back(*di);
 
-        // nomalize
-        int carry = 0;
-        for (int i = 0; i < res.size(); i++) {
-            res.digits[i] += carry;
-            carry = res.digits[i] / base;
-            res.digits[i] %= base;
-        }
-        if (carry)
-            res.digits.push_back(carry);
+        res.normalize();
 
         return res;
+    }
+    void normalize() {
+        int carry = 0;
+        for (int i = 0; i < size(); i++) {
+            digits[i] += carry;
+            carry = digits[i] / base;
+            digits[i] %= base;
+        }
+        if (carry)
+            digits.push_back(carry);
     }
     int size() {
         return digits.size();
