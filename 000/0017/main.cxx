@@ -2,7 +2,7 @@
 #include <sstream>
 using namespace std;
 
-int division(int a, int b)
+int mod(int a, int b)
 {
     int res = a % b;
     return (res >= 0) ? res : b + a;
@@ -18,10 +18,10 @@ int attack(string line)
         for (string c: cmp) {
             int i = 1;
             for (; i < c.size() && i < word.size(); i++)
-                if (division(c[i] - 't', 26) != division(word[i] - first, 26))
+                if (mod(c[i] - 't', 26) != mod(word[i] - first, 26))
                     break;
             if (i == c.size())
-                return division('t' - first, 26);
+                return mod('t' - first, 26);
         }
     }
 
