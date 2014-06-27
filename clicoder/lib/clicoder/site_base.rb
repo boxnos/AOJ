@@ -37,15 +37,21 @@ module Clicoder
     end
 
     def start
-      prepare_directories
-      login do
-        download_description
-        download_inputs
-        download_outputs
+      if fetch_description
+        prepare_directories
+        login do
+          download_description
+          download_inputs
+          download_outputs
+        end
+        copy_template
+        copy_makefile
+        store_local_config
+
+        true
+      else
+        false
       end
-      copy_template
-      copy_makefile
-      store_local_config
     end
 
     def prepare_directories

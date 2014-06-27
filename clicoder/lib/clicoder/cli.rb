@@ -30,8 +30,12 @@ module Clicoder
 
     no_commands do
       def start_with(site)
-        site.start
-        puts "created directory #{site.working_directory}"
+        if site.start
+          puts "created directory #{site.working_directory}"
+        else
+          puts "#{site.working_directory} is not found."
+          exit 1
+        end
         # system("cd #{site.working_directory} && git init")
       end
     end
