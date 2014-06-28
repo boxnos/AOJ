@@ -5,7 +5,7 @@ using namespace std;
 int main()
 {
     for (int x; (x = cin.get()) != -1;)
-        cout << (char) (islower(x) ? x - 0x20 : x);
+        cout << (char) toupper(x);
 
     return 0;
 }
