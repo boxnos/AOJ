@@ -1,19 +1,20 @@
 #include <iostream>
-#include <vector>
-#include <iterator>
-#include <numeric>
+#include <limits>
 using namespace std;
 
 struct Point2D {
-    double x, y;
+    float x, y;
 
     Point2D() {}
-    Point2D(double ax, double ay) {
+    Point2D(float ax, float ay) {
         x = ax;
         y = ay;
     }
     Point2D operator -(Point2D &p) {
         return Point2D(x - p.x, y - p.y);
+    }
+    double slope(Point2D &p) {
+        return (p.x != x) ? (p.y - y) / (p.x - x) : numeric_limits<float>::infinity();
     }
     double cross(Point2D &p) { // only z
         return x * p.y - y * p.x;
@@ -30,37 +31,14 @@ namespace std {
         os << fixed << p.x << " " << p.y;
         return os;
     }
-
-    template <typename T>
-    ostream &operator<<(ostream &os, vector<T> &v) {
-        if (v.size()) {
-            os << v.front();
-            for (auto vi = v.begin() + 1; vi != v.end(); vi++)
-                os << " " << *vi;
-        }
-
-        return os;
-    }
 }
-
-template <typename T>
-inline int sign(T x) { return (x > T(0)) - (x < T(0)); }
 
 int main()
 {
-    vector<Point2D> triangle(3);
-    Point2D p;
-
-    for (; cin >> triangle[0] >> triangle[1] >> triangle[2] >> p;) {
-        int acc = 0;
-        for (int i = 0; i < 3; i++) {
-            Point2D v = triangle[i] - triangle[(i + 1) % 3];
-            Point2D pv = triangle[i] - p;
-
-            acc += sign(v.cross(pv));
-        }
-        cout << ((abs(acc) == 3) ? "YES" : "NO") << endl;
-    }
+    int n;
+    cin >> n;
+    for (Point2D a, b, c, d; n-- && cin >> a >> b >> c >> d;)
+        cout << ((a.slope(b) == c.slope(d)) ? "YES" : "NO") << endl;
 
     return 0;
 }
