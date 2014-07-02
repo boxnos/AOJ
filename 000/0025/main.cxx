@@ -12,13 +12,17 @@ struct HitAndBlow
 
     void board(const HitAndBlow &other) const {
         int hit = 0, blow = 0;
-        for (int i = 0; i < cards.size(); i++)
+        for (int i = 0; i < cards.size(); i++) {
+            if (cards[i] == other.cards[i]) {
+                hit++;
+                continue;
+            }
             for (int j = 0; j < cards.size(); j++)
-                if (i == j) {
-                    if (cards[i] == other.cards[j])
-                        hit++;
-                } else if (cards[i] == other.cards[j])
+                if (cards[i] == other.cards[j]) {
                     blow++;
+                    break;
+                }
+        }
         cout << hit << " " << blow << endl;
     }
 };
