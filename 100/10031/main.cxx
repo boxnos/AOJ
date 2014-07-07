@@ -1,6 +1,18 @@
 #include <iostream>
 #include <set>
+#include <algorithm>
 using namespace std;
+
+template <typename T>
+ostream &operator<<(ostream &os, set<T> &s) {
+    if (s.size()) {
+        auto si = s.begin();
+        os << *si;
+        for (si++; si != s.end(); si++)
+            os << " " << *si;
+    }
+    return os;
+}
 
 int main()
 {
@@ -14,6 +26,9 @@ int main()
     cin >> q;
     for (int x; q-- && cin >> x;)
         T.insert(x);
+
+    if (S.size() > T.size())
+        swap(S, T);
 
     for (auto x : S)
         if (T.find(x) != T.end())
