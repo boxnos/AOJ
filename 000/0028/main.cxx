@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <algorithm>
 using namespace std;
 
 int main()
@@ -7,19 +8,20 @@ int main()
     int size = 101;
     vector<int> numbers(size, 0);
     vector<int> result;
-
-    for (int n; cin >> n;)
-        numbers[n]++;
-
     int max = 0;
-    for (int i = 0; i < size; i++)
-        if (numbers[i] == max)
-            result.push_back(i);
-        else if (numbers[i] > max) {
-            max = numbers[i];
+
+    for (int n; cin >> n;) {
+        numbers[n]++;
+        if (numbers[n] == max)
+            result.push_back(n);
+        else if (numbers[n] > max) {
+            max = numbers[n];
             result.clear();
-            result.push_back(i);
+            result.push_back(n);
         }
+    }
+
+    sort(result.begin(), result.end());
 
     for (int n: result)
         cout << n << endl;
