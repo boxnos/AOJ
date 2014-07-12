@@ -6,13 +6,12 @@ int main()
     for (int w; cin >> w;) {
         bool first = true; // flag for output
         for (int x = 1; w; x <<= 1) {
-            int result = w & x;
-            if (result) {
+            if (w & x) {
                 if (first) {
                     first = false;
-                    cout << result;
+                    cout << x;
                 } else
-                    cout << " " << result;
+                    cout << " " << x;
                 w -= x;
             }
         }
