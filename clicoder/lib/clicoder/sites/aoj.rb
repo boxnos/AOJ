@@ -15,15 +15,24 @@ module Clicoder
     end
 
     def submit
-      submit_url = 'http://judge.u-aizu.ac.jp/onlinejudge/servlet/Submit'
       post_params = {
         userID: config.get('aoj', 'user_id'),
         password: config.get('aoj', 'password'),
-        problemNO: @problem_id,
         language: ext_to_language_name(File.extname(detect_main)),
         sourceCode: File.read(detect_main),
-        submit: 'Send'
       }
+
+      if @problem_id =~ /^\d/
+        submit_url = 'http://judge.u-aizu.ac.jp/onlinejudge/servlet/Submit'
+        post_params['problemNO'] = @problem_id
+      else
+        submit_url = 'http://judge.u-aizu.ac.jp/onlinejudge/webservice/submit'
+        @problem_id.match(/(.*)_(.*?)$/) do |m|
+          post_params['lessonID'] = m[1]
+          post_params['problemNO'] = m[2]
+        end
+      end
+
       response = Net::HTTP.post_form(URI(submit_url), post_params)
       return response.body !~ /UserID or Password is Wrong/
     end
