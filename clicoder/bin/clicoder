@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
 
+require "bundler/setup"
 require 'clicoder/cli'
 Clicoder::ArubaCLI.new(ARGV.dup).execute!
