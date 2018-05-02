@@ -9,18 +9,10 @@ int main(void)
     while (cin >> a >> op >> b) {
         int res;
         switch (op) {
-        case '+':
-            res = a + b;
-            break;
-        case '-':
-            res = a - b;
-            break;
-        case '*':
-            res = a * b;
-            break;
-        case '/':
-            res = a / b;
-            break;
+        case '+': res = a + b; break;
+        case '-': res = a - b; break;
+        case '*': res = a * b; break;
+        case '/': res = a / b; break;
         case '?':
             goto end;
         }
