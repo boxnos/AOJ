@@ -1,4 +1,5 @@
-target = main
+program = python3 
+target = main.py
 rm_prefix = $(subst test-in,,$1)
 
 test: in_0 $(target)
@@ -6,7 +7,7 @@ test: in_0 $(target)
 
 test-in%:
 #	time ./$(target) < in$(call rm_prefix,$@)
-	./$(target) < in$(call rm_prefix,$@) | diff - out$(call rm_prefix,$@)
+	$(program)$(target) < in$(call rm_prefix,$@) | diff - out$(call rm_prefix,$@)
 
 in_0 : test.txt
 	csplit -z $< /^\>/ {*}
