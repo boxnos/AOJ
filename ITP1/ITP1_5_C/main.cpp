@@ -4,10 +4,11 @@ using namespace std;
 
 string s(151, '#');
 
-void make_buffer(int w) {
+void make_buffer(int w)
+{
     static int si = 1;
-    w += 1;
-    for (;si < w; si += 2)
+
+    for (;si <= w; si += 2)
         s[si] = '.';
 }
 
