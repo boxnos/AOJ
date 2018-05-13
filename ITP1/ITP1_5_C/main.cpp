@@ -1,16 +1,23 @@
 #include <iostream>
+#include <string>
 using namespace std;
+
+string s(151, '#');
+int si = 1;
+void make_buffer(int w) {
+    w += 1;
+    for (;si < w; si += 2)
+        s[si] = '.';
+}
 
 int main()
 {
     int H, W;
 
     while (cin >> H >> W && H && W) {
-        for (int i = 0; i < H; i++) {
-            for (int j = 0; j < W; j++)
-                cout << (((i + j) % 2)? '.' : '#');
-            cout << endl;
-        }
+        make_buffer(W);
+        for (int i = 0; i < H; i++)
+            cout << s.substr(i & 1, W) << endl;
         cout << endl;
     }
 
