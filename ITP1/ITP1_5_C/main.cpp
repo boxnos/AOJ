@@ -3,8 +3,9 @@
 using namespace std;
 
 string s(151, '#');
-int si = 1;
+
 void make_buffer(int w) {
+    static int si = 1;
     w += 1;
     for (;si < w; si += 2)
         s[si] = '.';
