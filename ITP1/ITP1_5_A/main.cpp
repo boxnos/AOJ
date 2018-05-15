@@ -1,17 +1,14 @@
 #include <iostream>
+#include <string>
 using namespace std;
 
 int main()
 {
     int H, W;
-    bool first = true;
 
     while (cin >> H >> W && H && W) {
-        for (int i = 0; i < H; i++) {
-            for (int j = 0; j < W; j++)
-                cout << "#";
-            cout << endl;
-        }
+        for (int i = 0; i < H; i++)
+           cout << string(W, '#') << endl;
         cout << endl;
     }
 

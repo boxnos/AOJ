@@ -1,5 +1,7 @@
-program = python3 
-target = main.py
+# program = python3 
+# target = main.py
+program = ./
+target = main
 rm_prefix = $(subst test-in,,$1)
 
 test: in_0 $(target)
