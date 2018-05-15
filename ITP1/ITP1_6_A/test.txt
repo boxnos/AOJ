@@ -1,0 +1,13 @@
+# Sample Input 1
+5
+1 2 3 4 5
+
+# Sample Output 1
+5 4 3 2 1
+
+# Sample Input 2
+8
+3 3 4 4 5 8 7 9
+
+# Sample Output 2
+9 7 8 5 4 4 3 3
