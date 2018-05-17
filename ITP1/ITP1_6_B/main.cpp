@@ -1,13 +1,14 @@
 #include <iostream>
 #include <map>
 #include <vector>
+#include <string>
 using namespace std;
 
 int main()
 {
     int n, rank;
     char suit;
-    vector<char> suits{'S', 'H', 'C', 'D'};
+    string suits = "SHCD";
     map<char, vector<bool>> cards;
 
     for (int i = 0; i < suits.size(); i++)
