@@ -1,3 +1,4 @@
+CXXFLAGS = -std=c++11
 target = main
 rm_prefix = $(subst test-in,,$1)
 

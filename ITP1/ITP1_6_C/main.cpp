@@ -14,12 +14,12 @@ int main(void)
     while (cin >> b >> f >> r >> v && n--)
         buildings[b - 1][f - 1][r - 1] += v;
 
-    for (int i = 0; i < 4; i++) {
-        if (i)
+    for (auto x : buildings) {
+        if (x != buildings[0])
             cout << string(20, '#') << endl;
-        for (int j = 0; j < 3; j++) {
-            for (int k = 0; k < 10; k++)
-                cout << " " << buildings[i][j][k];
+        for (auto y: x) {
+            for (auto z : y)
+                cout << " " << z;
             cout << endl;
         }
     }
