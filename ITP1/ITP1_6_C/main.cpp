@@ -6,8 +6,7 @@ using namespace std;
 int main(void)
 {
     int n, b, f, r, v;
-    vector<vector<vector <int>>> buildings
-        = vector<vector <vector <int>>>(4, vector<vector <int>>(3, vector<int>(10, 0)));
+    vector<vector<vector <int>>> buildings(4, vector<vector <int>>(3, vector<int>(10, 0)));
 
     cin >> n;
     while (cin >> b >> f >> r >> v && n--)
