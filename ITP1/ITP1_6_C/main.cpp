@@ -12,10 +12,10 @@ int main(void)
     while (cin >> b >> f >> r >> v && n--)
         buildings[b - 1][f - 1][r - 1] += v;
 
-    for (int i = 0; i < buildings.size(); i++) {
-        if (i)
+    for (auto &x : buildings) {
+        if (&x != &buildings[0])
             cout << string(20, '#') << endl;
-        for (auto y: buildings[i]) {
+        for (auto y: x) {
             for (auto z : y)
                 cout << " " << z;
             cout << endl;
