@@ -2,7 +2,7 @@
 using namespace std;
 
 template <typename... T> bool bind(T&&... args) { return (bool) (cin >> ... >> args); }
-template <typename... T> bool is_valid(T... args) { return (... && (args == -1)); }
+template <typename... T> bool is_end(T... args) { return (... && (args == -1)); }
 
 int main(void)
 {
@@ -20,7 +20,7 @@ int main(void)
             'F';
     };
 
-    while (bind(m, f, r) && !is_valid(m, f, r))
+    while (bind(m, f, r) && !is_end(m, f, r))
         cout << grade() << endl;
 
     return 0;
