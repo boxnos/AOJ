@@ -1,7 +1,7 @@
 #include <iostream>
 using namespace std;
 
-template <typename... T> bool bind(T&&... a) { return (bool) (cin >> ... >> a); }
+template <typename... T> bool bind(T&&... args) { return (bool) (cin >> ... >> args); }
 template <typename... T> bool is_valid(T... args) { return (... && (args == -1)); }
 
 int main(void)
