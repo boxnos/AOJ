@@ -5,17 +5,14 @@ using namespace std;
 char grade(int m, int f, int r)
 {
         int mf(m + f);
-        if (m == -1 || f == -1) return 'F';
-        else if (mf >= 80) return 'A';
-        else if (mf >= 65) return 'B';
-        else if (mf >= 50) return 'C';
-        else if (mf >= 30)
-            if (r >= 50)
-                return 'C';
-            else
-                return 'D';
-        else
-            return 'F';
+        return
+            (m == -1 || f == -1)? 'F':
+            (mf >= 80)? 'A':
+            (mf >= 65)? 'B':
+            (mf >= 50)? 'C':
+            (mf >= 30)?
+                (r >= 50)? 'C' : 'D' :
+            'F';
 }
 
 int main(void)
