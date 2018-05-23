@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <numeric>
 using namespace std;
 
 int main(void)
@@ -20,12 +21,12 @@ int main(void)
         cout << sum_row << endl;
     }
 
-    int sum = 0;
-    for (int x: buffer) {
-        sum += x;
-        cout << x << " ";
-    }
-    cout << sum << endl;
+    cout << accumulate(buffer.begin(), buffer.end(), 0,
+                       [](int acc, int i) {
+                            cout << i << " ";
+                            return acc + i;
+                       })
+         << endl;
 
     return 0;
 }
