@@ -1,15 +1,15 @@
 #include <iostream>
 using namespace std;
 
-int combination(int n, int r, int x){
-    if (!r)
-        return x ? 0 : 1;
-    else if (x <= 0)
-        return 0;
+int combination(int n, int r, int x)
+{
+    if (r == 1)
+        return (n >= x) ? 1 : 0;
 
     int count = 0;
-    for (int i = n; i; i--)
-        count += combination(i - 1, r - 1, x - i);
+    for (int i = n; i > 0; i--)
+        if (x - i > 0)
+            count += combination(i - 1, r - 1, x - i);
 
     return count;
 }
@@ -18,7 +18,7 @@ int main(void)
 {
     int n, x;
 
-    while (cin >> n >> x && !(n == 0 && x == 0))
+    while (cin >> n >> x && n || x)
         cout << combination(n, 3, x) << endl;
 
     return 0;
