@@ -22,7 +22,7 @@ int main(void)
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < l; j++) {
             long sum = 0;
-            for (long k = 0; k < m; k++)
+            for (int k = 0; k < m; k++)
                 sum += a[i][k] * b[k][j];
             if (j)
                 cout << " ";
