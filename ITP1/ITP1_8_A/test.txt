@@ -1,0 +1,5 @@
+# Sample Input
+fAIR, LATER, OCCASIONALLY CLOUDY.
+
+# Sample Output
+Fair, later, occasionally cloudy.
