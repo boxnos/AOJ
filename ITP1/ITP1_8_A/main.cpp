@@ -6,7 +6,7 @@ int main(void)
 {
     char c;
     while(cin.get(c))
-        cout << (char) (islower(c) ? toupper(c) : isupper(c) ? tolower(c) : c);
+        cout << (char) (islower(c) ? toupper(c) : tolower(c));
 
     return 0;
 }
