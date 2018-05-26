@@ -1,0 +1,9 @@
+# Sample Input
+123
+55
+1000
+0
+# Sample Output
+6
+10
+1
