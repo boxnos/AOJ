@@ -12,8 +12,8 @@ int main()
         if (isalpha(c))
             v[tolower(c) - 'a']++;
 
-    for (int i = 0; i < v.size(); i++)
-        cout << (char) ('a' +  i) << " : " << v[i] << endl;
+    for (c = 'a'; c <= 'z'; c++)
+        cout << c << " : " << v[c - 'a'] << endl;
 
     return 0;
 }
