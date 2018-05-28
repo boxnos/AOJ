@@ -1,0 +1,24 @@
+# Sample Input 1
+vanceknowledgetoad
+advance
+# Sample Output 1
+Yes
+
+# Sample Input 2
+vanceknowledgetoad
+advanced
+# Sample Output 2
+No
+
+# sample 3
+a
+aaaa
+# sample 3
+Yes
+
+# 24
+aaaaaaaaiiiiiiiijjjjjjjjjj
+ja
+
+# 24
+Yes
