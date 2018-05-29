@@ -1,0 +1,52 @@
+# Sample Input
+computer
+Nurtures computer scientists and highly-skilled computer engineers
+who will create and exploit "knowledge" for the new era.
+Provides an outstanding computer environment.
+END_OF_TEXT
+
+# Sample Output
+3
+
+# input:
+aizu
+Aizu x aizu AIZU aIzu aiZu a
+a i z u aiz a izu
+END_OF_TEXT
+
+# output:
+5
+
+# input:
+aizu
+aaa aizu xxx xx x xxx aizu y yyyy a a a a a a aizu 
+aaa aa xxx WWW AAA aize aiza AIZZ AAA III a i z u aizu aizu aizu
+SSS SS S aizu AAAAAAA a a a a a x x x x aizu zia uzia uzia aizu aizu aizu aizu
+Aizu hyoooon pupupupu ohohohoh
+aa eee fff eee fff ee f f f f f f f AIZU bebebebebebe ai zu a izu aiz u
+Aizu aizu Aizu AIzU
+end_of_text
+END_OF_TEXP
+aizu Aizu
+END_OF_TEXT
+
+# output:
+20
+
+# input:
+aaaaaaaaaa
+bb bb bb aaaaaaaaaa aaaaaaaaaa aaaaaaaaaa aaaaaaaaaa aaaaaaaaaa
+aaa aaaaaa aaaaaaaaaa aaaaaaaaaa aaaaaaaaaa aaaaaaaaaa aaaaaaaaaa
+aaaaaaaaaa xxx xxxxxxxxx aaaaaaaaaa aaaaaaaaaa aaaaaaaaaa aaaaaaaaaa
+aaaaaaaaaa aaaaaaaaaa aaaaaaaaaa b b b b b b b aaaaaaaaaa aaaaaaaaaa
+aaaaaaaaaa aaaaaaaaaa aaaaaaaaaa aaaaaaaaaa aaaaaaaaaaa a a a a
+aaaaaaaaaa aaaaaaaaaa aaaaaaaaaa aaaaaaaaaa aaaaaaaaaa aaaaaaaaaa
+aaaaaaaaaa aaaaaaaaaa aaaaaaaaaa aaaaaaaaaa aaaaaaaaaa a a a a
+aaaaaaaaaa aaaaaaaaaa aaaaaaaaaa aaaaaaaaaa aaaaaaaaaa x
+aaaaaaaaaa aaaaaaaaaa aaaaaaaaaa aaaaaaaaaa aaaaaaaaaa x x x x
+aaaaaaaaaa aaaaaaaaaa aaaaaaaaaa aaaaaaaaaa aaaaaaaaaa x x xaaaaaaaaaa
+END_OF_TEXT
+
+# output:
+50
+
