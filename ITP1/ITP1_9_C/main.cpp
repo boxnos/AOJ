@@ -11,12 +11,9 @@ int main()
     cin >> n;
 
     while (n-- && cin >> t >> h) {
-        int i = 0;
-        for (int m = min(t.size(), h.size()); i < m && t[i] == h[i]; i++)
-            ;
-        if (t[i] == h[i])
+        if (t == h)
             tp++, hp++;
-        else if (t[i] > h[i])
+        else if (t > h)
             tp += 3;
         else
             hp += 3;
