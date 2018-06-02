@@ -1,2 +1,6 @@
 a.out
+main
 *.class
+
+in_*
+out_*
