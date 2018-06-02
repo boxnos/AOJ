@@ -10,12 +10,6 @@ advanced
 # Sample Output 2
 No
 
-# sample 3
-a
-aaaa
-# sample 3
-Yes
-
 # 24
 aaaaaaaaiiiiiiiijjjjjjjjjj
 ja

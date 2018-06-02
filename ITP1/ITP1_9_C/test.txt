@@ -1,10 +1,12 @@
 # Sample Input
-5
+7
 cat dog
 fish fish
 lion tiger
 aaaa aaab
 aaa aa
+Aaa aaa
+Baa aaa
 
 # Sample Output
-4 10
+4 16
