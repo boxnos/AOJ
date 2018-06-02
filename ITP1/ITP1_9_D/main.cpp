@@ -15,7 +15,7 @@ int main()
 		if (c == "print")
 			cout << s.substr(a, l) << endl;
 		else if (c == "reverse")
-			reverse(s.begin() + a, s.begin() + l);
+			reverse(s.begin() + a, s.begin() + b + 1);
 		else {
 			cin >> p;
 			s = s.replace(a, l, p);
