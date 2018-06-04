@@ -1,4 +1,5 @@
 #include <iostream>
+#include <iomanip>
 #include <cmath>
 using namespace std;
 
@@ -8,7 +9,7 @@ int main()
 
     cin >> x1 >> y1 >> x2 >> y2;
 
-    cout << fixed << sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2)) << endl;
+    cout << fixed << setprecision(8) << hypot(x2 - x1, y2 - y1) << endl;
 
     return 0;
 }

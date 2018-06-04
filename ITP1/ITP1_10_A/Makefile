@@ -1,4 +1,4 @@
-CXXFLAGS = -std=c++11 -Wall -Wextra -g
+CXXFLAGS = -std=c++98 -Wall -Wextra -g
 target = main
 rm_prefix = $(subst test-in,,$1)
 make = make --no-print-directory
