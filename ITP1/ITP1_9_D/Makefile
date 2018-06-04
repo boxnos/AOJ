@@ -1,9 +1,10 @@
 CXXFLAGS = -std=c++11 -Wall -Wextra -g
 target = main
 rm_prefix = $(subst test-in,,$1)
+make = make --no-print-directory
 
 test: in_0 $(target)
-	make --no-print-directory $(addprefix test-,$(shell ls in**))
+	 $(make) $(addprefix test-,$(shell ls in**))
 
 test-in%:
 #	./$(target) < in$(call rm_prefix,$@)
@@ -20,9 +21,15 @@ in_0 : test.txt
 clean:
 	rm -f in* out*
 	rm -f main
+	rm -f gmon.out
 
 debug: in_0 $(target)
-	make --no-print-directory $(addprefix debug-,$(shell ls in**))
+	$(make) $(addprefix debug-,$(shell ls in**))
 
 debug-in%:
 	gdb ./$(target)
+
+profile:
+	$(make) -B test CXXFLAGS="$(CXXFLAGS) -pg"
+	gprof ./$(target) gmon.out | less
+	$(make) clean
