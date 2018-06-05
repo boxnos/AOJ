@@ -11,17 +11,10 @@ test-in%:
 	./$(target) < in$(call rm_prefix,$@) | diff - out$(call rm_prefix,$@)
 
 in_0 : test.txt
-	csplit -z $< /^#/ {*}
-	sed -i -e '/^#/d;/^$$/d' xx*
-	for x in $$(seq 0 $$(expr $$(ls xx** | wc -l ) / 2 - 1)); do\
-	  mv $$(printf "xx%02d" $$(expr $$x \* 2 )) in_$${x} ;\
-	  mv $$(printf "xx%02d" $$(expr $$x \* 2 + 1 )) out_$${x} ;\
-	done
+	ruby -ne'BEGIN{b=[]};if$$_=~/^#/;b<<"";elsif$$_!~/^$$/;b[-1]<<$$_;end;END{b.each.with_index{|f,i|File.write("#{i.odd? ? "out":"in"}_#{i/2}",f)}}'<$<
 
 clean:
-	rm -f in* out*
-	rm -f main
-	rm -f gmon.out
+	rm -f $(target) in* out* gmon.out
 
 debug: in_0 $(target)
 	$(make) $(addprefix debug-,$(shell ls in**))
