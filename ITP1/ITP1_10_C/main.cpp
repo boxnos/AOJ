@@ -15,12 +15,9 @@ int main()
         for (auto &s: S) {
             cin >> s;
             sum += s;
+            Sum += s * s;
         }
-        double m = sum / n;
-        for (auto s: S)
-            Sum += pow(s - m, 2);
-
-        cout << sqrt(Sum / n) << endl;
+        cout << sqrt(Sum / n - pow(sum / n, 2)) << endl;
     }
 
     return 0;
