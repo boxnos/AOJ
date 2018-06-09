@@ -1,0 +1,11 @@
+# Sample Input 1
+1 2 4 8 16 32
+SE
+# Sample Output 1
+8
+
+# Sample Input 2
+1 2 4 8 16 32
+EESWN
+# Sample Output 2
+32
