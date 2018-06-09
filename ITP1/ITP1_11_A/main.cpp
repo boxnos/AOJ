@@ -1,38 +1,26 @@
 #include <iostream>
 #include <array>
+#include <utility>
 using namespace std;
-
-typedef array<int, 6> dice;
 
 int main()
 {
-    dice d;
-    enum {N, S, E, W};
-    array<dice, 4> rot = {
-        1, 5, 2, 3, 0, 4,
-        4, 0, 2, 3, 5, 1,
-        3, 1, 0, 5, 4, 2,
-        2, 1, 5, 0, 4, 3};
+    array<int, 6> d;
+    array<int, 3> r = {0, 1, 2};
+    auto rot = [&](int b, int x){swap(r[0], r[b]);r[x] = 5 - r[x];};
 
     for (int &x: d)
         cin >> x;
 
-    for (char c; cin >> c;) {
-        int r; 
+    for (char c; cin >> c;)
         switch (c) {
-        case 'N': r = N; break;
-        case 'S': r = S; break;
-        case 'E': r = E; break;
-        case 'W': r = W; break;
+        case 'N': rot(1, 1); break;
+        case 'S': rot(1, 0); break;
+        case 'E': rot(2, 0); break;
+        case 'W': rot(2, 2); break;
         }
 
-        dice res;
-        for (size_t i = 0; i < res.size(); i++)
-            res[i] = d[rot[r][i]];
-        d = move(res);
-    }
-
-    cout << d[0] << endl;
+    cout << d[r[0]] << endl;
 
     return 0;
 }
