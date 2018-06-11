@@ -1,25 +1,20 @@
-#include <iostream>
-#include <array>
-#include <algorithm>
+#include <bits/stdc++.h>
 using namespace std;
 
 int main()
 {
-    int q, t, f;
-    array<int, 6> d;
-    array<string, 3> tbl = {"12431", "03520", "01540"};
-    auto idx=[&](int x){return distance(d.begin(), find(d.begin(), d.end(), x));};
-    auto half=[](int x){return x < 3 ? x : 5 - x;};
+	array<int, 6> d;
+	map<int, int> m;
+	array<string, 6> tbl = {"X2413X","3X05X2","15XX04","40XX51","2X50X3","X3142X"};
 
-    for (int &x: d)
-        cin >> x;
+	int q = 0, t, f;
+	for (int &x : d) {
+		cin >> x;
+		m[x] = q++;
+	}
+	cin >> q;
+	while (q-- && cin >> t >> f)
+		cout << d[tbl[m[t]][m[f]] - '0'] << endl;
 
-    cin >> q;
-    while (q-- && cin >> t >> f) {
-        int ti = idx(t), fi = idx(f), r = 3 - half(ti) - half(fi);
-        cout << d[tbl[r].find(to_string(ti) + to_string(fi)) != string::npos ? r : 5 - r]
-            << endl;
-    }
-
-    return 0;
+	return 0;
 }
