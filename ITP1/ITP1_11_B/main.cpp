@@ -15,6 +15,4 @@ int main()
 	cin >> q;
 	while (q-- && cin >> t >> f)
 		cout << d[tbl[m[t]][m[f]] - '0'] << endl;
-
-	return 0;
 }
