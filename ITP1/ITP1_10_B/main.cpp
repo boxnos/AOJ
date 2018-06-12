@@ -5,14 +5,15 @@ using namespace std;
 
 int main()
 {
-    double a, b, C;
+    double a, b, h, C, r;
     cin >> a >> b >> C;
-    double r = C * M_PI / 180;
+    r = C * M_PI / 180;
+    h = b * sin(r);
 
     cout << fixed << setprecision(8)
-        << a * b * sin(r) / 2 << endl
+        << a * h / 2 << endl
         << a + b + sqrt(a * a + b * b - 2 * a * b * cos(r)) << endl
-        << b * sin(r) << endl;
+        << h << endl;
 
     return 0;
 }
