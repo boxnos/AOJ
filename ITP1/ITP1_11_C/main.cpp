@@ -1,42 +1,39 @@
 #include <iostream>
 #include <array>
-#include <map>
 #include <string>
 using namespace std;
 
-struct dice {
-	array<int, 6> a;
-	map<int, int> m;
-};
+typedef array<int, 6> dice;
+
+bool f(dice &d0, dice &d1)
+{
+	static const array<dice, 6> tbl = {
+		0,1,2,3,4,5, 1,5,2,3,0,4, 2,1,5,0,4,3,
+                3,1,0,5,4,2, 4,0,2,3,5,1, 5,1,3,2,4,0};
+
+	for (dice t : tbl) {
+		int i = 0, j;
+		do {
+			j = 0;
+			for (; j < 6 && d0[t[j]] == d1[j]; j++)
+				;
+			if (j == 6)
+				return true;
+			int tmp = t[1]; t[1] = t[2]; t[2] = t[4]; t[4] = t[3]; t[3] = tmp;
+		} while (i++ < 4);
+	}
+	return false;
+}
 
 int main()
 {
 	dice d[2];
-	array<array<string, 6>, 6> tbl = {
-		"", "2345", "4135", "1425", "3215", "",
-		"3254", "", "0534", "5024", "", "2304",
-		"1453", "5043", "", "", "0513", "4103",
-		"4152", "0542", "", "", "5012", "1402",
-		"2351", "", "5031", "0521", "", "3201",
-		"", "3240", "1430", "4120", "2310", ""};
 
 	for (auto &x: d) {
-		int i = 0;
-		for (int &y: x.a) {
+		for (int &y: x) {
 			cin >> y;
-			x.m[y] = i++;
 		}
 	}
 
-	bool flag = false;
-	int i = 2;
-	for (auto c: tbl[ d[0].m[d[1].a[0]] ][ d[0].m[d[1].a[1]] ]) {
-		if (d[0].a[c - '0'] != d[1].a[i++]) {
-			flag = false;
-			break;
-		}
-		flag = true;
-	}
-
-	cout << (flag ? "Yes" : "No") << endl;
+	cout << (f(d[0], d[1]) ? "Yes" : "No") << endl;
 }
