@@ -12,6 +12,8 @@ bool f(dice &d0, dice &d1)
 		3,1,0,5,4,2, 4,0,2,3,5,1, 5,1,3,2,4,0};
 
 	for (dice t : tbl) {
+		if (d0[t[0]] != d1[0])
+			continue;
 		int i = 0, j;
 		do {
 			j = 0;
