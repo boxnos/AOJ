@@ -14,15 +14,13 @@ bool f(dice &d0, dice &d1)
 	for (dice t : tbl) {
 		if (d0[t[0]] != d1[0])
 			continue;
-		int i = 0, j;
-		do {
-			j = 0;
-			for (; j < 6 && d0[t[j]] == d1[j]; j++)
+		for (int i = 0, j; i < 4; i++) {
+			for (j = 0; j < 6 && d0[t[j]] == d1[j]; j++)
 				;
 			if (j == 6)
 				return true;
 			int tmp = t[1]; t[1] = t[2]; t[2] = t[4]; t[4] = t[3]; t[3] = tmp;
-		} while (i++ < 4);
+		}
 	}
 	return false;
 }
