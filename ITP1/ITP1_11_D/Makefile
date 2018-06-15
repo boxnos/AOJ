@@ -8,7 +8,7 @@ test: in_0 $(target)
 
 test-in%:
 #	./$(target) < in$(call rm_prefix,$@)
-	./$(target) < in$(call rm_prefix,$@) | diff - out$(call rm_prefix,$@)
+	time ./$(target) < in$(call rm_prefix,$@) | diff - out$(call rm_prefix,$@)
 #	./$(target) < in$(call rm_prefix,$@) | ruby -e 'e=0;f=ARGV.map {|n|n=="-" ? STDIN : open(n)};while l=f[0].gets;m=f[1].gets;if(l.to_f-m.to_f).abs>=0.0001;puts"< #{l}> #{m}";e=1;end;end;exit e' - out$(call rm_prefix,$@)
 
 in_0 : test.txt
