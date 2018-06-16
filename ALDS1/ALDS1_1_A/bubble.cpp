@@ -10,11 +10,11 @@ ostream &operator<<(ostream &o,vector<T> &v)
 int main()
 {
     vector<int> d = {5, 4, 2, 3, 1, 6};
-    bool flag = true;
+    bool flag;
     // int n = 0;
 
     cout << d << endl;
-    while (flag) {
+    do  {
         flag = false;
         // cout << endl << "loop : " << ++n << endl;
         for (size_t i = 0; i < d.size() - 1; i++) {
@@ -25,5 +25,5 @@ int main()
                 flag = true;
             }
         }
-    }
+    } while (flag);
 }
