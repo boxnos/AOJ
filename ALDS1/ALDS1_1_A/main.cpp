@@ -1,6 +1,6 @@
 #include <iostream>
 #include <vector>
-#include <utility>
+#include <algorithm>
 using namespace std;
 
 template <typename T> ostream &operator<<(ostream &o,vector<T> &v)
@@ -15,10 +15,9 @@ int main()
 	for (int &x: d)
 		cin >> x;
 
-	cout << d << endl;
-	for (int i = 1; i < n; i++) {
-		for (int j = i - 1; j >= 0 && d[j] > d[j + 1]; j--)
-			swap(d[j], d[j + 1]);
+	auto b = d.begin();
+	for (int i = 1; i <= n; i++) {
+		sort(b, b + i);
 		cout << d << endl;
 	}
 }
