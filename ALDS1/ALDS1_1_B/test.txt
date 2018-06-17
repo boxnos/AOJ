@@ -1,0 +1,13 @@
+# Sample Input 1
+54 20
+# Sample Output 1
+2
+# Sample Input 2
+147 105
+# Sample Output 2
+21
+
+# Sample Input 2
+105 147 
+# Sample Output 2
+21
