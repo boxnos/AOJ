@@ -1,4 +1,4 @@
-CXXFLAGS = -std=c++11 -Wall -Wextra -g
+CXXFLAGS = -std=c++11 -O2 -Wall -Wextra
 target = main
 rm_prefix = $(subst test-in,,$1)
 make = make --no-print-directory
@@ -18,7 +18,7 @@ clean:
 	rm -f $(target) in* out* gmon.out
 
 debug: in_0 $(target)
-	$(make) $(addprefix debug-,$(shell ls in**))
+	$(make) -B $(target) $(addprefix debug-,$(shell ls in**)) CXXFLAGS="$(CXXFLAGS) -g"
 
 debug-in%:
 	gdb ./$(target)
