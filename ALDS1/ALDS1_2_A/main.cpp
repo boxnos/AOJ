@@ -17,6 +17,7 @@ int main()
 			if (*j < *(j - 1)) {
 				swap(*j, *(j - 1));
 				c++;
+			}
 
 	for (int &x: a)
 		cout << (&x != &a[0] ? " " : "") << x;
