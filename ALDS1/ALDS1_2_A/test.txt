@@ -1,0 +1,74 @@
+# Sample Input 1
+5
+5 3 2 4 1
+# Sample Output 1
+1 2 3 4 5
+8
+
+# Sample Input 2
+6
+5 2 4 6 1 3
+# Sample Output 2
+1 2 3 4 5 6
+9
+
+#in https://judgedat.u-aizu.ac.jp/testcases/ALDS1_2_A/1
+1
+100
+#out https://judgedat.u-aizu.ac.jp/testcases/ALDS1_2_A/1
+100
+0
+#in https://judgedat.u-aizu.ac.jp/testcases/ALDS1_2_A/2
+5
+1 2 3 4 5
+#out https://judgedat.u-aizu.ac.jp/testcases/ALDS1_2_A/2
+1 2 3 4 5
+0
+#in https://judgedat.u-aizu.ac.jp/testcases/ALDS1_2_A/3
+6
+6 5 4 3 2 1
+#out https://judgedat.u-aizu.ac.jp/testcases/ALDS1_2_A/3
+1 2 3 4 5 6
+15
+#in https://judgedat.u-aizu.ac.jp/testcases/ALDS1_2_A/4
+10
+9 5 10 3 6 7 4 1 2 8
+#out https://judgedat.u-aizu.ac.jp/testcases/ALDS1_2_A/4
+1 2 3 4 5 6 7 8 9 10
+29
+#in https://judgedat.u-aizu.ac.jp/testcases/ALDS1_2_A/5
+20
+0 33 43 62 29 0 8 52 56 56 19 11 51 43 5 8 93 30 66 69
+#out https://judgedat.u-aizu.ac.jp/testcases/ALDS1_2_A/5
+0 0 5 8 8 11 19 29 30 33 43 43 51 52 56 56 62 66 69 93
+72
+#in https://judgedat.u-aizu.ac.jp/testcases/ALDS1_2_A/6
+25
+0 33 43 62 29 0 8 52 56 56 19 11 51 43 5 8 93 30 66 69 32 17 47 72 68
+#out https://judgedat.u-aizu.ac.jp/testcases/ALDS1_2_A/6
+0 0 5 8 8 11 17 19 29 30 32 33 43 43 47 51 52 56 56 62 66 68 69 72 93
+110
+#in https://judgedat.u-aizu.ac.jp/testcases/ALDS1_2_A/7
+30
+0 33 43 62 29 0 8 52 56 56 19 11 51 43 5 8 93 30 66 69 32 17 47 72 68 80 23 49 92 64
+#out https://judgedat.u-aizu.ac.jp/testcases/ALDS1_2_A/7
+0 0 5 8 8 11 17 19 23 29 30 32 33 43 43 47 49 51 52 56 56 62 64 66 68 69 72 80 92 93
+148
+#in https://judgedat.u-aizu.ac.jp/testcases/ALDS1_2_A/8
+40
+0 33 43 62 29 0 8 52 56 56 19 11 51 43 5 8 93 30 66 69 32 17 47 72 68 80 23 49 92 64 69 51 27 90 24 35 20 44 10 62
+#out https://judgedat.u-aizu.ac.jp/testcases/ALDS1_2_A/8
+0 0 5 8 8 10 11 17 19 20 23 24 27 29 30 32 33 35 43 43 44 47 49 51 51 52 56 56 62 62 64 66 68 69 69 72 80 90 92 93
+324
+#in https://judgedat.u-aizu.ac.jp/testcases/ALDS1_2_A/9
+50
+0 33 43 62 29 0 8 52 56 56 19 11 51 43 5 8 93 30 66 69 32 17 47 72 68 80 23 49 92 64 69 51 27 90 24 35 20 44 10 62 84 63 1 10 36 76 31 29 97 75
+#out https://judgedat.u-aizu.ac.jp/testcases/ALDS1_2_A/9
+0 0 1 5 8 8 10 10 11 17 19 20 23 24 27 29 29 30 31 32 33 35 36 43 43 44 47 49 51 51 52 56 56 62 62 63 64 66 68 69 69 72 75 76 80 84 90 92 93 97
+510
+#in https://judgedat.u-aizu.ac.jp/testcases/ALDS1_2_A/10
+100
+0 33 43 62 29 0 8 52 56 56 19 11 51 43 5 8 93 30 66 69 32 17 47 72 68 80 23 49 92 64 69 51 27 90 24 35 20 44 10 62 84 63 1 10 36 76 31 29 97 75 91 90 44 34 25 29 30 27 26 43 34 4 60 49 20 56 32 72 13 90 9 19 5 95 49 27 19 97 24 96 49 56 84 93 45 7 6 9 54 52 65 83 38 1 90 30 37 95 56 63
+#out https://judgedat.u-aizu.ac.jp/testcases/ALDS1_2_A/10
+0 0 1 1 4 5 5 6 7 8 8 9 9 10 10 11 13 17 19 19 19 20 20 23 24 24 25 26 27 27 27 29 29 29 30 30 30 31 32 32 33 34 34 35 36 37 38 43 43 43 44 44 45 47 49 49 49 49 51 51 52 52 54 56 56 56 56 56 60 62 62 63 63 64 65 66 68 69 69 72 72 75 76 80 83 84 84 90 90 90 90 91 92 93 93 95 95 96 97 97
+2264
