@@ -27,3 +27,6 @@ profile:
 	$(make) -B test CXXFLAGS="$(CXXFLAGS) -pg"
 	gprof ./$(target) gmon.out | less
 	$(make) clean
+
+download:
+	for i in "https://judgedat.u-aizu.ac.jp/testcases/$$([[ $$1 ]]&&echo $$1 || echo $$(basename `pwd`))/"{1..10}; { echo "# in $$i"; curl $$i/in ; echo "# out $$i"; curl $$i/out; } >> test.txt
