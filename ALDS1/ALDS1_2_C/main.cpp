@@ -29,10 +29,7 @@ int main()
 	cout << "Stable" << endl;
 
 	for (auto i = ss.begin(), e = ss.end(); i != e - 1; i++) {
-		auto min = i, j = i;
-		for (; j != e; j++)
-			if (cmp(*j, *min))
-				min = j;
+		auto min = min_element(i ,e, cmp);
 		if (i != min)
 			swap(*i, *min);
 	}
