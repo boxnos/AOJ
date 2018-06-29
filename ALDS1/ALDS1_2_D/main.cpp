@@ -22,11 +22,12 @@ int main()
 	reverse(G.begin(), G.end());
 
 	for (int g: G)
-		for (int i = g; i < n; i++) {
-			int v = A[i], j = i - g;
-			for(; j >= 0 && A[j] > v; j -= g)
-				A[j+g] = A[j], cnt++;
-			A[j+g] = v;
+		for (auto i = A.begin() + g; i != A.end(); i++) {
+			int v = *i;
+			auto j = i - g;
+			for(; j >= A.begin() && *j > v; j -= g)
+				*(j + g) = *j, cnt++;
+			*(j + g) = v;
 		}
 
 	p(G.size());
