@@ -1,22 +1,19 @@
-#include <iostream>
+#include <cstdio>
 #include <queue>
 #include <utility>
 using namespace std;
 
-typedef pair<string, int> ps;
+typedef pair<char[11], int> ps;
 
 int main()
 {
-	cin.tie(0);
-	ios::sync_with_stdio(false);
-
 	queue<ps> Q;
 	int n, q, st = 0;
-	cin >> n >> q;
+	scanf("%d %d", &n, &q);
 
 	ps p;
 	while (n--) {
-		cin >> p.first >> p.second;
+		scanf("%s %d", p.first, &p.second);
 		Q.push(p);
 	}
 
@@ -25,7 +22,7 @@ int main()
 		Q.pop();
 		if (t.second <= q) {
 			st += t.second;
-			cout << t.first << " " << st << endl;
+			printf("%s %d\n", t.first, st);
 		} else {
 			st += q;
 			t.second -= q;

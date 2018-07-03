@@ -1,4 +1,4 @@
-CXXFLAGS = -std=c++14 -O2 -Wall -Wextra
+CXXFLAGS = -std=c++11 -O2 -Wall -Wextra
 target = main
 rm_prefix = $(subst test-in,,$1)
 make = make --no-print-directory
@@ -24,7 +24,7 @@ debug-in%:
 	gdb ./$(target)
 
 profile:
-	$(make) -B test CXXFLAGS="$(CXXFLAGS) -pg"
+	$(make) -B test CXXFLAGS="$(CXXFLAGS) -pg -g"
 	gprof ./$(target) gmon.out | less
 	$(make) clean
 
