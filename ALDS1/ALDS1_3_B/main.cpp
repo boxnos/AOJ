@@ -7,8 +7,10 @@ typedef pair<string, int> ps;
 
 int main()
 {
-	queue<ps> Q;
+	cin.tie(0);
+	ios::sync_with_stdio(false);
 
+	queue<ps> Q;
 	int n, q, st = 0;
 	cin >> n >> q;
 
