@@ -10,7 +10,6 @@ int main()
 	list<int> l;
 
 	scanf("%d", &n);
-
 	while (n--) {
 		scanf("%s", s);
 		if (*s == 'i') {
@@ -19,16 +18,12 @@ int main()
 			continue;
 		}
 		switch (*(s + 6)) {
-		case 'F':
-			l.pop_front();
-			break;
-		case 'L':
-			l.pop_back();
-			break;
+		case 'F': l.pop_front(); break;
+		case 'L': l.pop_back(); break;
 		default:
 			scanf("%d", &k);
-			auto r = find(l.begin(), l.end(), k);
-			if (r != l.end())
+			auto e = l.end(), r = find(l.begin(), e, k);
+			if (r != e)
 				l.erase(r);
 		}
 	}
