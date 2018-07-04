@@ -22,3 +22,410 @@ deleteFirst
 deleteLast
 # Sample Output 2
 1
+# in https://judgedat.u-aizu.ac.jp/testcases/ALDS1_3_C/1
+9
+insert 5
+insert 2
+insert 3
+insert 1
+delete 3
+insert 6
+delete 5
+deleteFirst
+deleteLast
+# out https://judgedat.u-aizu.ac.jp/testcases/ALDS1_3_C/1
+1
+# in https://judgedat.u-aizu.ac.jp/testcases/ALDS1_3_C/2
+21
+insert 1
+insert 2
+insert 3
+insert 4
+insert 5
+insert 6
+insert 7
+insert 8
+delete 5
+delete 7
+insert 9
+deleteLast
+deleteLast
+insert 10
+deleteFirst
+deleteFirst
+delete 8
+insert 7
+insert 8
+delete 4
+insert 1
+# out https://judgedat.u-aizu.ac.jp/testcases/ALDS1_3_C/2
+1 8 7 6 3
+# in https://judgedat.u-aizu.ac.jp/testcases/ALDS1_3_C/3
+39
+insert 1
+insert 2
+insert 1
+insert 1
+insert 1
+insert 2
+insert 2
+insert 1
+delete 2
+deleteLast
+deleteFirst
+insert 2
+insert 2
+insert 2
+insert 2
+insert 2
+insert 2
+insert 2
+insert 2
+insert 2
+insert 2
+deleteFirst
+deleteFirst
+delete 2
+delete 2
+deleteFirst
+delete 1
+insert 3
+insert 1
+insert 1
+delete 2
+delete 2
+delete 2
+deleteLast
+insert 4
+delete 2
+deleteLast
+deleteFirst
+delete 2
+# out https://judgedat.u-aizu.ac.jp/testcases/ALDS1_3_C/3
+1 1 3 2 1
+# in https://judgedat.u-aizu.ac.jp/testcases/ALDS1_3_C/4
+8
+insert 1000000000
+insert 999999999
+deleteLast
+insert 1234566890
+insert 5
+deleteFirst
+insert 7
+delete 5
+# out https://judgedat.u-aizu.ac.jp/testcases/ALDS1_3_C/4
+7 1234566890 999999999
+# in https://judgedat.u-aizu.ac.jp/testcases/ALDS1_3_C/5
+68
+insert 8
+insert 7
+insert 8
+insert 7
+insert 8
+insert 7
+insert 8
+insert 8
+insert 8
+deleteLast
+delete 8
+insert 5
+insert 7
+insert 8
+deleteFirst
+insert 8
+insert 7
+insert 8
+delete 8
+delete 7
+insert 7
+insert 8
+insert 5
+insert 7
+delete 8
+delete 7
+insert 8
+insert 1
+insert 7
+insert 5
+insert 7
+insert 8
+deleteFirst
+insert 8
+insert 5
+insert 7
+insert 8
+insert 1
+deleteFirst
+insert 7
+insert 8
+insert 7
+delete 8
+delete 7
+insert 8
+insert 7
+insert 8
+insert 5
+insert 7
+deleteLast
+deleteLast
+insert 8
+deleteFirst
+insert 8
+insert 7
+delete 8
+insert 8
+insert 5
+deleteLast
+insert 7
+insert 8
+insert 13
+deleteLast
+deleteLast
+insert 8
+delete 8
+insert 13
+deleteLast
+# out https://judgedat.u-aizu.ac.jp/testcases/ALDS1_3_C/5
+13 13 8 7 5 8 7 7 5 8 7 8 7 8 7 5 8 7 5 7 1 8 5 7 8 7 5 8
+# in https://judgedat.u-aizu.ac.jp/testcases/ALDS1_3_C/6
+5
+insert 7
+insert 3
+deleteFirst
+deleteLast
+insert 1
+# out https://judgedat.u-aizu.ac.jp/testcases/ALDS1_3_C/6
+1
+# in https://judgedat.u-aizu.ac.jp/testcases/ALDS1_3_C/7
+114
+insert 8
+insert 7
+insert 7
+insert 8
+insert 7
+insert 8
+insert 1
+insert 1
+insert 1
+insert 1
+insert 1
+insert 1
+insert 1
+insert 1
+insert 8
+insert 8
+insert 1
+insert 1
+insert 8
+deleteLast
+insert 5
+insert 1
+insert 1
+insert 7
+insert 8
+deleteFirst
+insert 8
+insert 7
+insert 8
+insert 1
+insert 1
+insert 1
+insert 1
+delete 8
+delete 1
+delete 7
+insert 1
+insert 1
+insert 7
+insert 1
+insert 1
+insert 1
+delete 1
+insert 1
+insert 8
+insert 5
+delete 1
+delete 1
+insert 7
+delete 8
+delete 7
+insert 8
+insert 1
+insert 7
+insert 5
+insert 7
+insert 1
+insert 1
+insert 1
+delete 1
+insert 1
+insert 8
+deleteFirst
+insert 8
+insert 1
+insert 1
+insert 5
+insert 7
+insert 1
+insert 1
+insert 8
+insert 1
+deleteFirst
+insert 7
+insert 8
+delete 1
+insert 7
+delete 8
+delete 7
+insert 1
+insert 1
+insert 8
+insert 7
+insert 8
+insert 5
+insert 7
+deleteLast
+deleteLast
+insert 8
+deleteFirst
+insert 8
+delete 1
+insert 7
+delete 8
+insert 8
+insert 5
+deleteLast
+insert 7
+insert 1
+insert 1
+insert 8
+insert 13
+deleteLast
+deleteLast
+insert 8
+delete 8
+insert 13
+delete 1
+delete 1
+deleteLast
+insert 1
+insert 1
+delete 1
+delete 1
+# out https://judgedat.u-aizu.ac.jp/testcases/ALDS1_3_C/7
+13 13 8 7 5 8 7 7 5 8 7 8 1 7 8 1 7 5 1 1 8 1 1 1 7 5 7 1 8 5 1 7 1 1 1 1 1 8 7 1 1 5 8 1 1 8 8 1 1 1 1 1 1 1
+# in https://judgedat.u-aizu.ac.jp/testcases/ALDS1_3_C/8
+111
+insert 8
+insert 7
+insert 7
+insert 8
+insert 7
+insert 8
+insert 1
+insert 1
+insert 1
+insert 1
+insert 1
+insert 1
+insert 1
+insert 1
+insert 8
+insert 8
+insert 1
+insert 1
+insert 8
+deleteLast
+insert 5
+insert 1
+insert 1
+insert 7
+insert 8
+deleteFirst
+insert 8
+insert 7
+insert 8
+insert 1
+insert 1
+insert 1
+insert 1
+delete 8
+insert 1
+insert 1
+insert 7
+insert 1
+insert 1
+insert 1
+delete 1
+insert 1
+insert 8
+insert 5
+delete 1
+delete 1
+insert 7
+delete 8
+delete 7
+insert 8
+insert 1
+insert 7
+insert 5
+insert 7
+insert 1
+insert 1
+insert 1
+insert 1
+insert 8
+deleteFirst
+insert 8
+insert 1
+insert 1
+insert 5
+insert 7
+insert 1
+insert 1
+insert 8
+insert 1
+deleteFirst
+insert 7
+insert 8
+delete 1
+insert 7
+delete 7
+insert 1
+insert 1
+insert 8
+insert 7
+insert 8
+insert 5
+insert 7
+deleteLast
+deleteLast
+insert 8
+deleteFirst
+insert 8
+delete 1
+insert 7
+delete 8
+insert 8
+insert 5
+deleteLast
+insert 7
+insert 1
+insert 1
+insert 8
+insert 13
+deleteLast
+deleteLast
+insert 8
+delete 8
+insert 13
+delete 1
+delete 1
+deleteLast
+delete 1
+insert 1
+delete 1
+insert 1
+delete 1
+# out https://judgedat.u-aizu.ac.jp/testcases/ALDS1_3_C/8
+13 13 8 7 5 8 7 7 5 8 7 8 8 7 8 1 7 5 1 1 8 1 1 1 1 7 5 7 1 8 5 1 7 1 1 1 1 1 1 7 8 7 1 1 5 8 1 1 8 8 1 1 1 1 1 1 1

@@ -1,5 +1,6 @@
 #include <cstdio>
 #include <list>
+#include <algorithm>
 using namespace std;
 
 int main()
@@ -26,18 +27,16 @@ int main()
 			break;
 		default:
 			scanf("%d", &k);
-			for (auto i = l.begin(), e = l.end(); i != e; i++)
-				if (*i == k) {
-					l.erase(i);
-					break;
-				}
+			auto r = find(l.begin(), l.end(), k);
+			if (r != l.end())
+				l.erase(r);
 		}
 	}
 
 	int &f = l.front();
 	for (int &x: l)
 		printf("%s%d", (&f == &x ? "" : " "), x);
-	printf("\n");
+	puts("");
 }
 
 /* vim: set ts=4 noet: */
