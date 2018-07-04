@@ -1,0 +1,24 @@
+# Sample Input 1
+7
+insert 5
+insert 2
+insert 3
+insert 1
+delete 3
+insert 6
+delete 5
+# Sample Output 1
+6 1 2
+# Sample Input 2
+9
+insert 5
+insert 2
+insert 3
+insert 1
+delete 3
+insert 6
+delete 5
+deleteFirst
+deleteLast
+# Sample Output 2
+1
