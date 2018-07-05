@@ -1,6 +1,5 @@
 #include <iostream>
 #include <vector>
-#include <algorithm>
 using namespace std;
 
 typedef vector<int> vi;
@@ -15,8 +14,9 @@ T f(T s, T e, int &A, vi &v) {
 			for (T j = s; j != i; j++)
 				l +=  *s * 2 - *j - *(j + 1);
 			if (l) {
-				v.push_back(l/2);
-				A += l/2;
+				l /= 2;
+				v.push_back(l);
+				A += l;
 			}
 			s = i;
 		}
@@ -35,8 +35,8 @@ int main()
 	auto e = f(H.begin(), H.end(), A, L);
 	f(H.rbegin(), H.rend() - distance(H.begin(), e), A, M);
 
-	reverse(M.begin(), M.end());
-	std::copy(M.begin(),M.end(),std::back_inserter(L));
+	for (auto i = M.rbegin(), e = M.rend(); i != e; i++)
+		L.push_back(*i);
 	
 	cout << A << endl << L.size();
 	for (int &x: L)
