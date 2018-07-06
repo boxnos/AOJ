@@ -19,10 +19,8 @@ int main()
 			int j = s.top(), a = i - j;
 			s.pop();
 			A += a;
-			while (!L.empty() && L.back().f > j) {
+			for (; !L.empty() && L.back().f > j; L.pop_back())
 				a += L.back().s;
-				L.pop_back();
-			}	
 			L.push_back({j, a});
 		}
 	
