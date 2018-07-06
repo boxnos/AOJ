@@ -1,22 +1,22 @@
 #include <iostream>
-#include <vector>
+#include <set>
 #include <algorithm>
 using namespace std;
 
 #define V(a) a.begin(), a.end()
-typedef vector<int> vi;
+typedef set<int> s;
 
 int main()
 {
-	vi a[2], C;
+	s a[2], C;
 
 	for (auto &i : a) {
-		int n;
+		int n, x;
 		cin >> n;
-		i = vi(n);
-		for (int &j : i)
-			cin >> j;
-		sort(V(i));
+		while (n--) {
+			cin >> x;
+			i.insert(x);
+		}
 	}
 
 	set_intersection(V(a[0]), V(a[1]), inserter(C, C.end()));
