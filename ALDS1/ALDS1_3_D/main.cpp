@@ -1,46 +1,34 @@
 #include <iostream>
-#include <vector>
+#include <stack>
+#include <deque>
 using namespace std;
 
-typedef vector<int> vi;
-
-template<typename T>
-T f(T s, T e, int &A, vi &v) {
-	for (T i = s + 1; i != e; i++)
-		if (*i > *s)
-			s = i;
-		else if (*i == *s) {
-			int l = 0;
-			for (T j = s; j != i; j++)
-				l +=  *s * 2 - *j - *(j + 1);
-			if (l) {
-				l /= 2;
-				v.push_back(l);
-				A += l;
-			}
-			s = i;
-		}
-	return s;
-}
+struct p {int f; int s;};
 
 int main()
 {
 	char c;
-	int h = 0, A = 0;
-	vi H = {h}, L, M;
+	int A = 0;
+	deque<p> L;
+	stack<int> s;
 
-	while (cin >> c)
-		H.push_back(c == '/' ? ++h : c == '_' ? h : --h);
-
-	auto e = f(H.begin(), H.end(), A, L);
-	f(H.rbegin(), H.rend() - distance(H.begin(), e), A, M);
-
-	for (auto i = M.rbegin(), e = M.rend(); i != e; i++)
-		L.push_back(*i);
+	for (int i = 0; cin >> c; i++)
+		if (c == '\\')
+			s.push(i);
+		else if (c == '/' && !s.empty()) {
+			int j = s.top(), a = i - j;
+			s.pop();
+			A += a;
+			while (!L.empty() && L.back().f > j) {
+				a += L.back().s;
+				L.pop_back();
+			}	
+			L.push_back({j, a});
+		}
 	
 	cout << A << endl << L.size();
-	for (int &x: L)
-		cout << " " << x;
+	for (p x: L)
+		cout << " " << x.s;
 	cout << endl;
 }
 
