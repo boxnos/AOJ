@@ -3,25 +3,21 @@
 #include <algorithm>
 using namespace std;
 
-#define V(a) a.begin(), a.end()
-typedef set<int> s;
-
 int main()
 {
-	s a[2], C;
+	set<int> S;
+	int C = 0;
 
-	for (auto &i : a) {
+	auto f = [](auto g) {
 		int n, x;
 		cin >> n;
-		while (n--) {
-			cin >> x;
-			i.insert(x);
-		}
-	}
+		while (n--) { cin >> x; g(x); }};
 
-	set_intersection(V(a[0]), V(a[1]), inserter(C, C.end()));
+	f([&](int x){S.insert(x);});
 
-	cout << C.size() << endl;
+	f([&](int x){if(find(S.begin(), S.end(), x) != S.end()) C++;});
+
+	cout << C << endl;
 }
 
 /* vim: set ts=4 noet: */
