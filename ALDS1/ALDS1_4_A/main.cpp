@@ -11,7 +11,10 @@ int main()
 	auto f = [](auto g) {
 		int n, x;
 		cin >> n;
-		while (n--) { cin >> x; g(x); }};
+		while (n--) {
+			cin >> x; g(x);
+		}
+	};
 
 	f([&](int x){S.insert(x);});
 
