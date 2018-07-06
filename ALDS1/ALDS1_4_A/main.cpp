@@ -12,7 +12,8 @@ int main()
 		int n, x;
 		cin >> n;
 		while (n--) {
-			cin >> x; g(x);
+			cin >> x;
+			g(x);
 		}
 	};
 
