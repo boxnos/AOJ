@@ -1,5 +1,5 @@
-#include <iostream>
-#include <unordered_set>
+#include <cstdio>
+#include <array>
 using namespace std;
 
 int main()
@@ -8,20 +8,22 @@ int main()
 	scanf("%d", &n);
 	getchar_unlocked();
 
-	unordered_set<long> d;
+	bool *d = new bool[10000000];
 
 	while (n--) {
-		long c = getchar_unlocked();
-		long t = 0;
+		long c = getchar_unlocked(), e;
+		long t = 1;
 		while (getchar_unlocked() != ' ')
 			;
-		for (int i = 0, c; (c = getchar_unlocked()) != '\n'; i++)
-			t += (c - 'A' + 1) << 3 * i;
+		while ((e = getchar_unlocked()) != '\n') {
+			t <<= 2;
+			t += (e == 'A' ? 0 : e == 'C'? 1 : e == 'G'? 2 : 3);
+		}
 		switch(c) {
 		case 'i':
-			d.insert(t); break;
+			d[t] = true; break;
 		case 'f':
-			puts((d.find(t) != d.end() ? "yes" : "no"));
+			puts(d[t] ? "yes" : "no");
 		}
 	}
 }
