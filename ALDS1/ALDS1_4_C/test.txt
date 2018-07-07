@@ -1,0 +1,32 @@
+# Sample Input 1
+5
+insert A
+insert T
+insert C
+find G
+find A
+# Sample Output 1
+no
+yes
+# Sample Input 2
+13
+insert AAA
+insert AAC
+insert AGA
+insert AGG
+insert TTT
+find AAA
+find CCC
+find CCC
+insert CCC
+find CCC
+insert T
+find TTT
+find T
+# Sample Output 2
+yes
+no
+no
+yes
+yes
+yes
