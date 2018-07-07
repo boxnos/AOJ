@@ -1,5 +1,4 @@
 #include <cstdio>
-#include <array>
 using namespace std;
 
 int main()
@@ -11,19 +10,21 @@ int main()
 	bool *d = new bool[10000000];
 
 	while (n--) {
-		long c = getchar_unlocked(), e;
-		long t = 1;
+		int c = getchar_unlocked(), e, t = 1;
 		while (getchar_unlocked() != ' ')
 			;
 		while ((e = getchar_unlocked()) != '\n') {
 			t <<= 2;
-			t += (e == 'A' ? 0 : e == 'C'? 1 : e == 'G'? 2 : 3);
+			switch(e) {
+			case 'A': t += 0; break;
+			case 'C': t += 1; break;
+			case 'G': t += 2; break;
+			case 'T': t += 3; break;
+			}
 		}
 		switch(c) {
-		case 'i':
-			d[t] = true; break;
-		case 'f':
-			puts(d[t] ? "yes" : "no");
+		case 'i': d[t] = true; break;
+		case 'f': puts(d[t] ? "yes" : "no");
 		}
 	}
 }
