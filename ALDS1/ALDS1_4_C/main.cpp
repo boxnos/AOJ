@@ -5,33 +5,26 @@ using namespace std;
 int main()
 {
 	int n;
-	cin >> n;
+	scanf("%d", &n);
+	getchar_unlocked();
 
-	string s, t;
-	unordered_set<string> d;
+	unordered_set<long> d;
 
 	while (n--) {
-		cin >> s >> t;
-		switch(s[0]) {
+		long c = getchar_unlocked();
+		long t = 0;
+		while (getchar_unlocked() != ' ')
+			;
+		for (int i = 0, c; (c = getchar_unlocked()) != '\n'; i++)
+			t += (c - 'A' + 1) << 3 * i;
+		switch(c) {
 		case 'i':
 			d.insert(t); break;
 		case 'f':
-			cout << (d.find(t) != d.end() ? "yes" : "no") << endl;
+			puts((d.find(t) != d.end() ? "yes" : "no"));
 		}
 	}
 }
-
-/*
-#include <cstdio>
-static inline int in()
-{
-    int c, n = 0;
-    while ((c = getchar_unlocked()) >= '0' && c <= '9')
-		// n = 10 * n + (c - '0');
-		n = (n << 3) + ( n << 1 ) + c - '0';
-    return n;
-}
-*/
 
 
 /* vim: set ts=4 noet: */
