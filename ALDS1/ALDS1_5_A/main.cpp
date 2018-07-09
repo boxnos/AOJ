@@ -29,17 +29,19 @@ bool solve(size_t p, int t, vi &A) {
 
 int main()
 {
-	int n, q, m;
+	int n, q, m, sum = 0;
 
 	cin >> n;
 	vi A(n);
-	for (int &x: A)
+	for (int &x: A) {
 		cin >> x;
+		sum += x;
+	}
 	
 	cin >> q;
 	while (q--) {
 		cin >> m;
-		cout << (solve(0, m, A) ? "yes" : "no") << endl;
+		cout << (m > sum ? "no" : solve(0, m, A) ? "yes" : "no") << endl;
 	}
 
 	cerr << counter << endl;
