@@ -1,18 +1,30 @@
 #include <iostream>
 #include <vector>
+#include <unordered_map>
 using namespace std;
 
 typedef vector<int> vi;
+unordered_map<int, bool> memo;
 
 int counter = 0;
 bool solve(size_t p, int t, vi &A) {
 	counter++;
-	if (t == 0)
-		return true;
-	if (p == A.size())
-		return false;
+	
+	long key = p + 1 + ((t + 1) << 16);
+	auto i = memo.find(key);
+	if (i != memo.end())
+		return (*i).second;
 
-	return solve(p + 1, t - A[p], A) ? true : solve(p + 1, t, A);
+	bool res;
+	if (t == 0)
+		res = true;
+	else if (p == A.size())
+		res = false;
+	else 
+		res = solve(p + 1, t - A[p], A) ? true : solve(p + 1, t, A);
+
+	memo[key] = res;
+	return res;
 }
 
 int main()
