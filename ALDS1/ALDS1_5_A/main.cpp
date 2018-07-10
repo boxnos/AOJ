@@ -1,14 +1,15 @@
 #include <iostream>
 #include <set>
 #include <unordered_map>
+#include <iterator>
 using namespace std;
 
 typedef multiset<int> mi;
-typedef mi::reverse_iterator miri;
+typedef mi::reverse_iterator ri;
 unordered_map<int, bool> memo;
 
 int counter = 0;
-bool solve(miri p, int t, mi &A) {
+bool solve(ri p, int t, mi &A) {
 	counter++;
 	
 	long key = distance(A.rbegin(), p) + 1 + ((t + 1) << 16);
@@ -21,8 +22,12 @@ bool solve(miri p, int t, mi &A) {
 		res = true;
 	else if (p == A.rend())
 		res = false;
-	else
+	else if (*p <= t)
 		res = solve(next(p, 1), t - *p, A) ? true : solve(next(p, 1), t, A);
+	else {
+		ri r = make_reverse_iterator(A.upper_bound(t));
+		res = solve(r, t - *p, A) ? true : solve(r, t, A);
+	}
 
 	memo[key] = res;
 	return res;
