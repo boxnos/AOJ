@@ -18,10 +18,10 @@ bool solve(ri p, int t, mi &A) {
 		return (*i).second;
 
 	bool res;
-	if (t == 0)
-		res = true;
-	else if (p == A.rend())
+	if (p == A.rend())
 		res = false;
+	else if (t == *p)
+		res = true;
 	else if (*p <= t)
 		res = solve(next(p, 1), t - *p, A) ? true : solve(next(p, 1), t, A);
 	else
