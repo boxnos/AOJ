@@ -1,16 +1,17 @@
 #include <iostream>
-#include <vector>
+#include <set>
 #include <unordered_map>
 using namespace std;
 
-typedef vector<int> vi;
+typedef multiset<int> mi;
+typedef mi::reverse_iterator miri;
 unordered_map<int, bool> memo;
 
 int counter = 0;
-bool solve(size_t p, int t, vi &A) {
+bool solve(miri p, int t, mi &A) {
 	counter++;
 	
-	long key = p + 1 + ((t + 1) << 16);
+	long key = distance(A.rbegin(), p) + 1 + ((t + 1) << 16);
 	auto i = memo.find(key);
 	if (i != memo.end())
 		return (*i).second;
@@ -18,10 +19,10 @@ bool solve(size_t p, int t, vi &A) {
 	bool res;
 	if (t == 0)
 		res = true;
-	else if (p == A.size())
+	else if (p == A.rend())
 		res = false;
-	else 
-		res = solve(p + 1, t - A[p], A) ? true : solve(p + 1, t, A);
+	else
+		res = solve(next(p, 1), t - *p, A) ? true : solve(next(p, 1), t, A);
 
 	memo[key] = res;
 	return res;
@@ -32,16 +33,17 @@ int main()
 	int n, q, m, sum = 0;
 
 	cin >> n;
-	vi A(n);
-	for (int &x: A) {
-		cin >> x;
-		sum += x;
+	mi A;
+	while (n--) {
+		cin >> m;
+		A.insert(m);
+		sum += m;
 	}
 	
 	cin >> q;
 	while (q--) {
 		cin >> m;
-		cout << (m > sum ? "no" : solve(0, m, A) ? "yes" : "no") << endl;
+		cout << (m > sum ? "no" : solve(A.rbegin(), m, A) ? "yes" : "no") << endl;
 	}
 
 	cerr << counter << endl;
