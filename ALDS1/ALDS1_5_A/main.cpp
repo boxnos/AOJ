@@ -24,10 +24,8 @@ bool solve(ri p, int t, mi &A) {
 		res = false;
 	else if (*p <= t)
 		res = solve(next(p, 1), t - *p, A) ? true : solve(next(p, 1), t, A);
-	else {
-		ri r = make_reverse_iterator(A.upper_bound(t));
-		res = solve(r, t - *p, A) ? true : solve(r, t, A);
-	}
+	else
+		res = solve(make_reverse_iterator(A.upper_bound(t)), t, A);
 
 	memo[key] = res;
 	return res;
