@@ -1,15 +1,15 @@
 #include <iostream>
-#include <set>
+#include <map>
 #include <unordered_map>
 #include <iterator>
 using namespace std;
 
-typedef multiset<int> mi;
-typedef mi::reverse_iterator ri;
+typedef multimap<int, int> mm;
+typedef mm::reverse_iterator ri;
 unordered_map<int, bool> memo;
 
 int counter = 0;
-bool solve(ri p, int t, mi &A) {
+bool solve(ri p, int t, mm &A) {
 	counter++;
 	
 	long key = distance(A.rbegin(), p) + 1 + ((t + 1) << 16);
@@ -18,12 +18,15 @@ bool solve(ri p, int t, mi &A) {
 		return (*i).second;
 
 	bool res;
+	int x = (*p).first;
 	if (p == A.rend())
 		res = false;
-	else if (t == *p)
+	else if (x == t)
 		res = true;
-	else if (*p <= t)
-		res = solve(next(p, 1), t - *p, A) ? true : solve(next(p, 1), t, A);
+	else if ((*p).second < t)
+		res = false;
+	else if (x <= t)
+		res = solve(next(p, 1), t - x, A) ? true : solve(next(p, 1), t, A);
 	else
 		res = solve(make_reverse_iterator(A.upper_bound(t)), t, A);
 
@@ -36,17 +39,21 @@ int main()
 	int n, q, m, sum = 0;
 
 	cin >> n;
-	mi A;
+	mm A;
 	while (n--) {
 		cin >> m;
-		A.insert(m);
-		sum += m;
+		A.insert({m, 0});
+	}
+
+	for (auto &x:A) {
+		sum += x.first;
+		x.second = sum;
 	}
 	
 	cin >> q;
 	while (q--) {
 		cin >> m;
-		cout << (m > sum ? "no" : solve(A.rbegin(), m, A) ? "yes" : "no") << endl;
+		cout << (solve(A.rbegin(), m, A) ? "yes" : "no") << endl;
 	}
 
 	cerr << counter << endl;
