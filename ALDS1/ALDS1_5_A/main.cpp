@@ -8,9 +8,7 @@ typedef multimap<int, int> mm;
 typedef mm::reverse_iterator ri;
 unordered_map<int, bool> memo;
 
-int counter = 0;
 bool solve(ri p, int t, mm &A) {
-	counter++;
 	
 	long key = distance(A.rbegin(), p) + 1 + ((t + 1) << 16);
 	auto i = memo.find(key);
@@ -55,8 +53,6 @@ int main()
 		cin >> m;
 		cout << (solve(A.rbegin(), m, A) ? "yes" : "no") << endl;
 	}
-
-	cerr << counter << endl;
 }
 
 /* vim: set ts=4 noet: */
