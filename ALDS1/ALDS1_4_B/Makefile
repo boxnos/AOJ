@@ -1,4 +1,5 @@
-CXXFLAGS = -std=c++14 -O2 -Wall -Wextra
+SHELL = /bin/bash
+CXXFLAGS = -std=c++14 -Wall -Wextra
 target = main
 rm_prefix = $(subst test-in,,$1)
 make = make --no-print-directory
