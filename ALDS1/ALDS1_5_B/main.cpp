@@ -3,37 +3,34 @@
 #include <algorithm>
 using namespace std;
 
-#define d(s, e) distance(s, e)
 typedef vector<int> v;
 typedef v::iterator vi;
 int c = 0;
 
 void mm(vi l, vi m, vi r)
 {
-	v L(d(l, m));
+	v L(m - l);
 	copy(l, m, L.begin());
 	vi cp = L.begin();
 
-	for (vi i = l; i != r; i++) {
-		if (cp == L.end()) {
-			c += d(i, r);
+	for (vi i = l; i != r; i++)
+		if (cp == L.end())
 			break;
-		} else if (m == r) {
-			c += d(i, r);
+		else if (m == r) {
 			copy(cp, L.end(), i);
 			break;
 		} else if(*cp <= *m)
 			*i = *cp, cp++;
 		else
 			*i = *m, m++;
-		c++;
-	}
 }
 
 void ms(vi l, vi r)
 {
 	if (l + 1 < r) {
-		vi m = l + d(l, r) / 2;
+		int d = r - l;
+		vi m = l + d / 2;
+		c += d;
 		ms(l, m);
 		ms(m, r);
 		mm(l, m, r);
