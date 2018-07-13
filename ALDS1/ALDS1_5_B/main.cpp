@@ -7,24 +7,6 @@ typedef vector<int> v;
 typedef v::iterator vi;
 int c = 0;
 
-void mm(vi l, vi m, vi r)
-{
-	v L(m - l);
-	copy(l, m, L.begin());
-	vi cp = L.begin();
-
-	for (vi i = l; i != r; i++)
-		if (cp == L.end())
-			break;
-		else if (m == r) {
-			copy(cp, L.end(), i);
-			break;
-		} else if(*cp <= *m)
-			*i = *cp, cp++;
-		else
-			*i = *m, m++;
-}
-
 void ms(vi l, vi r)
 {
 	if (l + 1 < r) {
@@ -33,7 +15,7 @@ void ms(vi l, vi r)
 		c += d;
 		ms(l, m);
 		ms(m, r);
-		mm(l, m, r);
+		inplace_merge(l, m, r);
 	}
 }
 
