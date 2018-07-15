@@ -1,39 +1,34 @@
 #include <cstdio>
 #include <cmath>
-#include <deque>
+#include <complex>
 using namespace std;
 
-struct D {double x; double y;};
-typedef deque<D> v;
+typedef complex<double> P;
 
-void koch(int n, v &d)
+void pp(P x) { printf("%.8f %.8f\n", x.real(), x.imag()); }
+
+void koch(int n, P b, P e)
 {
-	if (n-- == 0)
+	if (n-- == 0) {
+		pp(b);
 		return;
+	}
 
-	D e = d.back(); d.pop_back();
-	D b = d.back();
-	D p = {e.x - b.x, e.y - b.y};
-	double l = sqrt(p.x * p.x + p.y * p.y);
-	double r = atan2(p.y, p.x);
-	auto f = [&](D x) {d.push_back(x); koch(n, d);};
+	P p = (2.0 * b + e) / 3.0;
+	P v[] = {b, p, p + (p - b) * P(cos(M_PI/3), sin(M_PI/3)), 2.0 * p - b, e};
 
-	f({p.x / 3 + b.x, p.y / 3 + b.y});
-	f({l / 3 * cos(M_PI / 3 + r) + p.x / 3 + b.x, l / 3 * sin(M_PI / 3 + r) + p.y / 3 + b.y});
-	f({p.x * 2 / 3 + b.x, p.y * 2 / 3 + b.y});
-	f(e);
+	for (int i = 0; i < 4; i++)
+		koch(n, v[i], v[i + 1]);
 }
 
 int main()
 {
 	int n;
-	v d = {{0, 0}, {100, 0}};
 	scanf("%d", &n);
 
-	koch(n, d);
-	
-	for (D x : d)
-		printf("%.8f %.8f\n", x.x, x.y);
+	P b = {0, 0}, e = {100, 0};
+	koch(n, b, e);
+	pp(e);
 }
 
 /* vim: set ts=4 noet: */
