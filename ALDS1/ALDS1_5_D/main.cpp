@@ -1,49 +1,69 @@
 #include <cstdio>
+#include <random>
 using namespace std;
 
-template <class T>
-struct node {
-	T v;
-	int c;
-	node *l, *r;
-	node(T x)
-	{
-		v = x;
-		c = 1;
-		l = r = nullptr;
-	}
-};
+random_device rd;
+mt19937 mt(rd());
 
 template <class T>
-struct tree {
-	typedef node<T> N;
+struct tree
+{
+	struct node
+	{
+		T v;
+		int c, p;
+		node *n[2];
+
+		node(T x)
+		{
+			v = x;
+			c = 1;
+			p = mt();
+			n[0] = n[1] = nullptr;
+		}
+	};
+
+	typedef node N;
 	N *root;
 	long counter;
-	tree() {
+
+	tree()
+	{
 		root = nullptr;
 		counter = 0;
 	}
-	void insert(N *n, N *t, int cnt)
+
+	inline int count(N *n) {return n ? n->c : 0;}
+
+	N* rotate(N* r, int b) 
 	{
-		if (n->v < t->v)
-			if (t->l)
-				insert(n, t->l, cnt);
-			else
-				t->l = n, counter += cnt;
-		else
-			if (t->r)
-				insert(n, t->r, cnt - 1 - (t->l ? t->l->c : 0));
-			else
-				t->r = n, counter += cnt - 1 - (t->l ? t->l->c : 0);
-		t->c++;
+		N *s = r->n[1 - b];
+
+		r->c += count(s->n[b]) - count(r->n[1 - b]);
+		r->n[1 - b] = s->n[b];
+
+		s->c += r->c - count(s->n[b]);
+		s->n[b] = r;
+		return s;
 	}
+
+	N* insert(int x, N *t, int cnt)
+	{
+		if (!t) {
+			counter += cnt;
+			return new N(x);
+		}
+		int b = !(x < t->v);
+		if (b)
+			cnt -= 1 + count(t->n[0]);
+		t->n[b] = insert(x, t->n[b], cnt);
+		t->c++;
+		return rotate(t, 1 - b);
+	}
+
 	void insert(T x)
 	{
-		N *n = new N(x);
-		if (root)
-			insert(n, root, root->c);
-		else
-			root = n;
+		root = insert(x, root, count(root));
 	}
 };
 
