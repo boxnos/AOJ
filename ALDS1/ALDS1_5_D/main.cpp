@@ -58,7 +58,7 @@ struct tree
 			cnt -= 1 + count(t->n[0]);
 		t->n[b] = insert(x, t->n[b], cnt);
 		t->c++;
-		return rotate(t, 1 - b);
+		return (t->p > t->n[b]->p) ? rotate(t, 1 - b) : t;
 	}
 
 	void insert(T x)
