@@ -5,7 +5,7 @@ using namespace std;
 typedef vector<int> v;
 typedef v::iterator vi;
 
-v L;
+v b;
 
 long msc(vi l, vi r)
 {
@@ -14,18 +14,18 @@ long msc(vi l, vi r)
 		vi m = l + (r - l) / 2;
 		c = msc(l, m) + msc(m, r);
 
-		vi cend = L.begin() + (m - l);
-		copy(l, m, L.begin());
-		vi cp = L.begin();
+		vi bp = b.begin();
+		vi bend = bp + (m - l);
+		copy(l, m, b.begin());
 
 		vi i = l;
-		for (; cp != cend && m != r; i++)
-			if(*cp < *m)
-				*i = *cp++;
+		for (; bp != bend && m != r; i++)
+			if(*bp < *m)
+				*i = *bp++;
 			else
 				*i = *m, c += m++ - i;
 
-		copy(cp, cend, i);
+		copy(bp, bend, i);
 	}
 	return c;
 }
@@ -43,7 +43,7 @@ int main()
 	int	n = in();
 
 	v a(n);
-	L = v(n);
+	b = v(n);
 
 	for (int &x: a)
 		x = in();
