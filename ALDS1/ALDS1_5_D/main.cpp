@@ -1,71 +1,34 @@
 #include <cstdio>
-#include <random>
+#include <vector>
 using namespace std;
 
-random_device rd;
-mt19937 mt(rd());
+typedef vector<int> v;
+typedef v::iterator vi;
 
-template <typename T>
-struct tree
+v L;
+
+long msc(vi l, vi r)
 {
-	struct node
-	{
-		T v;
-		int c, p;
-		node *n[2];
+	long c = 0;
+	if (l + 1 < r) {
+		vi m = l + (r - l) / 2;
+		c = msc(l, m) + msc(m, r);
 
-		node(T x)
-		{
-			v = x;
-			c = 1;
-			p = mt();
-			n[0] = n[1] = nullptr;
-		}
-	};
+		vi cend = L.begin() + (m - l);
+		copy(l, m, L.begin());
+		vi cp = L.begin();
 
-	typedef node N;
-	N *root;
-	long counter;
+		vi i = l;
+		for (; cp != cend && m != r; i++)
+			if(*cp < *m)
+				*i = *cp++;
+			else
+				*i = *m, c += m++ - i;
 
-	tree()
-	{
-		root = nullptr;
-		counter = 0;
+		copy(cp, cend, i);
 	}
-
-	inline int count(N *n) {return n ? n->c : 0;}
-
-	N* rotate(N* r, int b) 
-	{
-		N *s = r->n[1 - b];
-
-		r->c += count(s->n[b]) - count(r->n[1 - b]);
-		r->n[1 - b] = s->n[b];
-
-		s->c += r->c - count(s->n[b]);
-		s->n[b] = r;
-		return s;
-	}
-
-	N* insert(int x, N *t, int cnt)
-	{
-		if (!t) {
-			counter += cnt;
-			return new N(x);
-		}
-		int b = !(x < t->v);
-		if (b)
-			cnt -= 1 + count(t->n[0]);
-		t->n[b] = insert(x, t->n[b], cnt);
-		t->c++;
-		return (t->p > t->n[b]->p) ? rotate(t, 1 - b) : t;
-	}
-
-	void insert(T x)
-	{
-		root = insert(x, root, count(root));
-	}
-};
+	return c;
+}
 
 static inline int in()
 {
@@ -79,11 +42,13 @@ int main()
 {
 	int	n = in();
 
-	tree<int> t;
-	while (n--)
-		t.insert(in());
+	v a(n);
+	L = v(n);
 
-	printf("%ld\n", t.counter);
+	for (int &x: a)
+		x = in();
+
+	printf("%ld\n", msc(a.begin(), a.end()));
 }
 
 /* vim: set ts=4 noet: */
