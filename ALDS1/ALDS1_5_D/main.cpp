@@ -5,7 +5,7 @@ using namespace std;
 random_device rd;
 mt19937 mt(rd());
 
-template <class T>
+template <typename T>
 struct tree
 {
 	struct node
@@ -67,16 +67,21 @@ struct tree
 	}
 };
 
+static inline int in()
+{
+    int c, n = 0;
+    while ((c = getchar_unlocked()) >= '0' && c <= '9')
+		n = 10 * n + (c - '0');
+    return n;
+}
+
 int main()
 {
-	int	n, x;
-	scanf("%d", &n);
+	int	n = in();
 
 	tree<int> t;
-	while (n--) {
-		scanf("%d", &x);
-		t.insert(x);
-	}
+	while (n--)
+		t.insert(in());
 
 	printf("%ld\n", t.counter);
 }
