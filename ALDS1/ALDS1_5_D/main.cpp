@@ -14,18 +14,17 @@ long msc(vi l, vi r)
 		vi m = l + (r - l) / 2;
 		c = msc(l, m) + msc(m, r);
 
-		vi bp = b.begin();
-		vi bend = bp + (m - l);
-		copy(l, m, b.begin());
+		vi bi = b.begin(), be = bi + (m - l);
+		copy(l, m, bi);
 
 		vi i = l;
-		for (; bp != bend && m != r; i++)
-			if(*bp < *m)
-				*i = *bp++;
+		for (; bi != be && m != r; i++)
+			if(*bi < *m)
+				*i = *bi++;
 			else
 				*i = *m, c += m++ - i;
 
-		copy(bp, bend, i);
+		copy(bi, be, i);
 	}
 	return c;
 }
@@ -40,7 +39,7 @@ static inline int in()
 
 int main()
 {
-	int	n = in();
+	int n = in();
 
 	v a(n);
 	b = v(n);

@@ -1,5 +1,5 @@
 SHELL = /bin/bash
-CXXFLAGS = -std=c++11 -Wall -Wextra
+CXXFLAGS = -std=c++11 -O2 -Wall -Wextra
 target = main
 rm_prefix = $(subst test-in,,$1)
 make = make --no-print-directory
