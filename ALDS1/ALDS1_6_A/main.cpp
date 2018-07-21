@@ -12,6 +12,19 @@ static inline int in()
     return n;
 }
 
+static inline void out(int n)
+{
+	static char buf[20];
+	char *p = buf;
+	if (!n)
+		*p++ = '0';
+	else
+		while (n)
+			*p++ = n % 10 + '0', n /= 10;
+	while (p-- != buf)
+		putchar_unlocked(*p);
+}
+
 int main()
 {
 	int n = in(), c = n;
@@ -21,10 +34,11 @@ int main()
 	while (n--)
 		b[in()]++;
 
-	bool f = true;
 	for (int i = 0; c; i++)
-		while (b[i]--)
-			printf("%s%d", (f? f = false, "": " "), i), c--;
+		while (b[i]--) {
+			out(i);
+			if (--c) putchar_unlocked(' ');
+		}
 	puts("");
 }
 
