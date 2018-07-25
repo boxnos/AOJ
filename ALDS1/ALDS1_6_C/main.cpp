@@ -30,22 +30,18 @@ static inline void out(int n)
 		pcu(*--p);
 }
 
-bool qs(vi p, vi r) {
-	bool s = true;
+void qs(vi p, vi r) {
 	if (p < r) {
 		vi i = p, j = i;
-		for (;j != r;j++) {
-			if ((*j).n == (*r).n && (*j).i > (*r).i)
-				s = false;
-			if ((*j).n <= (*r).n)
+		card R = *r;
+		for (;j != r;j++)
+			if ((*j).n <= R.n)
 				swap(*j, *i++);
-		}
 		swap(*i, *r);
 
-		s &= qs(p, i - 1);
-		s &= qs(i + 1, r);
+		qs(p, i - 1);
+		qs(i + 1, r);
 	}
-	return s;
 }
 
 int main()
@@ -59,7 +55,16 @@ int main()
 		x.i = i++;
 	}
 
-	puts(qs(A.begin(), A.end() - 1) ? "Stable" : "Not stable");
+	vi b = A.begin(), e = A.end();
+	qs(b, e - 1);
+
+	bool s = true;
+	for (vi i = b + 1; i < e; i++, b++)
+		if ((*b).n == (*i).n && (*b).i > (*i).i) {
+			s = false;
+			break;
+		}
+	puts(s ? "Stable" : "Not stable");
 
 	for (card &x : A)
 		pcu(x.f), pcu(' '), out(x.n), pcu('\n');
