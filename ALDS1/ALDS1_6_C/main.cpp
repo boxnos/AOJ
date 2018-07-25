@@ -10,10 +10,10 @@ typedef v::iterator vi;
 #define gcu getchar_unlocked
 static inline int in()
 {
-    int c, n = 0;
-    while ((c = gcu()) >= '0' && c <= '9')
+	int c, n = 0;
+	while ((c = gcu()) >= '0' && c <= '9')
 		n = 10 * n + (c - '0');
-    return n;
+	return n;
 }
 
 #define pcu putchar_unlocked
@@ -33,9 +33,8 @@ static inline void out(int n)
 void qs(vi p, vi r) {
 	if (p < r) {
 		vi i = p, j = i;
-		card R = *r;
 		for (;j != r;j++)
-			if ((*j).n <= R.n)
+			if ((*j).n <= (*r).n)
 				swap(*j, *i++);
 		swap(*i, *r);
 
