@@ -1,4 +1,5 @@
 #include <cstdio>
+#include <iostream>
 #include <algorithm>
 #include <vector>
 using namespace std;
@@ -18,16 +19,24 @@ void mcs(v w, v &s, int acc, int c)
 {
 	if (acc > cost)
 		return;
-	else if (w == s) {
+	if (w == s) {
 		cost = min(acc, cost);
 		return;
 	}
 
+	//cerr << acc << endl;
+
+	//for (int x: w)
+	//	cerr << x << " ";
+	//cerr << " cost: " << cost << " acc: " << acc << " c:" << c << endl;
+
 	for (size_t i = 0; i < w.size() - 1; i++) {
 		for (size_t j = i + 1; j < w.size(); j++) {
-			swap(w[i], w[j]);
-			mcs(w, s, acc + w[i] + w[j], c + 1);
-			swap(w[i], w[j]);
+			if (w[i] == s[j] || w[j] == s[i]) {
+				swap(w[i], w[j]);
+				mcs(w, s, acc + w[i] + w[j], c + 1);
+				swap(w[i], w[j]);
+			}
 		}
 	}
 }
