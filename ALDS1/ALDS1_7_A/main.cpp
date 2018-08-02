@@ -37,7 +37,7 @@ static inline void out(const char *s) {
 
 typedef vector<int> v;
 typedef v::iterator vi;
-struct node {int p, d; v c;};
+struct node { int p = -1, d = -1; v c; };
 typedef vector<node> vn;
 
 int depth(vn &n, int id) {
@@ -59,15 +59,12 @@ int main()
 
 	while (n--) {
 		int id = in();
-		v u(in());
-		for (int &x: u)
+		nodes[id].c.resize(in());
+		for (int &x: nodes[id].c) {
 			x = in();
-		nodes[id] = {-1, -1, u};
+			nodes[x].p = id;
+		}
 	}
-
-	for (size_t i = 0; i < nodes.size(); i++)
-		for (int &p: nodes[i].c)
-			nodes[p].p = i;
 
 	int id = 0;
 	for (node u: nodes) {
