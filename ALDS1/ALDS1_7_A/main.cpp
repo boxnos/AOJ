@@ -2,41 +2,30 @@
 #include <vector>
 using namespace std;
 
+#define si static inline
 #define gcu getchar_unlocked
-static inline int in()
-{
+si int in() {
 	int c, n = 0;
 	while ((c = gcu()) >= '0' && c <= '9')
 		n = 10 * n + (c - '0');
-	return n;
-}
-
+	return n; }
 #define pcu putchar_unlocked
-static inline void out(int n)
-{
+si void out(int n) {
 	static char buf[20];
 	char *p = buf;
 	bool minus = false;
-	if(n < 0)
-		minus = true, n *= -1;
-	if (!n)
-		*p++ = '0';
-	else
-		while (n)
-			*p++ = n % 10 + '0', n /= 10;
-	if (minus)
-		*p++ = '-';
-	while (p != buf)
-		pcu(*--p);
-}
-
-static inline void out(const char *s) {
-	while (*s)
-		pcu(*s++);
-}
+	if(n < 0) minus = true, n *= -1;
+	if (!n) *p++ = '0';
+	else while (n) *p++ = n % 10 + '0', n /= 10;
+	if (minus) *p++ = '-';
+	while (p != buf) pcu(*--p); }
+si void out(const char *s) {
+	while (*s) pcu(*s++); }
+template <typename head, typename... tail>
+si void out(head&& h, tail&&... t) {
+	out(h); out(move(t)...); }
 
 typedef vector<int> v;
-typedef v::iterator vi;
 struct node { int p = -1, d = -1; v c; };
 typedef vector<node> vn;
 
@@ -69,15 +58,8 @@ int main()
 	int id = 0;
 	for (node u: nodes) {
 		int d = depth(nodes, id);
-		out("node ");
-		out(id++);
-		out(": parent = ");
-		out(u.p);
-		out(", depth = ");
-		out(d);
-		out(", ");
-		out(d == 0 ? "root" : u.c.size() ? "internal node" : "leaf");
-		out(", [");
+		out("node ", id++, ": parent = ", u.p, ", depth = ", d, ", ",
+		   	d == 0 ? "root" : u.c.size() ? "internal node" : "leaf", ", [");
 		for (int &x: u.c) {
 			if (&x != &u.c[0])
 				out(", ");
