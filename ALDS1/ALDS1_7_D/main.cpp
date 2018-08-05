@@ -37,19 +37,16 @@ si void out(vector<T> v) {
 typedef vector<int> v;
 typedef v::iterator vi;
 v buf;
-bool walk(vi &b, vi e, vi l, vi r)
+void walk(vi &b, vi e, vi l, vi r)
 {
-	if (b == e)
-		return false;
-
 	vi c = find(l, r, *b);
 	if (c == r)
-		return true;
+		return;
 	b++;
 
-	bool res = walk(b, e, l, c) && walk(b, e, c + 1, r);
+	walk(b, e, l, c);
+	walk(b, e, c + 1, r);
 	buf.push_back(*c);
-	return res;
 }
 
 int main()
