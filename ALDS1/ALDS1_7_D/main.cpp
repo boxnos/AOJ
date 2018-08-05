@@ -32,7 +32,7 @@ svo(vector<T> v){for(int &x:v)out(&x == &v[0]?"":" ",x);out('\n');}
 
 typedef vector<int> v;
 typedef v::iterator vi;
-v buf;
+bool first = true;
 void walk(vi &b, vi l, vi r)
 {
 	vi c = find(l, r, *b);
@@ -41,7 +41,7 @@ void walk(vi &b, vi l, vi r)
 	b++;
 	walk(b, l, c);
 	walk(b, c + 1, r);
-	buf.push_back(*c);
+	out(first ? first = false, "" : " ", *c);
 }
 
 int main()
@@ -53,7 +53,7 @@ int main()
 
 	vi b = p.begin();
 	walk(b, i.begin(), i.end());
-	out(buf);
+	out('\n');
 }
 
 /* vim: set ts=4 noet: */
