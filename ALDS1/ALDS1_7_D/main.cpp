@@ -24,7 +24,6 @@ si void out(int n) {
 	while (p != buf) pcu(*--p); }
 si void out(const char *s){while(*s)pcu(*s++);}
 si void out(char c){pcu(c);}
-
 template <typename head, typename... tail>
 si void out(head&& h, tail&&... t){out(h);out(move(t)...);}
 template <typename T>
@@ -37,15 +36,14 @@ si void out(vector<T> v) {
 typedef vector<int> v;
 typedef v::iterator vi;
 v buf;
-void walk(vi &b, vi e, vi l, vi r)
+void walk(vi &b, vi l, vi r)
 {
 	vi c = find(l, r, *b);
 	if (c == r)
 		return;
 	b++;
-
-	walk(b, e, l, c);
-	walk(b, e, c + 1, r);
+	walk(b, l, c);
+	walk(b, c + 1, r);
 	buf.push_back(*c);
 }
 
@@ -57,7 +55,7 @@ int main()
 	for (int &x: i) x = in();
 
 	vi b = p.begin();
-	walk(b, p.end(), i.begin(), i.end());
+	walk(b, i.begin(), i.end());
 	out(buf);
 }
 
