@@ -36,35 +36,39 @@ typedef vector<int> v;
 
 struct bst
 {
-	struct node {
-		int v;
-		node *l = nullptr, *r = nullptr;
-		node(long n) { v = n; }
-	};
-	node *root = nullptr;
+	struct node { int v, l = -1, r = -1; };
+	int root = -1, i = 0;
+	vector<node> nodes;
 
-	node *insert (node *r, int n)
+	bst(int n)
 	{
-		if (!r)
-			r = new node(n);
-		else if (r->v < n)
-			r->r = insert(r->r, n);
+		nodes.resize(n);
+	}
+
+	int insert (int r, int n)
+	{
+		if (r == -1) {
+			nodes[i].v = n;
+			r = i++;
+		} else if (nodes[r].v < n)
+			nodes[r].r = insert(nodes[r].r, n);
 		else
-			r->l = insert(r->l, n);
+			nodes[r].l = insert(nodes[r].l, n);
 		return r;
 	}
 	void insert (int n)
 	{
 		root = insert(root, n);
 	}
-	void print(node *r, v &buf)
+	void print(int r, v &buf)
 	{
-		if (!r)
+		if (r == -1)
 			return;
-		buf.push_back(r->v);
-		print(r->l, buf);
-		out(' ', r->v);
-		print(r->r, buf);
+		node n = nodes[r];
+		buf.push_back(n.v);
+		print(n.l, buf);
+		out(' ', n.v);
+		print(n.r, buf);
 	}
 	void print()
 	{
@@ -78,7 +82,7 @@ int main()
 {
 	int n = in();
 	char s[20];
-	bst b;
+	bst b(n);
 
 	while (n--) {
 		scan(s);
