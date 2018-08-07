@@ -1,6 +1,7 @@
 #include <cstdio>
 #include <cctype>
 #include <vector>
+#include <iterator>
 using namespace std;
 
 #define si static inline
@@ -25,6 +26,7 @@ svo(int n) {
 	if (minus) *p++ = '-';
 	while (p != buf) pcu(*--p); }
 svo(char *s){while(*s)pcu(*s++);}
+svo(const char *s){while(*s)pcu(*s++);}
 svo(char c){pcu(c);}
 template <typename T>
 svo(vector<T> v){for(T &x:v)out(' '),out(x);out('\n');}
@@ -36,35 +38,42 @@ typedef vector<int> v;
 
 struct bst
 {
-	struct node { int v, l = -1, r = -1; };
-	int root = -1, i = 0;
-	vector<node> nodes;
+#define VNI vector<node>::iterator
+	struct node {
+		int v;
+		VNI l = VNI(), r = VNI();
+	};
+	typedef vector<node> vn;
+	typedef vn::iterator vni;
+	vn nodes;
+	vni root = vni(), i, vnin = root;
 
 	bst(int n)
 	{
 		nodes.resize(n);
+		i = nodes.begin();
 	}
 
-	int insert (int r, int n)
+	vni insert (vni r, int n)
 	{
-		if (r == -1) {
-			nodes[i].v = n;
+		if (r == vnin) {
+			(*i).v = n;
 			r = i++;
-		} else if (nodes[r].v < n)
-			nodes[r].r = insert(nodes[r].r, n);
+		} else if ((*r).v < n)
+			(*r).r = insert((*r).r, n);
 		else
-			nodes[r].l = insert(nodes[r].l, n);
+			(*r).l = insert((*r).l, n);
 		return r;
 	}
 	void insert (int n)
 	{
 		root = insert(root, n);
 	}
-	void print(int r, v &buf)
+	void print(vni r, v &buf)
 	{
-		if (r == -1)
+		if (r == vnin)
 			return;
-		node n = nodes[r];
+		node n = *r;
 		buf.push_back(n.v);
 		print(n.l, buf);
 		out(' ', n.v);
