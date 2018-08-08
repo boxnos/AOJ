@@ -1,6 +1,7 @@
 #include <cstdio>
 #include <cctype>
 #include <vector>
+#include <unordered_set>
 using namespace std;
 
 #define si static inline
@@ -90,17 +91,21 @@ struct bst
 
 int main()
 {
-	int n = in();
+	int n = in(), x;
 	char s[20];
 	bst b(n);
+	unordered_set<int> f;
 
 	while (n--) {
 		scan(s);
 		switch(*s) {
 		case 'i':
-			b.insert(in()); break;
+			x = in();
+			b.insert(x);
+			f.insert(x);
+			break;
 		case 'f':
-			out(b.find(in()) ? "yes\n": "no\n"); break;
+			out(f.count(in()) ? "yes\n": "no\n"); break;
 		default:
 			b.print();
 		}
