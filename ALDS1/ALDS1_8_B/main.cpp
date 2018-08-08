@@ -44,15 +44,17 @@ struct bst
 		nodes.resize(n);
 	}
 
-	int insert (int r, int n)
+	int insert (int r, int v)
 	{
 		if (r == -1) {
-			nodes[i].v = n;
-			r = i++;
-		} else if (nodes[r].v < n)
-			nodes[r].r = insert(nodes[r].r, n);
+			nodes[i].v = v;
+			return i++;
+		}
+		node &n = nodes[r];
+		if (n.v < v)
+			n.r = insert(n.r, v);
 		else
-			nodes[r].l = insert(nodes[r].l, n);
+			n.l = insert(n.l, v);
 		return r;
 	}
 	void insert (int n)
