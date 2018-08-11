@@ -72,13 +72,14 @@ struct bst
 	{
 		return find(root, v);
 	}
-	int get_and_remove_next_idx(int &r) {
-		if (nodes[r].l == -1) {
+	inline int get_and_remove_next_idx(int &r) {
+		node &n = nodes[r];
+		if (n.l == -1) {
 			int tmp = r;
-			r = erace(r, nodes[r].v);
+			r = erace(r, n.v);
 			return tmp;
 		}
-		return get_and_remove_next_idx(nodes[r].l);
+		return get_and_remove_next_idx(n.l);
 	}
 	int erace(int r, int v)
 	{
@@ -94,10 +95,8 @@ struct bst
 			} else if (n.r == -1) {
 				r = n.l;
 				n = nodes[r];
-			} else {
-				int tmp = get_and_remove_next_idx(n.r);
-				n.v = nodes[tmp].v;
-			}
+			} else
+				n.v = nodes[get_and_remove_next_idx(n.r)].v;
 		else if (n.v < v)
 			n.r = erace(n.r, v);
 		else
