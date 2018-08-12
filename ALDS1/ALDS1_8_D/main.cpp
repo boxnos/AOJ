@@ -34,7 +34,7 @@ svo(head&& h, tail&&... t){out(h);out(move(t)...);}
 typedef vector<int> v;
 
 template <typename T>
-struct tree {
+struct treap {
 	struct node {
 		T v;
 		int p;
@@ -50,56 +50,42 @@ struct tree {
 	typedef node N;
 	N *root = nullptr;
 
-	N* rotate(N* r, int b) {
-		N *s = r->n[1 - b];
-		r->n[1 - b] = s->n[b];
-		s->n[b] = r;
+	N* rotate(N* t, int b) {
+		N *s = t->n[1 - b];
+		t->n[1 - b] = s->n[b];
+		s->n[b] = t;
 		return s;
 	}
-	N* insert(int k, int p, N *t) {
+	N* insert(T k, int p, N *t) {
 		if (!t)
 			return new N(k, p);
 		int b = !(k < t->v);
 		t->n[b] = insert(k, p, t->n[b]);
 		return (t->p < t->n[b]->p) ? rotate(t, 1 - b) : t;
 	}
-	void insert(T k, T p) {
+	void insert(T k, int p) {
 		root = insert(k, p, root);
 	}
-	N* _erace(N *r, T x) {
-		if (!r->n[0] && !r->n[1])
-			r = nullptr;
-		else if (!r->n[0])
-			r = rotate(r, 0);
-		else if (!r->n[1])
-			r = rotate(r, 1);
-		else
-			r = rotate(r, r->n[0]->p > r->n[1]->p);
-		return erace(r, x);
-	}
-	N* erace(N *r, T x) {
-		if (!r)
+	N* erace(N *t, T x) {
+		if (!t)
 			;
-		else if (r->v == x)
-			r = _erace(r, x);
-		else if (r->v > x)
-			r->n[0] = erace(r->n[0], x);
-		else
-			r->n[1] = erace(r->n[1], x);
-		return r;
+		else if (t->v > x)
+			t->n[0] = erace(t->n[0], x);
+		else if (t->v < x)
+			t->n[1] = erace(t->n[1], x);
+		else {
+			t = erace(!t->n[0] && !t->n[1] ? nullptr :
+					  !t->n[0] ? rotate(t, 0) :
+					  !t->n[1] ? rotate(t, 1) :
+					  rotate(t, t->n[0]->p > t->n[1]->p), x);
+		}
+		return t;
 	}
 	void erace(T x) {
 		root = erace(root, x);
 	}
-	bool find(N *r, T x) {
-		if (r == nullptr)
-			return false;
-		else if (r->v == x)
-			return true;
-		else if (r->v > x)
-			return find(r->n[0], x);
-		else
-			return find(r->n[1], x);
+	bool find(N *t, T x) {
+		return !t ? false : t->v > x ? find(t->n[0], x) : t->v < x ? find(t->n[1], x) : true;
 	}
 	bool find(T x) {
 		return find(root, x);
@@ -122,20 +108,20 @@ struct tree {
 int main() {
 	int n = in(), x;
 	char s[20];
-	tree<int> b;
+	treap<int> t;
 
 	while (n--) {
 		scan(s);
 		switch(*s) {
 		case 'i':
 			x = in();
-			b.insert(x, in()); break;
+			t.insert(x, in()); break;
 		case 'f':
-			out(b.find(in()) ? "yes\n": "no\n"); break;
+			out(t.find(in()) ? "yes\n": "no\n"); break;
 		case 'd':
-			b.erace(in()); break;
+			t.erace(in()); break;
 		default:
-			b.print();
+			t.print();
 		}
 	}
 }
