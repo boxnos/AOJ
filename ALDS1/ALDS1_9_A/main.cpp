@@ -34,12 +34,12 @@ svo(head&& h, tail&&... t){out(h);out(move(t)...);}
 typedef vector<int> v;
 
 int main() {
-	size_t n = in();
+	int n = in();
 	v h(n);
 	for (int &x: h)
 		x = in();
 
-	for (size_t i = 1, p, l, r; i <= h.size(); i++) {
+	for (int i = 1, p, l, r; i <= n; i++) {
 		p = i / 2, l = 2 * i, r = 2 * i + 1;
 		out("node ", i, ": key = ", h[i - 1], ", ");
 		if (p)
