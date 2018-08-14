@@ -1,6 +1,7 @@
 #include <cstdio>
 #include <cctype>
 #include <vector>
+#include <algorithm>
 using namespace std;
 
 #define si static inline
@@ -35,9 +36,9 @@ typedef vector<int> v;
 
 void make_heap(v &h) {
 	const int H = h.size();
-	for (int i = H / 2 - 1; i >= 0; i--) {
+	for (int i = H / 2; i > 0; i--) {
 		int v = h[i], p = i;
-		for (int c = p * 2 + 1; c < H; c = p * 2 + 1) {
+		for (int c = p * 2; c < H; c = p * 2) {
 			if (c + 1 < H && h[c] < h[c + 1])
 				++c;
 			if (v > h[c])
@@ -51,13 +52,12 @@ void make_heap(v &h) {
 
 int main() {
 	int n = in();
-	v h(n);
-	for (int &x: h)
-		x = in();
-
+	v h(n + 1);
+	auto e = h.end();
+	for_each(h.begin() + 1, h.end(), [](int &x){x = in();});
 	make_heap(h);
-
-	out(h);
+	for_each(h.begin() + 1, h.end(), [](int x){out(' ', x);});
+	out('\n');
 }
 
 /* vim: set ts=4 noet: */
