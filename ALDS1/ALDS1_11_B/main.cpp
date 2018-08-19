@@ -1,10 +1,10 @@
 #include <iostream>
 #include <map>
-#include <set>
+#include <vector>
 using namespace std;
 
 struct graph {
-	struct node {set<int> v; int d = 0, f;};
+	struct node {vector<int> v; int d = 0, f;};
 	map<int, node> nodes;
 	int count = 1;
 
@@ -13,13 +13,10 @@ struct graph {
 		cin >> n;
 		while (n--) {
 			cin >> id >> k;
-			if (k)
-				while (k--) {
-					cin >> v;
-					nodes[id].v.insert(v);
-				}
-			else
-				nodes[id] = {};
+			while (k--) {
+				cin >> v;
+				nodes[id].v.push_back(v);
+			}
 		}
 	}
 	void traverse(int id) {
