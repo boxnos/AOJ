@@ -33,7 +33,9 @@ svo(head&& h, tail&&... t){out(h);out(move(t)...);}
 
 typedef vector<int> v;
 struct graph {
-	vector<v> nodes;
+	struct node {v n; int gid = 0;};
+	vector<node> nodes;
+	int gid_counter = 1;
 
 	graph(int n) {
 		nodes.resize(n);
@@ -41,22 +43,25 @@ struct graph {
 	void read(int n) {
 		while (n--) {
 			int s = in(), t = in();
-			nodes[s].push_back(t);
-			nodes[t].push_back(s);
+			nodes[s].n.push_back(t);
+			nodes[t].n.push_back(s);
 		}
 	}
-	bool find(int s, int t, v &f) {
-		if (s == t)
-			return true;
-		f[s] = 1;
-		for (int x: nodes[s])
-			if (!f[x] && find(x, t, f))
-				return true;
-		return false;
+	void traverse(int id, int gid) {
+		node &n = nodes[id];
+		if (n.gid)
+			return;
+		n.gid = gid ? gid : gid_counter++;
+		for (int i: n.n)
+			traverse(i, n.gid);
+	}
+	void traverse() {
+		int i = 0;
+		for (node &n: nodes)
+			traverse(i++, n.gid);
 	}
 	bool find(int s, int t) {
-		v foot_stamp(nodes.size());
-		return find(s, t, foot_stamp);
+		return nodes[s].gid == nodes[t].gid;
 	}
 };
 
@@ -64,6 +69,7 @@ int main() {
 	int n = in(), m = in();
 	graph g(n);
 	g.read(m);
+	g.traverse();
 	int q = in();
 	while (q--) {
 		int s = in();
