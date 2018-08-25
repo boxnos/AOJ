@@ -2,18 +2,16 @@
 #include <cctype>
 #include <climits>
 #include <vector>
-#include <queue>
 using namespace std;
 
 #define si static inline
 #define gcu getchar_unlocked
 si int in() {
-	int c, n = 0;
-	bool minus = false;
-	if ((c = gcu()) == '-') minus = true; else ungetc(c, stdin);
-	while ((c = gcu()) >= '0' && c <= '9') n = 10 * n + (c - '0');
-	//return n; }
-	return minus ? -n : n; }
+	int n = 0, c = gcu();
+	// bool minus = false; if (c == '-') minus = true, c = gcu();
+	do {n = 10 * n + (c - '0'), c = gcu();} while (c >= '0');
+	return n; }
+	// return minus ? -n : n; }
 si void scan(char *s) {while (!isspace(*s++ = gcu()));}
 #define pcu putchar_unlocked
 #define svo si void out
@@ -36,6 +34,44 @@ svo(head&& h, tail&&... t){out(h);out(move(t)...);}
 #undef svo
 #undef si
 
+template <typename T>
+struct heap{
+	vector<T> h = {T()};
+
+	void insert(T x) {
+		h.push_back(x);
+		int c = h.size() - 1;
+		for (int p = c / 2; p; c = p, p /= 2)
+			if (h[p] < x)
+				h[c] = move(h[p]);
+			else
+				break;
+		h[c] = move(x);
+	}
+	T extract() {
+		T res = move(h[1]);
+		h[1] = h.back();
+		T v = move(h[1]);
+		h.pop_back();
+
+		int p = 1, H = h.size();
+		for (int c = 2; c < H; p = c, c = p * 2) {
+			if (c + 1 < H && h[c] < h[c + 1])
+				c++;
+			if (h[c] < v)
+				break;
+			h[p] = move(h[c]);
+		}
+		h[p] = move(v);
+
+		return move(res);
+	}
+
+	bool empty() {
+		return h.size() == 1;
+	}
+};
+
 #define v vector
 struct graph {
 	struct node {int n, w;};
@@ -55,11 +91,10 @@ struct graph {
 	v<node> dks() {
 		v<node> w(nodes.size(), {0, INT_MAX});
 		w[0].w = 0;
-		priority_queue<node> q;
-		q.push({0, 0});
+		heap<node> q;
+		q.insert({0, 0});
 		while (!q.empty()) {
-			node n = q.top();
-			q.pop();
+			node n = q.extract();
 			if (w[n.n].n)
 				continue;
 			w[n.n].n = 1;
@@ -67,7 +102,7 @@ struct graph {
 				int a = n.w + x.w;
 				if (w[x.n].w > a) {
 					w[x.n].w = a;
-					q.push({x.n, a});
+					q.insert({x.n, a});
 				}
 			}
 		}
