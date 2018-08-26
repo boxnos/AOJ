@@ -6,11 +6,10 @@ using namespace std;
 #define si static inline
 #define gcu getchar_unlocked
 si int in() {
-	int c, n = 0;
-	bool minus = false;
-	if ((c = gcu()) == '-') minus = true;
-	else ungetc(c, stdin);
-	while ((c = gcu()) >= '0' && c <= '9') n = 10 * n + (c - '0');
+	int n = 0, c = gcu();
+	bool minus = false; if (c == '-') minus = true, c = gcu();
+	do {n = 10 * n + (c - '0'), c = gcu();} while (c >= '0');
+	// return n; }
 	return minus ? -n : n; }
 si void scan(char *s) {while (!isspace(*s++ = gcu()));}
 #define pcu putchar_unlocked
@@ -18,19 +17,20 @@ si void scan(char *s) {while (!isspace(*s++ = gcu()));}
 svo(int n) {
 	static char buf[20];
 	char *p = buf;
-	bool minus = false;
-	if(n < 0) minus = true, n *= -1;
+	if(n < 0) pcu('-'), n *= -1;
 	if (!n) *p++ = '0';
 	else while (n) *p++ = n % 10 + '0', n /= 10;
-	if (minus) *p++ = '-';
 	while (p != buf) pcu(*--p); }
+svo(const char *s){while(*s)pcu(*s++);}
 svo(char *s){while(*s)pcu(*s++);}
 svo(char c){pcu(c);}
-template <typename T>
-svo(vector<T> v){for(T &x:v)out(' '),out(x);out('\n');}
-//svo(vector<T> &v){for(int &x:v)out(&x == &v[0]?"":" ",x);out('\n');}
 template <typename head, typename... tail>
 svo(head&& h, tail&&... t){out(h);out(move(t)...);}
+template <typename T>
+svo(vector<T> &v){for(auto &x:v)out(' '),out(x);out('\n');}
+//svo(vector<T> &v){for(T &x:v)out(&x == &v[0]?"":" "),out(x);out('\n');}
+#undef svo
+#undef si
 
 typedef vector<int> v;
 
@@ -74,7 +74,7 @@ struct bst
 	{
 		v buf;
 		print(root, buf);
-		out('\n', buf);
+		out('\n'), out(buf);
 	}
 };
 
