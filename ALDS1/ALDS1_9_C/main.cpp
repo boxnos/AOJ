@@ -53,13 +53,12 @@ struct heap{
 		h.pop_back();
 
 		int p = 1, H = h.size();
-		for (int c = 2; c < H; c = p *2) {
+		for (int c = 2; c < H; p = c, c = p * 2) {
 			if (c + 1 < H && h[c] < h[c + 1])
 				c++;
 			if (v > h[c])
 				break;
 			h[p] = h[c];
-			p = c;
 		}
 		h[p] = v;
 	}
@@ -67,11 +66,12 @@ struct heap{
 
 int main() {
 	char s[20];
+	char *c = &s[2];
 	heap h;
 
 	for (;;) {
 		scan(s);
-		switch(s[2]) {
+		switch(*c) {
 		case 's':
 			h.insert(in());
 			continue;
