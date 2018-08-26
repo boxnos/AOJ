@@ -59,7 +59,7 @@ struct board {
 			cross(r - i, c + i);
 		}
 		t.b[r][c] = 2;
-		return t;
+		return move(t);
 	}
 
 	bool solver(int r) {
@@ -67,14 +67,13 @@ struct board {
 			print();
 			return true;
 		}
-		for (int i = 0; i < 8; i++) {
+		for (int i = 0; i < 8; i++)
 			if (!b[r][i]) {
 				board t = put(r, i);
 				if (t.solver(r + 1))
 					return true;
 			} else if (b[r][i] == 2)
 				return solver(r + 1);
-		}
 		return false;
 	}
 };
