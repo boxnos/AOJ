@@ -41,7 +41,22 @@ struct board {
 	typedef array<array<int, size>, size> arr;
 	arr b;
 	pos p;
+	int max;
 	int cnt = 0;
+
+	int f(arr &a) {
+		int l = 0;
+		for (int i = 0; i < size; i++)
+			for (int j = 0; j < size; j++) {
+				int c = a[i][j];
+				if (c == 0)
+					c = size * size - 1;
+				else
+					c--;
+				l += abs(i - c / 3) + abs(j - c % 3);
+			}
+		return l;
+	}
 
 	void read() {
 		for (int i = 0; i < size; i++)
@@ -50,6 +65,7 @@ struct board {
 				if (!b[i][j])
 					p.r = i, p.c = j;
 			}
+		max = f(b);
 	}
 	void print() {
 		for (auto &r: b) {
@@ -60,20 +76,25 @@ struct board {
 		out('\n');
 	}
 
+
 	int solver() {
-		const arr end = {1, 2, 3, 4, 5, 6, 7, 8, 0};
 		set<arr> m;
 		queue<board> q;
 		q.push(*this);
 		while (!q.empty()) {
 			board a = q.front();
 			q.pop();
-			if (a.b == end)
-				return a.cnt;
+			a.print();
+			int dis = f(a.b);
+			if (dis > max * 2.1 - a.cnt)
+				continue;
+			out(dis, "\n");
 			auto it = m.find(a.b);
 			if (it != m.end())
 				continue;
 			m.insert(a.b);
+			if (!dis)
+				return a.cnt;
 			pos to[] = {
 				a.p.r + 1, a.p.c,
 				a.p.r, a.p.c + 1,
