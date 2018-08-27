@@ -84,11 +84,11 @@ struct board {
 		while (!q.empty()) {
 			board a = q.front();
 			q.pop();
-			a.print();
+//			a.print();
 			int dis = f(a.b);
-			if (dis > max * 2.1 - a.cnt)
+			if (dis > max + 10 - a.cnt / 1.5)
 				continue;
-			out(dis, "\n");
+//			out(dis, "\n");
 			auto it = m.find(a.b);
 			if (it != m.end())
 				continue;
