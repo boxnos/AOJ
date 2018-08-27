@@ -70,6 +70,10 @@ struct board {
 			q.pop();
 			if (a.b == end)
 				return a.cnt;
+			auto it = m.find(a.b);
+			if (it != m.end())
+				continue;
+			m.insert(a.b);
 			pos to[] = {
 				a.p.r + 1, a.p.c,
 				a.p.r, a.p.c + 1,
