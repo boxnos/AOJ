@@ -41,22 +41,7 @@ struct board {
 	typedef array<array<int, size>, size> arr;
 	arr b;
 	pos p;
-	int max;
-	int cnt = 0;
-
-	int f(arr &a) {
-		int l = 0;
-		for (int i = 0; i < size; i++)
-			for (int j = 0; j < size; j++) {
-				int c = a[i][j];
-				if (c == 0)
-					c = size * size - 1;
-				else
-					c--;
-				l += abs(i - c / 3) + abs(j - c % 3);
-			}
-		return l;
-	}
+	int f, g, h;
 
 	void read() {
 		for (int i = 0; i < size; i++)
@@ -65,8 +50,10 @@ struct board {
 				if (!b[i][j])
 					p.r = i, p.c = j;
 			}
-		max = f(b);
+		g = 0;
+		f = h = hn(b);
 	}
+
 	void print() {
 		for (auto &r: b) {
 			for (int &c: r)
@@ -76,37 +63,41 @@ struct board {
 		out('\n');
 	}
 
+	int hn(arr &a) {
+		int l = 0;
+		for (int i = 0; i < size; i++)
+			for (int j = 0; j < size; j++) {
+				int k = a[i][j] ? a[i][j] - 1 : size * size - 1;
+				l += abs(i - k / 3) + abs(j - k % 3);
+			}
+		return l;
+	}
 
 	int solver() {
+		static const pos to[] = {-1, 0, 0, -1, 1, 0, 0, 1};
 		set<arr> m;
-		queue<board> q;
+		priority_queue<board> q;
 		q.push(*this);
 		while (!q.empty()) {
-			board a = q.front();
+			board a = q.top();
 			q.pop();
+//			out(a.f,  '\n');
 //			a.print();
-			int dis = f(a.b);
-			if (dis > max + 10 - a.cnt / 1.5)
-				continue;
-//			out(dis, "\n");
 			auto it = m.find(a.b);
 			if (it != m.end())
 				continue;
 			m.insert(a.b);
-			if (!dis)
-				return a.cnt;
-			pos to[] = {
-				a.p.r + 1, a.p.c,
-				a.p.r, a.p.c + 1,
-				a.p.r - 1, a.p.c,
-				a.p.r, a.p.c - 1
-			};
+			if (!a.h)
+				return a.g / 2;
 			for (pos o: to) {
+				o.r += a.p.r, o.c += a.p.c;
 				if (0 <= o.r && o.r < size && 0 <= o.c && o.c < size) {
 					board c = a;
 					swap(c.b[a.p.r][a.p.c], c.b[o.r][o.c]);
+					c.g += 2;
+					c.h = hn(c.b);
+					c.f = c.g + c.h;
 					c.p = o;
-					c.cnt = a.cnt + 1;
 					q.push(c);
 				}
 			}
@@ -114,6 +105,10 @@ struct board {
 		return -1;
 	}
 };
+
+bool operator < (const board &a, const board &b) {
+	return a.f > b.f;
+}
 
 int main() {
 	board b;
