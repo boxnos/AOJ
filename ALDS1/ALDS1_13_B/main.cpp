@@ -1,7 +1,7 @@
 #include <cstdio>
 #include <cctype>
 #include <array>
-#include <set>
+#include <unordered_set>
 #include <queue>
 using namespace std;
 
@@ -39,6 +39,7 @@ struct board {
 	enum {size = 3};
 	struct pos {int r, c;};
 	typedef array<array<int, size>, size> arr;
+
 	arr b;
 	pos p;
 	int f, g, h;
@@ -63,30 +64,36 @@ struct board {
 		out('\n');
 	}
 
-	int hn(arr &a) {
+	static int hn(const arr &a) {
 		int l = 0;
 		for (int i = 0; i < size; i++)
 			for (int j = 0; j < size; j++) {
 				int k = a[i][j] ? a[i][j] - 1 : size * size - 1;
-				l += abs(i - k / 3) + abs(j - k % 3);
+				l += abs(i - k / size) + abs(j - k % size);
 			}
 		return l;
 	}
 
+	static int key(const arr &a) {
+		int k = 0;
+		for (auto &r: a)
+			for (int c: r)
+				k = (k * 10) + c;
+		return k;
+	}
+
 	int solver() {
 		static const pos to[] = {-1, 0, 0, -1, 1, 0, 0, 1};
-		set<arr> m;
+		unordered_set<int> m;
 		priority_queue<board> q;
 		q.push(*this);
 		while (!q.empty()) {
 			board a = q.top();
 			q.pop();
-//			out(a.f,  '\n');
-//			a.print();
-			auto it = m.find(a.b);
-			if (it != m.end())
+			int k = key(a.b);
+			if (m.count(k))
 				continue;
-			m.insert(a.b);
+			m.insert(k);
 			if (!a.h)
 				return a.g / 2;
 			for (pos o: to) {
