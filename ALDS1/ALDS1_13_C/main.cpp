@@ -1,6 +1,7 @@
 #include <cstdio>
 #include <cctype>
 #include <array>
+#include <unordered_map>
 #include <queue>
 using namespace std;
 
@@ -38,6 +39,7 @@ struct board {
 	enum {size = 4};
 	struct pos {int r, c;};
 	typedef array<array<int, size>, size> arr;
+	typedef unordered_map<int, int> mp;
 
 	int h;
 	arr b;
@@ -82,12 +84,20 @@ struct board {
 		return k;
 	}
 
-	static bool dfs(board &a, int depth, int limit) {
+	static bool dfs(board &a, mp &m, int depth, int limit) {
 		static const pos to[] = {-1, 0, 0, -1, 1, 0, 0, 1};
 		if (!a.h)
 			return true;
+
 		if (depth + a.h > limit)
 			return false;
+
+		int k = key(a.b);
+		auto res = m.find(k);
+		if (res != m.end() && (*res).second <= depth) {
+			return false;
+		}
+
 
 		pos tp = a.p;
 		int th = a.h;
@@ -100,21 +110,25 @@ struct board {
 					+ abs(tp.r - f / size) + abs(tp.c - f % size)
 					- abs(o.r - f / size) - abs(o.c - f % size);
 				a.p = o;
-				if (dfs(a, depth + 1, limit))
+				if (dfs(a, m, depth + 1, limit))
 					return true;
 				swap(a.b[o.r][o.c], a.b[tp.r][tp.c]);
 			}
 		}
 		a.p = tp;
 		a.h = th;
+		if (res == m.end() || (*res).second > depth)
+			m[k] = depth;
 		return false;
 	}
 
 	int solver() {
 		int limit = h;
-		while (!dfs(*this, 0, limit++))
-			;
-		return limit - 1;
+		for (;;limit++) {
+			mp m = {};
+			if(dfs(*this, m, 0, limit))
+				return limit;
+		}	
 	}
 };
 
