@@ -94,10 +94,8 @@ struct board {
 
 		int k = key(a.b);
 		auto res = m.find(k);
-		if (res != m.end() && (*res).second <= depth) {
+		if (res != m.end() && (*res).second <= depth)
 			return false;
-		}
-
 
 		pos tp = a.p;
 		int th = a.h;
@@ -128,7 +126,7 @@ struct board {
 			mp m = {};
 			if(dfs(*this, m, 0, limit))
 				return limit;
-		}	
+		}
 	}
 };
 
