@@ -1,0 +1,203 @@
+# Sample Input
+1 2 3 4
+6 7 8 0
+5 10 11 12
+9 13 14 15
+# Sample Output
+8
+# in https://judgedat.u-aizu.ac.jp/testcases/ALDS1_13_C/1
+1 2 3 4
+6 7 8 0
+5 10 11 12
+9 13 14 15
+# out https://judgedat.u-aizu.ac.jp/testcases/ALDS1_13_C/1
+8
+# in https://judgedat.u-aizu.ac.jp/testcases/ALDS1_13_C/2
+1 2 3 4
+5 6 7 8
+9 10 11 0
+13 14 15 12
+# out https://judgedat.u-aizu.ac.jp/testcases/ALDS1_13_C/2
+1
+# in https://judgedat.u-aizu.ac.jp/testcases/ALDS1_13_C/3
+1 2 3 4
+5 6 7 8
+9 10 11 12
+13 14 0 15
+# out https://judgedat.u-aizu.ac.jp/testcases/ALDS1_13_C/3
+1
+# in https://judgedat.u-aizu.ac.jp/testcases/ALDS1_13_C/4
+1 2 3 4
+5 6 7 8
+9 10 0 11
+13 14 15 12
+# out https://judgedat.u-aizu.ac.jp/testcases/ALDS1_13_C/4
+2
+# in https://judgedat.u-aizu.ac.jp/testcases/ALDS1_13_C/5
+1 2 3 4
+5 6 7 8
+9 0 10 11
+13 14 15 12
+# out https://judgedat.u-aizu.ac.jp/testcases/ALDS1_13_C/5
+3
+# in https://judgedat.u-aizu.ac.jp/testcases/ALDS1_13_C/6
+1 2 3 4
+5 6 7 8
+9 14 10 11
+13 0 15 12
+# out https://judgedat.u-aizu.ac.jp/testcases/ALDS1_13_C/6
+4
+# in https://judgedat.u-aizu.ac.jp/testcases/ALDS1_13_C/7
+1 2 3 4
+5 7 0 8
+9 6 11 12
+13 10 14 15
+# out https://judgedat.u-aizu.ac.jp/testcases/ALDS1_13_C/7
+5
+# in https://judgedat.u-aizu.ac.jp/testcases/ALDS1_13_C/8
+1 3 0 4
+5 2 6 8
+9 10 7 11
+13 14 15 12
+# out https://judgedat.u-aizu.ac.jp/testcases/ALDS1_13_C/8
+6
+# in https://judgedat.u-aizu.ac.jp/testcases/ALDS1_13_C/9
+1 2 3 4
+5 6 0 7
+9 10 11 8
+13 14 15 12
+# out https://judgedat.u-aizu.ac.jp/testcases/ALDS1_13_C/9
+3
+# in https://judgedat.u-aizu.ac.jp/testcases/ALDS1_13_C/10
+1 6 2 3
+5 10 7 4
+9 0 11 8
+13 14 15 12
+# out https://judgedat.u-aizu.ac.jp/testcases/ALDS1_13_C/10
+7
+# in https://judgedat.u-aizu.ac.jp/testcases/ALDS1_13_C/11
+1 0 3 4
+5 2 6 8
+9 10 7 11
+13 14 15 12
+# out https://judgedat.u-aizu.ac.jp/testcases/ALDS1_13_C/11
+5
+# in https://judgedat.u-aizu.ac.jp/testcases/ALDS1_13_C/12
+1 2 3 0
+5 15 6 4
+9 10 7 8
+13 14 12 11
+# out https://judgedat.u-aizu.ac.jp/testcases/ALDS1_13_C/12
+15
+# in https://judgedat.u-aizu.ac.jp/testcases/ALDS1_13_C/13
+1 2 0 4
+5 6 3 8
+14 13 7 11
+9 15 10 12
+# out https://judgedat.u-aizu.ac.jp/testcases/ALDS1_13_C/13
+12
+# in https://judgedat.u-aizu.ac.jp/testcases/ALDS1_13_C/14
+1 3 6 0
+5 2 7 4
+9 10 12 8
+13 14 11 15
+# out https://judgedat.u-aizu.ac.jp/testcases/ALDS1_13_C/14
+11
+# in https://judgedat.u-aizu.ac.jp/testcases/ALDS1_13_C/15
+1 2 0 4
+5 10 3 6
+13 9 15 8
+14 12 7 11
+# out https://judgedat.u-aizu.ac.jp/testcases/ALDS1_13_C/15
+18
+# in https://judgedat.u-aizu.ac.jp/testcases/ALDS1_13_C/16
+5 1 3 4
+9 2 6 7
+13 10 14 8
+0 15 11 12
+# out https://judgedat.u-aizu.ac.jp/testcases/ALDS1_13_C/16
+15
+# in https://judgedat.u-aizu.ac.jp/testcases/ALDS1_13_C/17
+1 3 4 8
+2 6 14 7
+0 9 12 15
+5 11 13 10
+# out https://judgedat.u-aizu.ac.jp/testcases/ALDS1_13_C/17
+28
+# in https://judgedat.u-aizu.ac.jp/testcases/ALDS1_13_C/18
+1 7 4 8
+0 6 2 12
+5 3 9 11
+13 10 14 15
+# out https://judgedat.u-aizu.ac.jp/testcases/ALDS1_13_C/18
+19
+# in https://judgedat.u-aizu.ac.jp/testcases/ALDS1_13_C/19
+1 4 3 7
+5 2 0 8
+9 12 14 15
+13 6 11 10
+# out https://judgedat.u-aizu.ac.jp/testcases/ALDS1_13_C/19
+25
+# in https://judgedat.u-aizu.ac.jp/testcases/ALDS1_13_C/20
+1 6 7 2
+5 10 12 3
+0 14 13 8
+9 15 11 4
+# out https://judgedat.u-aizu.ac.jp/testcases/ALDS1_13_C/20
+30
+# in https://judgedat.u-aizu.ac.jp/testcases/ALDS1_13_C/21
+14 7 6 4
+2 3 1 11
+5 9 12 15
+13 0 10 8
+# out https://judgedat.u-aizu.ac.jp/testcases/ALDS1_13_C/21
+40
+# in https://judgedat.u-aizu.ac.jp/testcases/ALDS1_13_C/22
+1 6 15 7
+14 11 5 3
+10 9 8 4
+0 2 13 12
+# out https://judgedat.u-aizu.ac.jp/testcases/ALDS1_13_C/22
+41
+# in https://judgedat.u-aizu.ac.jp/testcases/ALDS1_13_C/23
+9 8 7 3
+0 10 5 11
+14 2 6 4
+13 1 15 12
+# out https://judgedat.u-aizu.ac.jp/testcases/ALDS1_13_C/23
+39
+# in https://judgedat.u-aizu.ac.jp/testcases/ALDS1_13_C/24
+1 2 3 4
+5 6 7 8
+9 10 11 12
+13 14 15 0
+# out https://judgedat.u-aizu.ac.jp/testcases/ALDS1_13_C/24
+0
+# in https://judgedat.u-aizu.ac.jp/testcases/ALDS1_13_C/25
+1 6 15 7
+14 11 5 0
+10 9 8 3
+2 13 12 4
+# out https://judgedat.u-aizu.ac.jp/testcases/ALDS1_13_C/25
+44
+# in https://judgedat.u-aizu.ac.jp/testcases/ALDS1_13_C/26
+1 6 15 7
+14 11 5 3
+10 9 8 4
+2 13 0 12
+# out https://judgedat.u-aizu.ac.jp/testcases/ALDS1_13_C/26
+41
+# in https://judgedat.u-aizu.ac.jp/testcases/ALDS1_13_C/27
+1 6 15 7
+14 11 5 3
+10 9 8 0
+2 13 12 4
+# out https://judgedat.u-aizu.ac.jp/testcases/ALDS1_13_C/27
+43
+# in https://judgedat.u-aizu.ac.jp/testcases/ALDS1_13_C/28
+1 6 15 0
+14 11 5 7
+10 9 8 3
+2 13 12 4
+# out https://judgedat.u-aizu.ac.jp/testcases/ALDS1_13_C/28
+45
