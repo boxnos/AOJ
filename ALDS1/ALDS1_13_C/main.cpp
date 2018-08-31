@@ -1,7 +1,7 @@
 #include <cstdio>
 #include <cctype>
 #include <array>
-#include <unordered_map>
+#include <unordered_set>
 #include <queue>
 using namespace std;
 
@@ -39,11 +39,10 @@ struct board {
 	enum {size = 4};
 	struct pos {int r, c;};
 	typedef array<array<int, size>, size> arr;
-	typedef unordered_map<int, int> mp;
 
-	int h;
 	arr b;
 	pos p;
+	int f, g, h;
 
 	void read() {
 		for (int i = 0; i < size; i++)
@@ -52,7 +51,8 @@ struct board {
 				if (!b[i][j])
 					p.r = i, p.c = j;
 			}
-		h = hn(b);
+		g = 0;
+		f = h = hn(b);
 	}
 
 	void print() {
@@ -68,8 +68,7 @@ struct board {
 		int l = 0;
 		for (int i = 0; i < size; i++)
 			for (int j = 0; j < size; j++) {
-				if (!a[i][j])
-					continue;
+				if (!a[i][j]) continue;
 				int k = a[i][j] - 1;
 				l += abs(i - k / size) + abs(j - k % size);
 			}
@@ -84,51 +83,43 @@ struct board {
 		return k;
 	}
 
-	static bool dfs(board &a, mp &m, int depth, int limit) {
+	int solver() {
 		static const pos to[] = {-1, 0, 0, -1, 1, 0, 0, 1};
-		if (!a.h)
-			return true;
-
-		if (depth + a.h > limit)
-			return false;
-
-		int k = key(a.b);
-		auto res = m.find(k);
-		if (res != m.end() && (*res).second <= depth)
-			return false;
-
-		pos tp = a.p;
-		int th = a.h;
-		for (pos o: to) {
-			o.r += tp.r, o.c += tp.c;
-			if (0 <= o.r && o.r < size && 0 <= o.c && o.c < size) {
-				swap(a.b[tp.r][tp.c], a.b[o.r][o.c]);
-				int f = a.b[tp.r][tp.c] - 1;
-				a.h = th
-					+ abs(tp.r - f / size) + abs(tp.c - f % size)
-					- abs(o.r - f / size) - abs(o.c - f % size);
-				a.p = o;
-				if (dfs(a, m, depth + 1, limit))
-					return true;
-				swap(a.b[o.r][o.c], a.b[tp.r][tp.c]);
+		unordered_set<int> m;
+		priority_queue<board> q;
+		q.push(*this);
+		while (!q.empty()) {
+			board a = q.top();
+			q.pop();
+			int k = key(a.b);
+			if (m.count(k))
+				continue;
+			m.insert(k);
+			if (!a.h)
+				return a.g;
+			for (pos o: to) {
+				o.r += a.p.r, o.c += a.p.c;
+				if (0 <= o.r && o.r < size && 0 <= o.c && o.c < size) {
+					board c = a;
+					int f = c.b[o.r][o.c] - 1;
+					c.h +=
+						- abs(o.r - f / size) - abs(o.c - f % size)
+						+ abs(a.p.r - f / size) + abs(a.p.c - f % size);
+					swap(c.b[a.p.r][a.p.c], c.b[o.r][o.c]);
+					c.g += 1;
+					c.f = c.g + c.h;
+					c.p = o;
+					q.push(c);
+				}
 			}
 		}
-		a.p = tp;
-		a.h = th;
-		if (res == m.end() || (*res).second > depth)
-			m[k] = depth;
-		return false;
-	}
-
-	int solver() {
-		int limit = h;
-		for (;;limit++) {
-			mp m = {};
-			if(dfs(*this, m, 0, limit))
-				return limit;
-		}
+		return -1;
 	}
 };
+
+bool operator < (const board &a, const board &b) {
+	return a.f > b.f;
+}
 
 int main() {
 	board b;
