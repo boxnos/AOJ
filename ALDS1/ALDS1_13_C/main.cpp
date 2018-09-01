@@ -75,23 +75,23 @@ struct board {
 		return l;
 	}
 
-	static int key(const arr &a) {
-		int k = 0;
+	static long key(const arr &a) {
+		long k = 0;
 		for (auto &r: a)
 			for (int c: r)
-				k = (k * 10) + c;
+				k = (k * 16) + c;
 		return k;
 	}
 
 	int solver() {
 		static const pos to[] = {-1, 0, 0, -1, 1, 0, 0, 1};
-		unordered_set<int> m;
+		unordered_set<long> m;
 		priority_queue<board> q;
 		q.push(*this);
 		while (!q.empty()) {
 			board a = q.top();
 			q.pop();
-			int k = key(a.b);
+			long k = key(a.b);
 			if (m.count(k))
 				continue;
 			m.insert(k);
