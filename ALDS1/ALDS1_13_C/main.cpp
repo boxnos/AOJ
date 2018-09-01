@@ -1,7 +1,7 @@
 #include <cstdio>
 #include <cctype>
 #include <array>
-#include <unordered_set>
+#include <unordered_map>
 #include <queue>
 using namespace std;
 
@@ -35,24 +35,26 @@ svo(head&& h, tail&&... t){out(h);out(move(t)...);}
 #undef svo
 #undef si
 
+
 struct board {
 	enum {size = 4};
 	struct pos {int r, c;};
+	typedef array<pos, size * size> ap;
+	typedef array<ap, 2> aap;
 	typedef array<array<int, size>, size> arr;
 
 	arr b;
 	pos p;
-	int f, g, h;
+	int f, g, h, d;
 
 	void read() {
 		for (int i = 0; i < size; i++)
 			for (int j = 0; j < size; j++) {
-				b[i][j] = in();
-				if (!b[i][j])
+				int f = in();
+				b[i][j] = f;
+				if (!f)
 					p.r = i, p.c = j;
 			}
-		g = 0;
-		f = h = hn(b);
 	}
 
 	void print() {
@@ -64,13 +66,13 @@ struct board {
 		out('\n');
 	}
 
-	static int hn(const arr &a) {
+	static int hn(const arr &a, ap mt) {
 		int l = 0;
 		for (int i = 0; i < size; i++)
 			for (int j = 0; j < size; j++) {
-				if (!a[i][j]) continue;
-				int k = a[i][j] - 1;
-				l += abs(i - k / size) + abs(j - k % size);
+				int k = a[i][j];
+				if (!k) continue;
+				l += abs(i - mt[k].r) + abs(j - mt[k].c);
 			}
 		return l;
 	}
@@ -83,28 +85,64 @@ struct board {
 		return k;
 	}
 
+	void init_solver(aap &mt, board &e) {
+		for (int i = 0; i < size * size; i++)
+			if (!i)
+				mt[0][i] = {size - 1, size - 1};
+			else
+				mt[0][i] = {(i - 1) / size, (i - 1) % size};
+		for (int i = 0, k = 1; i < size; i++)
+			for (int j = 0; j < size; j++) {
+				mt[1][b[i][j]] = {i, j};
+				 e.b[i][j] = k == size * size ? 0 : k++;
+			}
+	}
+
 	int solver() {
 		static const pos to[] = {-1, 0, 0, -1, 1, 0, 0, 1};
-		unordered_set<long> m;
+		unordered_map<long, pos> m;
 		priority_queue<board> q;
+		aap mt;
+
+		board e = *this;
+		init_solver(mt, e);
+		e.d = 1;
+		e.p = {size - 1, size - 1};
+
+		g = d = e.g = 0;
+		f = h = hn(b, mt[d]);
+		e.f = e.h = hn(e.b, mt[e.d]);
+
+		int beam = 100000, beam_count = 12;
+
 		q.push(*this);
+		q.push(e);
 		while (!q.empty()) {
 			board a = q.top();
 			q.pop();
 			long k = key(a.b);
-			if (m.count(k))
-				continue;
-			m.insert(k);
+			auto res = m.find(k);
+			if (res != m.end()) {
+				if ((*res).second.r == a.d)
+					continue;
+				else if (!beam_count--)
+						return beam;
+				else {
+					beam = min(beam, a.g + (*res).second.c);
+					continue;
+				}
+			}
+			m[k] = {a.d, a.g};
 			if (!a.h)
 				return a.g;
 			for (pos o: to) {
 				o.r += a.p.r, o.c += a.p.c;
 				if (0 <= o.r && o.r < size && 0 <= o.c && o.c < size) {
 					board c = a;
-					int f = c.b[o.r][o.c] - 1;
+					pos f = mt[c.d][c.b[o.r][o.c]];
 					c.h +=
-						- abs(o.r - f / size) - abs(o.c - f % size)
-						+ abs(a.p.r - f / size) + abs(a.p.c - f % size);
+						- abs(o.r - f.r) - abs(o.c - f.c)
+						+ abs(a.p.r - f.r) + abs(a.p.c - f.c);
 					swap(c.b[a.p.r][a.p.c], c.b[o.r][o.c]);
 					c.g += 1;
 					c.f = c.g + c.h;
