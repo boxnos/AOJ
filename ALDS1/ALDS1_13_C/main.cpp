@@ -39,7 +39,7 @@ struct board {
 	enum {size = 4};
 	struct pos {int r, c;};
 	typedef array<array<int, size>, size> arr;
-	typedef unordered_map<int, int> mp;
+	typedef unordered_map<long, int> mp;
 
 	int h;
 	arr b;
@@ -76,8 +76,8 @@ struct board {
 		return l;
 	}
 
-	static int key(const arr &a) {
-		int k = 0;
+	static long key(const arr &a) {
+		long k = 0;
 		for (auto &r: a)
 			for (int c: r)
 				k = (k * 10) + c;
@@ -92,7 +92,7 @@ struct board {
 		if (depth + a.h > limit)
 			return false;
 
-		int k = key(a.b);
+		long k = key(a.b);
 		auto res = m.find(k);
 		if (res != m.end() && (*res).second <= depth)
 			return false;
@@ -122,7 +122,7 @@ struct board {
 
 	int solver() {
 		int limit = h;
-		for (;;limit++) {
+		for (;;limit += 2) {
 			mp m = {};
 			if(dfs(*this, m, 0, limit))
 				return limit;
