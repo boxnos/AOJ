@@ -68,7 +68,8 @@ struct board {
 		int l = 0;
 		for (int i = 0; i < size; i++)
 			for (int j = 0; j < size; j++) {
-				int k = a[i][j] ? a[i][j] - 1 : size * size - 1;
+				if (!a[i][j]) continue;
+				int k = a[i][j] - 1;
 				l += abs(i - k / size) + abs(j - k % size);
 			}
 		return l;
@@ -95,14 +96,17 @@ struct board {
 				continue;
 			m.insert(k);
 			if (!a.h)
-				return a.g / 2;
+				return a.g;
 			for (pos o: to) {
 				o.r += a.p.r, o.c += a.p.c;
 				if (0 <= o.r && o.r < size && 0 <= o.c && o.c < size) {
 					board c = a;
+					int f = c.b[o.r][o.c] - 1;
+					c.h +=
+						- abs(o.r - f / size) - abs(o.c - f % size)
+						+ abs(a.p.r - f / size) + abs(a.p.c - f % size);
 					swap(c.b[a.p.r][a.p.c], c.b[o.r][o.c]);
-					c.g += 2;
-					c.h = hn(c.b);
+					c.g += 1;
 					c.f = c.g + c.h;
 					c.p = o;
 					q.push(c);
