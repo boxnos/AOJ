@@ -14,46 +14,51 @@ static inline int in()
 	return n;
 }
 
-int cost = 0;
-void mcs(v w, v &s, int acc, int c)
+int hn(v &w, v &s) {
+	int c = 0;
+	auto b = s.begin();
+	for (int a: w)
+		if (a != *b++)
+			c += a;
+	return c;
+}
+
+int mcs(v w, v &s, int g, int h, int limit)
 {
-	if (acc > cost)
-		return;
-	if (w == s) {
-		cost = min(acc, cost);
-		return;
-	}
-
-	//cerr << acc << endl;
-
-	//for (int x: w)
-	//	cerr << x << " ";
-	//cerr << " cost: " << cost << " acc: " << acc << " c:" << c << endl;
+	if (g + h > limit)
+		return -1;
+	if (!h)
+		return g;
 
 	for (size_t i = 0; i < w.size() - 1; i++) {
 		for (size_t j = i + 1; j < w.size(); j++) {
-			if (w[i] == s[j] || w[j] == s[i]) {
+	//		if (w[i] == s[j] || w[j] == s[i]) {
 				swap(w[i], w[j]);
-				mcs(w, s, acc + w[i] + w[j], c + 1);
+				int res = mcs(w, s, g + w[i] + w[j],
+							  h - w[i] - w[j] + (w[i] == s[i] ? 0 : w[i]) + + (w[j] == s[j] ? 0 : w[j]), limit);
+				if (res != -1)
+					return res;
 				swap(w[i], w[j]);
-			}
+	//		}
 		}
 	}
+	return -1;
 }
 
 int main()
 {
 	v w(in());
 
-	for (int &x : w) {
+	for (int &x : w)
 		x = in();
-		cost += x * 1.5;
-	}
 	v s = w;
 
 	sort(s.begin(), s.end());
-	mcs(w, s, 0, 0);
-	printf("%d\n", cost);
+	//printf("%d\n", hn(w, s));
+	int h = hn(w, s), r = -1;
+	for (int limit = h; r == -1; limit += 1)
+		r = mcs(w, s, 0, h, limit);
+	printf("%d\n", r);
 }
 
 /* vim: set ts=4 noet: */
