@@ -13,7 +13,6 @@ si int in() {
 	do {n = 10 * n + (c - '0'), c = gcu();} while (c >= '0');
 	return n; }
 	// return minus ? -n : n; }
-si void scan(char *s) {while (!isspace(*s++ = gcu())); *s = '\0';}
 si void scan(string &s) {for (char c; !isspace(c = gcu()); s += c);}
 #define pcu putchar_unlocked
 #define svo si void out
@@ -25,8 +24,6 @@ svo(T n) {
 	if (!n) *p++ = '0';
 	else while (n) *p++ = n % 10 + '0', n /= 10;
 	while (p != buf) pcu(*--p); }
-svo(const char *s){while(*s)pcu(*s++);}
-svo(char *s){while(*s)pcu(*s++);}
 svo(char c){pcu(c);}
 svo(string &s){for (char c: s) pcu(c);}
 //template <typename T>
