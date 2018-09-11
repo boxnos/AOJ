@@ -3,6 +3,7 @@
 #include <cctype>
 #include <iomanip>
 #include <vector>
+#include <unordered_map>
 using namespace std;
 
 #define si static inline
@@ -34,16 +35,27 @@ svo(head&& h, tail&&... t){out(h);out(move(t)...);}
 #undef svo
 #undef si
 
-struct KMP {
-	vector<int> pi;
+struct BMH {
+	vector<int> d1;
 	string T, P;
+	int n, m;
 
-	KMP() {
+	BMH() {
 		scan(T);
 		scan(P);
-		prifix_function();
+		n = T.size();
+		m = P.size();
+
+		d1 = vector<int>(256, m);
+		for (int i = 0; i < m - 1; i++)
+			d1[P[i]] = m - 1 - i;
 	}
 
+	int f(char c) {
+		return d1[c];
+	}
+
+	/*
 	void prifix_function() {
 		pi.resize(P.size());
 		int k = -1;
@@ -56,38 +68,33 @@ struct KMP {
 			pi[q] = k;
 		}
 	}
+	*/
 
 	void matcher() {
-		int q = -1;
-		int m = P.size();
-		for (size_t i = 0; i < T.size(); i++) {
-			while (q >= 0 && P[q + 1] != T[i])
-				q = pi[q];
-			if (P[q + 1] == T[i])
-				q++;
-			if (q == m - 1) {
-				out(i - m + 1, '\n');
-				q = pi[q];
+		for (int i = m - 1; i < n;) {
+			int k = m - 1;
+			for (; k >= 0 && P[k] == T[i]; i-- , k--);
+			if (k < 0) {
+				out(i + 1, '\n');
+				i += m + 1;
+			} else {
+				i += max(d1[T[i]], m - k);
 			}
 		}
+
 	}
 	void print() {
-		for (char c: P)
-			cerr << "  " << c << " ";
-		cerr << endl;
-		for (int i: pi)
-			cerr << setw(3) << i << " ";
+		for (int x : d1)
+			if (x != m)
+				cerr << x << " ";
 		cerr << endl;
 	}
 };
 
 int main() {
-	cin.tie(0);
-    ios::sync_with_stdio(false);
-	KMP kmp = KMP();
-
-	kmp.matcher();
-	//kmp.print();
+	BMH bmh = BMH();
+	bmh.matcher();
+	//bmh.print();
 }
 
 /* vim: set ts=4 noet: */
