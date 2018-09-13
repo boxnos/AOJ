@@ -39,14 +39,15 @@ int f(int n, int s, int j) {
 	for (int i = j; i <= 9; i++)
 		if (s - i >= 0)
 			c += f(n - 1, s - i, i + 1);
+		else
+			break;
 	return c;
 }
 
 int main() {
 	int n, s;
-	while (scan(n) && scan(s) && (n || s)) {
+	while (scan(n) && scan(s) && (n || s))
 		out(f(n, s, 0), '\n');
-	}
 }
 
 /* vim: set ts=4 noet: */
