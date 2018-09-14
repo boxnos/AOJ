@@ -3,14 +3,17 @@
 using namespace std;
 
 #define gcu getchar_unlocked
-int in() {
-	int n = 0, c = gcu();
+#define ii inline int in
+ii(int c) {
+	int n = 0;
 	bool minus = false; if (c == '-') minus = true, c = gcu();
 	do {n = 10 * n + (c - '0'), c = gcu();} while (c >= '0');
 	//return n; }
 	return minus ? -n : n; }
+ii() {return in(gcu());}
 //void scan(string &s) {for (char c; !isspace(c = gcu()); s += c);}
-bool scan(int &n) {int c=gcu();if(c==EOF)return false;ungetc(c,stdin);n=in();return true;}
+inline bool scan(int &n) {int c=gcu();return c==EOF?false:(n=in(c),true);}
+#undef ii
 #define pcu putchar_unlocked
 template <typename T>
 void out(T n) {
