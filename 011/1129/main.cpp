@@ -1,7 +1,6 @@
 #include <cstdio>
 #include <utility>
-#include <algorithm>
-#include <deque>
+#include <stack>
 using namespace std;
 
 #define gcu getchar_unlocked
@@ -35,18 +34,26 @@ void out(head&& h, tail&&... t){out(h);out(move(t)...);}
 //void out(vector<T> &v){for(T &x:v)out(&x == &v[0]?"":" "),out(x);out('\n');}
 #undef svo
 
+struct operation {int p, c;};
+
 int main() {
 	int n, r;
 	while (scan(n) && scan(r) && (n || r)) {
-		deque<int> deck(n);
-		for (int &d: deck)
-			d = n--;
+		stack<operation> op;
 		while (r--) {
 			int p = in(), c = in();
-			auto b = deck.begin(), m = b + p - 1, e = m + c;
-			rotate(b, m, e);
+			op.push({p, c});
 		}
-		out(deck[0], '\n');
+		int top = 1;
+		while (!op.empty()) {
+			auto o = op.top();
+			op.pop();
+			if (top <= o.c)
+				top += o.p - 1;
+			else if (top - o.c <= o.p - 1)
+				top -= o.c;
+		}
+		out(n - top + 1, '\n');
 	}
 }
 
