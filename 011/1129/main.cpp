@@ -1,5 +1,6 @@
 #include <cstdio>
 #include <utility>
+#include <algorithm>
 #include <deque>
 using namespace std;
 
@@ -42,13 +43,8 @@ int main() {
 			d = n--;
 		while (r--) {
 			int p = in(), c = in();
-			deque<int> tmp(c);
-			auto b = deck.begin() + p - 1, e = b + c;
-			copy(b, e, tmp.begin());
-			deck.insert(deck.begin(), tmp.begin(), tmp.end());
-			//for (int d: deck)
-			//	out(d, ' ');
-			//out('\n');
+			auto b = deck.begin(), m = b + p - 1, e = m + c;
+			rotate(b, m, e);
 		}
 		out(deck[0], '\n');
 	}
