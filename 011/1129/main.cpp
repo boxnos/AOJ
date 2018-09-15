@@ -50,7 +50,7 @@ int main() {
 			op.pop();
 			if (top <= o.c)
 				top += o.p - 1;
-			else if (top - o.c <= o.p - 1)
+			else if (top - o.c < o.p)
 				top -= o.c;
 		}
 		out(n - top + 1, '\n');
