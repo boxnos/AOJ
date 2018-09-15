@@ -37,16 +37,18 @@ void out(head&& h, tail&&... t){out(h);out(move(t)...);}
 int main() {
 	int n, r;
 	while (scan(n) && scan(r) && (n || r)) {
-		deque<int> deck = deque<int>(n);
+		deque<int> deck(n);
 		for (int &d: deck)
 			d = n--;
 		while (r--) {
 			int p = in(), c = in();
-			for (int i = 0; i < c; i++) {
-				int tmp = deck[p + c - 2];
-				deck.erase(deck.begin() + p + c - 2);
-				deck.push_front(tmp);
-			}
+			deque<int> tmp(c);
+			auto b = deck.begin() + p - 1, e = b + c;
+			copy(b, e, tmp.begin());
+			deck.insert(deck.begin(), tmp.begin(), tmp.end());
+			//for (int d: deck)
+			//	out(d, ' ');
+			//out('\n');
 		}
 		out(deck[0], '\n');
 	}
