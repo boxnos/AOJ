@@ -38,18 +38,15 @@ void out(head&& h, tail&&... t){out(h);out(move(t)...);}
 
 typedef vector<string> maze;
 int walk(int x, int y, maze &m) {
-	int h = m.size(), w = m[0].size();
-	if (x < 0 || x >= w || y < 0 || y >= h)
-		return 0;
-	if (m[y][x] == '#' || m[y][x] == 'X')
+	static const int dx[] = {1, 0, -1, 0}, dy[] = {0, 1, 0, -1};
+	if (x < 0 || x >= (int) m[0].size() ||
+		y < 0 || y >= (int) m.size() ||
+		m[y][x] == '#' || m[y][x] == 'X')
 		return 0;
 	m[y][x] = 'X';
 	int c = 1;
 	for (int i = 0; i < 4; i++)
-		if (i % 2)
-			c += walk(x, y + i - 2, m);
-		else
-			c += walk(x + i - 1, y, m);
+		c += walk(x + dx[i], y + dy[i], m);
 	return c;
 }
 
@@ -65,12 +62,6 @@ int main() {
 			i++;
 		}
 		out(walk(x, y, m), '\n');
-		/*
-		out(px, ' ', py, '\n');
-		for (auto &s: m)
-			out(s, '\n');
-		out('\n');
-		*/
 	}
 }
 
