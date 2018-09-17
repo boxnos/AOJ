@@ -13,7 +13,7 @@ ii(int c) {
 	return minus ? -n : n; }
 ii() {return in(gcu());}
 inline bool scan(int &n) {int c=gcu();return c==EOF?false:(n=in(c),true);}
-void scan(string &s) {int c;do{c=gcu();s+=c;}while(c!='\n'&&c!=' ');}
+void scan(string &s) {int c;do{c=gcu();s+=c;}while(!(c=='\n'||c==' '));}
 #undef ii
 #define pcu putchar_unlocked
 template <typename T>
