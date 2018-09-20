@@ -1,0 +1,8 @@
+# Sample Input
+B,C
+A,C
+C,B
+A,B
+C,B
+# Output for the Sample Input
+A
