@@ -1,0 +1,9 @@
+# Sample Input
+3
+Hoshino
+Hashino
+Masayuki Hoshino was the grandson of Ieyasu Tokugawa.
+# Output for the Sample Input
+Hoshina
+Hashino
+Masayuki Hoshina was the grandson of Ieyasu Tokugawa.
