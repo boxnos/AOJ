@@ -45,17 +45,21 @@ int main() {
 	while ((n = in())) {
 		p = in();
 		v C(n);
-		int i = 0;
-		for (int b = p;;i = (i + 1) % n) {
-			int &c = C[i];
-			if (b)
-				b--, c++;
-			else if (c > 0)
-				b += c, c = 0;
-			if (c == p)
-				break;
+		int b = p, res;
+		for (;;) {
+			for (int &c : C) {
+				if (b) {
+					b--, c++;
+					if (c == p) {
+						res = &c - &C[0];
+						goto end;
+					}
+				} else
+					b += c, c = 0;
+			}
 		}
-		out(i, '\n');
+end:
+		out(res, '\n');
 	}
 }
 
