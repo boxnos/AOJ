@@ -1,0 +1,10 @@
+# Sample Input
+60.2
+70.2
+48.0
+80.2
+# Output for the Sample Input
+light welter
+light middle
+light fly
+middle
