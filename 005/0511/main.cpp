@@ -1,6 +1,6 @@
 #include <cstdio>
 #include <utility>
-#include <array>
+#include <vector>
 using namespace std;
 
 #define gcu getchar_unlocked
@@ -38,9 +38,10 @@ void out(head&& h, tail&&... t){out(h);out(move(t)...);}
 
 int main() {
 	int n;
-	array<bool, 31> v = {true};
+	vector<int> v(31);
+	v[0] = 1;
 	while(scan(n))
-		v[n] = true;
+		v[n] = 1;
 
 	for (auto &b: v)
 		if (!b)
