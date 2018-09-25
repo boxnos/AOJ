@@ -1,5 +1,6 @@
 #include <cstdio>
 #include <utility>
+#include <iostream>
 using namespace std;
 
 #define gcu getchar_unlocked
@@ -30,11 +31,11 @@ void out(head&& h, tail&&... t){out(h);out(move(t)...);}
 //void out(vector<T> &v){for(T &x:v)out(&x == &v[0]?"":" "),out(x);out('\n');}
 #undef svo
 
+int cnt = 0;
 int f(int n, int s, int j) {
-	if (j > 10)
-		return 0;
-	if (n == 0)
-		return s ? 0 : 1;
+	cnt++;
+	if (n == 1)
+		return s >= j ? 1 : 0;
 	int c = 0;
 	for (int i = j; i <= 9; i++)
 		if (s - i >= 0)
@@ -48,6 +49,7 @@ int main() {
 	int n, s;
 	while (scan(n) && scan(s) && (n || s))
 		out(f(n, s, 0), '\n');
+	cerr << cnt << endl;
 }
 
 /* vim: set ts=4 noet: */
