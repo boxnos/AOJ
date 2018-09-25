@@ -4,6 +4,7 @@
 #include <vector>
 #include <queue>
 #include <set>
+#include <climits>
 using namespace std;
 
 #define si static inline
@@ -44,14 +45,18 @@ struct mcs {
 		int f, g, h;
 	};
 	node n;
+	int M;
 	v s;
 
 	mcs(int i) {
 		n.w.resize(i);
 		s.resize(i);
 
-		for (int &x : n.w)
+		M = INT_MAX;
+		for (int &x : n.w) {
 			x = in();
+			M = min(M, x);
+		}
 		s = n.w;
 		sort(s.begin(), s.end());
 
@@ -79,13 +84,15 @@ struct mcs {
 			m.insert(a.w);
 			for (size_t i = 0; i < s.size() - 1; i++) {
 				for (size_t j = i + 1; j < s.size(); j++) {
-					node b = a;
-					auto &w = b.w;
-					swap(w[i], w[j]);
-					b.g += w[i] + w[j];
-					b.h += - w[i] - w[j] + (w[i] == s[i] ? 0 : w[i]) + (w[j] == s[j] ? 0 : w[j]);
-					b.f = b.g + b.h;
-					q.push(b);
+					if (a.w[i] != a.w[j] || a.w[i] == M || a.w[j] == M) {
+						node b = a;
+						auto &w = b.w;
+						swap(w[i], w[j]);
+						b.g += w[i] + w[j];
+						b.h += - w[i] - w[j] + (w[i] == s[i] ? 0 : w[i]) + (w[j] == s[j] ? 0 : w[j]);
+						b.f = b.g + b.h;
+						q.push(b);
+					}
 				}
 			}
 		}
@@ -100,6 +107,7 @@ bool operator < (const mcs::node &a, const mcs::node &b) {
 int main()
 {
 	mcs m(in());
+//	printf("%d\n", m.n.h);
 	printf("%d\n", m.solve());
 }
 
