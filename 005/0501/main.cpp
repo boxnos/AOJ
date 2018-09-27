@@ -29,6 +29,9 @@ void out(char c){pcu(c);}
 void out(string &s){for (char c: s) pcu(c);}
 template <typename head, typename... tail>
 void out(head&& h, tail&&... t){out(h);out(move(t)...);}
+//template <typename T>
+//void out(vector<T> &v){for(T &x:v)out(' '),out(x);out('\n');}
+//void out(vector<T> &v){for(T &x:v)out(&x == &v[0]?"":" "),out(x);out('\n');}
 #undef svo
 
 void skip() {
