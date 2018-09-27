@@ -38,10 +38,10 @@ void out(head&& h, tail&&... t){out(h);out(move(t)...);}
 
 int main() {
 	int n;
-	vector<int> v(31);
-	v[0] = 1;
+	vector<char> v(31);
+	v[0] = true;
 	while(scan(n))
-		v[n] = 1;
+		v[n] = true;
 
 	for (auto &b: v)
 		if (!b)
