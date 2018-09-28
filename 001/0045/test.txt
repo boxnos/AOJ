@@ -1,0 +1,7 @@
+# Sample Input
+100,20
+50,10
+70,35
+# Output for the Sample Input
+4950
+22
