@@ -41,27 +41,27 @@ typedef vector<int> v;
 
 struct deck {
 	v d;
-	int total = 0;
+	int t = 0;
 
 	deck(int n) {
 		d = v(n);
 		for (int &x: d)
-			x = in(), total += x;
+			x = in(), t += x;
 		sort(d.begin(), d.end());
 		d.erase(unique(d.begin(), d.end()), d.end());
 	}
 
-	v equal_total_scores(deck b) {
-		for (int i: d)
-			for (int j: b.d)
-				if (total - i + j == b.total - j + i)
-					return {i, j};
-		return {-1};
-	}
+	v cmp(deck &b, size_t i, size_t j) {
+		if (i >= d.size() || j >= b.d.size())
+			return {-1};
 
-	void display() {
-		out(d);
-		out("total = ", total, '\n');
+		int a = d[i], c = b.d[j], diff = (t - a + c) - (b.t - c + a);
+		if (!diff)
+			return {a, c};
+		if (diff > 0)
+			return cmp(b, i + 1, j);
+		else
+			return cmp(b, i, j + 1);
 	}
 };
 
@@ -69,9 +69,7 @@ int main() {
 	int n, m;
 	while (n = in(), m = in(), n || m) {
 		deck a(n), b(m);
-		//a.display();
-		//b.display();
-		v r = a.equal_total_scores(b);
+		v r = a.cmp(b, 0, 0);
 		out(r);
 	}
 }
