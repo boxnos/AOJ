@@ -47,8 +47,8 @@ struct deck {
 		d = v(n);
 		for (int &x: d)
 			x = in(), total += x;
-		//sort(d.begin(), d.end());
-		unique(d.begin(), d.end());
+		sort(d.begin(), d.end());
+		d.erase(unique(d.begin(), d.end()), d.end());
 	}
 
 	v equal_total_scores(deck b) {
@@ -61,7 +61,7 @@ struct deck {
 
 	void display() {
 		out(d);
-		out(" total = ", total, '\n');
+		out("total = ", total, '\n');
 	}
 };
 
