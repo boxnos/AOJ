@@ -36,26 +36,24 @@ void out(vector<T> &v){for(T &x:v)out(&x == &v[0]?"":" "),out(x);out('\n');}
 #undef svo
 
 int main() {
-	int gems;
-	while ((gems = in())) {
+	int gems, g;
+	while ((gems = g = in())) {
 		vector<vector<int>> map(21, vector<int>(21));
-		for (int i = 0; i < gems; i++) {
+		while (g--) {
 			int x = in(), y = in();
 			map[y][x] = true;
 		}
-		int operations = in();
-		int x = 10, y = 10;
+		int operations = in(), x = 10, y = 10;
 		while (operations--) {
-			char d = gcu(); gcu();
-			int n = in();
-			int dx, dy;
-			switch (d) {
-			case 'N' : dx = 0, dy =  1; break;
-			case 'E' : dx = 1, dy =  0; break;
-			case 'S' : dx = 0, dy = -1; break;
-			default  : dx = -1, dy = 0; break;
+			int dx = 0, dy = 0;
+			switch (gcu()) {
+			case 'N' : dy = 1;  break;
+			case 'S' : dy = -1; break;
+			case 'E' : dx = 1;  break;
+			default  : dx = -1; break;
 			}
-			for (int i = n; i > 0; i--) {
+			gcu();
+			for (int i = in(); i > 0; i--) {
 				x += dx; y += dy;
 				if (map[y][x]) {
 					map[y][x] = false;
