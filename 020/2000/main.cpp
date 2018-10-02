@@ -46,12 +46,11 @@ int main() {
 		int operations = in(), x = 10, y = 10;
 		while (operations--) {
 			int dx = 0, dy = 0;
-			switch (gcu()) {
-			case 'N' : dy = 1;  break;
-			case 'S' : dy = -1; break;
-			case 'E' : dx = 1;  break;
-			default  : dx = -1; break;
-			}
+			char d = gcu();
+			if (~d & 5)
+				dy = (d & 4) / 2 - 1;
+			else
+				dx = (~d & 2) - 1;
 			gcu();
 			for (int i = in(); i > 0; i--) {
 				x += dx; y += dy;
