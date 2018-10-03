@@ -1,6 +1,7 @@
 a.out
 main
 *.class
+gmon.out
 
 in_*
 out_*
