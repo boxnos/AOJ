@@ -40,18 +40,18 @@ int main() {
 	int n;
 	while ((n = in())) {
 		array<int, 3> r = {1, 2, 3};
-		auto rot = [&](int a, int b, int x){swap(r[a], r[b]);r[x] = 7 - r[x];};
+		auto rot = [&](int b, int x){swap(r[b], r[x]);r[x] = 7 - r[x];};
 		int sum = 1;
 		while (n--) {
 			string s;
 			scan(s);
 			switch (s[0]) {
-			case 'N': rot(0, 1, 1); break;
-			case 'S': rot(0, 1, 0); break;
-			case 'E': rot(0, 2, 0); break;
-			case 'W': rot(0, 2, 2); break;
-			case 'R': rot(1, 2, 2); break;
-			case 'L': rot(1, 2, 1); break;
+			case 'N': rot(0, 1); break;
+			case 'S': rot(1, 0); break;
+			case 'E': rot(2, 0); break;
+			case 'W': rot(0, 2); break;
+			case 'R': rot(1, 2); break;
+			case 'L': rot(2, 1); break;
 			}
 			sum += r[0];
 		}
