@@ -39,34 +39,15 @@ void out(head&& h, tail&&... t){out(h);out(move(t)...);}
 vector<int> sieve;
 
 void make_sieve(int m) {
-	const int l = m / 2 + 1;
-	vector<bool> s(l, true);
+	sieve = vector<int>(m, true);
+	for (int i = 4; i < m; i += 2)
+		sieve[i] = false;
 	for (int i = 3, e = sqrt(m); i <= e; i += 2) {
-		if (!s[i / 2])
+		if (!sieve[i])
 			continue;
-		for (int j = i * i / 2; j < l; j += i)
-			s[j] = false;
+		for (int j = i * i; j < m; j += i)
+			sieve[j] = false;
 	}
-	for (int i = 1; i < l; i++)
-		if (s[i])
-			sieve.push_back(i * 2 + 1);
-}
-
-bool is_prime(int x)
-{
-	if (x == 2)
-		return true;
-	else if (x % 2 == 0)
-		return false;
-
-	const int e = sqrt(x);
-	for (int p : sieve)
-		if (p > e)
-			return true;
-		else if (x % p == 0)
-			return false;
-
-	return true;
 }
 
 int main()
@@ -78,12 +59,12 @@ int main()
 		m = max(m, n);
 	}
 
-	make_sieve(sqrt(m * 2));
+	make_sieve(m * 2 + 1);
 	vector<int> map(m * 2 + 1);
 
 	int c = 0;
 	for (int i = 2; i <= m * 2; i++)
-		map[i] = is_prime(i) ? ++c: c;
+		map[i] = sieve[i] ? ++c: c;
 
 	for (int p: d)
 		out(map[p * 2] - map[p], '\n');
