@@ -60,14 +60,14 @@ int main()
 	}
 
 	make_sieve(m * 2 + 1);
-	vector<int> map(m * 2 + 1);
+	vector<int> acc(m * 2 + 1);
 
 	int c = 0;
 	for (int i = 2; i <= m * 2; i++)
-		map[i] = sieve[i] ? ++c: c;
+		acc[i] = sieve[i] ? ++c: c;
 
 	for (int p: d)
-		out(map[p * 2] - map[p], '\n');
+		out(acc[p * 2] - acc[p], '\n');
 }
 
 /* vim: set ts=4 noet: */
