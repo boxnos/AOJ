@@ -1,0 +1,7 @@
+# Sample Input
+2
+65539010
+65539010
+# Output for the Sample Input
+96417531
+96417531
