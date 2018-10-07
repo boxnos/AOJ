@@ -1,0 +1,4 @@
+# Sample Input
+the cost of one peach is higher than that of one apple.
+# Output for the Sample Input
+the cost of one apple is higher than that of one peach.
