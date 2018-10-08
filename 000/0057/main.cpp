@@ -14,8 +14,8 @@ ii(int c) {
 ii() {return in(gcu());}
 is(int &n){int c=gcu();return c==EOF?false:(n=in(c),true);}
 is(char &c){c=gcu();gcu();return c!=EOF;}
-is(string &s){int c;
-	for(;;){c=gcu();if(c=='\n'||c==' ')return true;else if(c==EOF)return false;s+=c;}}
+//is(string &s){int c;
+//	for(;;){c=gcu();if(c=='\n'||c==' ')return true;else if(c==EOF)return false;s+=c;}}
 #undef ii
 #define pcu putchar_unlocked
 template <typename T>
@@ -28,7 +28,7 @@ void out(T n) {
 	while (p != buf) pcu(*--p); }
 void out(const char *s){while(*s)pcu(*s++);}
 void out(char c){pcu(c);}
-void out(string &s){for (char c: s) pcu(c);}
+//void out(string &s){for (char c: s) pcu(c);}
 template <typename head, typename... tail>
 void out(head&& h, tail&&... t){out(h);out(move(t)...);}
 //template <typename T>
