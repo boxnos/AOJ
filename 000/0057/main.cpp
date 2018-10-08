@@ -1,8 +1,5 @@
 #include <cstdio>
 #include <utility>
-#include <iostream>
-#include <string>
-#include <regex>
 using namespace std;
 
 #define gcu getchar_unlocked
