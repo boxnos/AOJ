@@ -39,8 +39,11 @@ void out(head&& h, tail&&... t){out(h);out(move(t)...);}
 int main() {
 	for (;;) {
 		stack<char> s;
-		bool world = true, b = false;
-		for (char c; c = gcu(), c != '.'; b = true)
+		bool world = true;
+		char c = gcu();
+		if (c == '.')
+			break;
+		do {
 			if (world)
 				switch(c) {
 				case '(': s.push(')'); break;
@@ -53,11 +56,9 @@ int main() {
 						s.pop();
 					break;
 				}
-		if (b) {
-			gcu();
-			out(world && s.empty() ? "yes" : "no", '\n');
-		} else
-			break;
+		} while (c = gcu(), c != '.');
+		gcu();
+		out(world && s.empty() ? "yes" : "no", '\n');
 	}
 }
 
