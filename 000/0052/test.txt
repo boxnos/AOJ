@@ -1,0 +1,9 @@
+# Sample Input
+2
+12
+10000
+0
+# Output for the Sample Input
+0
+2
+2499
