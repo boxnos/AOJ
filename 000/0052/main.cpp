@@ -1,5 +1,6 @@
 #include <cstdio>
 #include <utility>
+#include <cmath>
 using namespace std;
 
 #define gcu getchar_unlocked
@@ -38,9 +39,8 @@ void out(head&& h, tail&&... t){out(h);out(move(t)...);}
 int main() {
 	for (int n; (n = in());) {
 		int c = 0;
-		for (int i = 5; i <= n; i += 5)
-			for (int j = i; j && !(j % 5); j /= 5)
-				c++;
+		for (int i = 1; i <= log(n) / log(5); i++)
+			c += n / (int) pow(5, i);
 		out(c, '\n');
 	}
 }
