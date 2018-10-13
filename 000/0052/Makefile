@@ -1,5 +1,6 @@
 SHELL = /bin/bash
-CXXFLAGS = -std=c++11 -O2 -Wall -Wextra
+FLAGS = -std=c++11 -Wall -Wextra
+CXXFLAGS = $(FLAGS) -O2
 target = main
 rm_prefix = $(subst test-in,,$1)
 make = make --no-print-directory
@@ -20,13 +21,13 @@ clean:
 	rm -f $(target) in* out* gmon.out
 
 debug: in_0 $(target)
-	$(make) -B $(target) $(addprefix debug-,$(shell ls -v in*)) CXXFLAGS="$(CXXFLAGS) -g"
+	$(make) -B $(target) $(addprefix debug-,$(shell ls -v in*)) CXXFLAGS="$(FLAGS) -g"
 
 debug-in%:
 	gdb ./$(target)
 
 profile:
-	$(make) -B test CXXFLAGS="$(CXXFLAGS) -pg -g"
+	$(make) -B test CXXFLAGS="$(FLAGS) -pg -g"
 	gprof ./$(target) gmon.out | less
 	$(make) clean
 
