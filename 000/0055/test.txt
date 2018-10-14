@@ -1,0 +1,8 @@
+# Sample Input
+1.0
+2.0
+3.0
+# Output for the Sample Input
+7.81481481
+15.62962963
+23.44444444
