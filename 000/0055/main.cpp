@@ -36,11 +36,9 @@ void out(head&& h, tail&&... t){out(h);out(move(t)...);}
 #undef svo
 
 int main() {
-	double a, b = 1, base = 1;
-	for (int i = 2; i <= 10; i++)
-		base += b = i % 2 ? b / 3 : b * 2;
+	double a;
 	while (scanf("%lf", &a) != EOF)
-		printf("%.8lf\n", base * a);
+		printf("%.8lf\n", 211/27 * a);
 }
 
 /* vim: set ts=4 noet: */
