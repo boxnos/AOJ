@@ -36,5 +36,5 @@ download:
 
 rank:
 	curl -sS https://judgeapi.u-aizu.ac.jp/users/ranking/solved\?page=0\&size=1000 | jq '.users[] | select(.id == "boxnos") | {rank: .rank, solved: .solved}'
-	curl -sS https://judgeapi.u-aizu.ac.jp/users/ranking/rating\?page=2\&size=1000 | jq '.users[] | select(.id =="boxnos") | {rank: .rank, rating: .rating, diff: .diff}'
+	curl -sS https://judgeapi.u-aizu.ac.jp/users/ranking/rating\?page=1\&size=1000 | jq '.users[] | select(.id =="boxnos") | {rank: .rank, rating: .rating, diff: .diff}'
 
