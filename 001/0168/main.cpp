@@ -1,5 +1,6 @@
 #include <cstdio>
 #include <utility>
+#include <vector>
 using namespace std;
 
 #define gcu getchar_unlocked
@@ -35,18 +36,20 @@ void out(head&& h, tail&&... t){out(h);out(move(t)...);}
 //void out(vector<T> &v){for(T &x:v)out(&x == &v[0]?"":" "),out(x);out('\n');}
 #undef svo
 
-int fib (int a, int b, int c, int n) {
-	switch (n) {
-	case 1: return a;
-	case 2: return b;
-	case 3: return c;
-	default: return fib(b, c, a + b + c, n - 1);
-	}
+int fib (int n) {
+	static vector<int> v = {1, 1, 2, 4};
+	int m = v.size();
+	if (n < m)
+		return v[n];
+	v.resize(n + 1);
+	for (int i = m; i < n + 1; i++)
+		v[i] = v[i - 3] + v[i - 2] + v[i - 1];
+	return v[n];
 }
 
 int main() {
 	for (int n; (n = in());)
-		out(fib(1, 2, 4, n)/3650 + 1, '\n');
+		out(fib(n)/3650 + 1, '\n');
 }
 
 /* vim: set ts=4 noet: */
