@@ -43,8 +43,7 @@ int main() {
 		for (; i < j; i++, j--)
 			if (s[i] != s[j])
 				break;
-		if (i >= j)
-			c++;
+		c += i >= j;
 	}
 	out(c, '\n');
 }
