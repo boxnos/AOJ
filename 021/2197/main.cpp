@@ -38,26 +38,21 @@ void out(vector<T> &v){for(T &x:v)out(&x == &v[0]?"":" "),out(x);out('\n');}
 
 int odd_divisor_count(int n) {
 	static const vector<int> p = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37};
-	struct D {int n, k;};
-	vector<D> d;
+	int c = 1;
 
 	for (int i = 0; n != 1 && p[i] * p[i] <= n; i++) {
-		D tmp = {p[i], 0};
+		int k = 1;
 		while (!(n % p[i])) {
-			tmp.k++;
+			k++;
 			n /= p[i];
 		}
-		if(tmp.k)
-			d.push_back(tmp);
+		if (p[i] != 2)
+			c *= k;
 	}
-	if (n != 1)
-		d.push_back({n, 1});
+	if (n > 2)
+		c *= 2;
 
-	int pd = 1;
-	for (D x: d)
-		if (x.n != 2)
-			pd *= x.k + 1;
-	return pd - 1;
+	return c - 1;
 }
 
 int main() {
