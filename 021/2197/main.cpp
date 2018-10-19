@@ -1,5 +1,6 @@
 #include <cstdio>
 #include <utility>
+#include <vector>
 using namespace std;
 
 #define gcu getchar_unlocked
@@ -31,17 +32,37 @@ void out(char c){pcu(c);}
 //void out(string &s){for (char c: s) pcu(c);}
 template <typename head, typename... tail>
 void out(head&& h, tail&&... t){out(h);out(move(t)...);}
-//template <typename T>
-//void out(vector<T> &v){for(T &x:v)out(&x == &v[0]?"":" "),out(x);out('\n');}
+template <typename T>
+void out(vector<T> &v){for(T &x:v)out(&x == &v[0]?"":" "),out(x);out('\n');}
 #undef svo
 
-int main() {
-	for (int n; (n = in());) {
-		int c = 0;
-		for (int i = 2, sum = 3; sum <= n; i++, sum += i)
-			c += (n - sum) % i == 0;
-		out(c, '\n');
+int odd_divisor_count(int n) {
+	static const vector<int> p = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37};
+	struct D {int n, k;};
+	vector<D> d;
+
+	for (int i = 0; n != 1 && p[i] * p[i] <= n; i++) {
+		D tmp = {p[i], 0};
+		while (!(n % p[i])) {
+			tmp.k++;
+			n /= p[i];
+		}
+		if(tmp.k)
+			d.push_back(tmp);
 	}
+	if (n != 1)
+		d.push_back({n, 1});
+
+	int pd = 1;
+	for (D x: d)
+		if (x.n != 2)
+			pd *= x.k + 1;
+	return pd - 1;
+}
+
+int main() {
+	for (int n; (n = in());)
+		out(odd_divisor_count(n), '\n');
 }
 
 /* vim: set ts=4 noet: */
