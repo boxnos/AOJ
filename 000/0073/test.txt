@@ -1,0 +1,10 @@
+# Sample Input
+6
+4
+7
+9
+0
+0
+# Output for the Sample Input
+96.000000
+184.192455
