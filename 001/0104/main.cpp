@@ -37,26 +37,30 @@ void out(head&& h, tail&&... t){out(h);out(move(t)...);}
 //void out(vector<T> &v){for(T &x:v)out(&x == &v[0]?"":" "),out(x);out('\n');}
 #undef svo
 
+typedef vector<string> v;
+
+void slip(v &r) {
+	int x = 0, y = 0;
+	for (;;) {
+		char c = r[y][x];
+		r[y][x] = 'X';
+		switch (c) {
+		case '.': out(x, ' ', y, '\n'); return;
+		case 'X': out("LOOP\n"); return;
+		case '>': x += 1; break;
+		case '<': x -= 1; break;
+		case 'v': y += 1; break;
+		case '^': y -= 1; break;
+		}
+	}
+}
+
 int main() {
 	for (int H, W; H = in(), W = in(), H || W;) {
-		vector<string> r(H);
+		v r(H);
 		for (auto &s: r)
 			scan(s);
-		int x = 0, y = 0;
-		char c = r[y][x];
-		for (;c != '.' && c != 'X'; c = r[y][x]) {
-			r[y][x] = 'X';
-			switch (c) {
-			case '>': x += 1; break;
-			case '<': x -= 1; break;
-			case 'v': y += 1; break;
-			case '^': y -= 1; break;
-			}
-		}
-		if (c == 'X')
-			out("LOOP\n");
-		else
-			out(x, ' ', y, '\n');
+		slip(r);
 	}
 }
 
