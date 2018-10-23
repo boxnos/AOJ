@@ -1,7 +1,6 @@
 #include <cstdio>
 #include <utility>
-#include <vector>
-#include <string>
+#include <unordered_map>
 using namespace std;
 
 #define gcu getchar_unlocked
@@ -37,26 +36,19 @@ void out(head&& h, tail&&... t){out(h);out(move(t)...);}
 //void out(vector<T> &v){for(T &x:v)out(&x == &v[0]?"":" "),out(x);out('\n');}
 #undef svo
 
-typedef vector<string> v;
-
-char pat_search(v &a) {
-	static auto p = [&a](int i, int j) {
-		return i < 8 && j < 8 && a[i][j] == '1';};
-	for (int i = 0; i < 8; i++)
-		for (int j = 0; j < 8; j++)
-			if (a[i][j] == '1') {
-				return p(i + 1, j + 1)? p(i, j + 1)? p(i + 1, j + 2)? 'E' : 'A' : 'F' :
-					p(i, j + 1)? p(i, j + 2)? 'C' : 'G' : p(i + 2, j)? 'B' : 'D';
-			}
-	return 'X';
-}
+typedef unsigned long ul;
 
 int main() {
-	v a(8);
+	unordered_map<ul, char> m = {{0x303, 'A'}, {0x1010101, 'B'}, {0xf, 'C'},
+		{0x8181, 'D'}, {0x603, 'E'}, {0x20301, 'F'}, {0x183, 'G'}};
 	do {
-		for (auto &s: a)
-			scan(s);
-		out(pat_search(a), '\n');
+		ul n = 0;
+		for (int i = 0; i < 8; i++) {
+			for (int j = 0; j < 8; j++)
+				n = (n << 1) + gcu() - '0';
+			gcu();
+		}
+		out(m[n / (n & -n)], '\n');
 	} while (gcu() == '\n');
 }
 
