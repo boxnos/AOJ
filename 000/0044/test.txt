@@ -1,0 +1,6 @@
+# Sample Input
+19
+3517
+# Output for the Sample Input
+17 23
+3511 3527
