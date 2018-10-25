@@ -1,6 +1,7 @@
 #include <cstdio>
 #include <utility>
 #include <vector>
+#include <algorithm>
 using namespace std;
 
 #define gcu getchar_unlocked
@@ -30,24 +31,23 @@ vo(head&& h, tail&&... t){out(h);out(move(t)...);}
 //vo(vector<T> &v){for(T &x:v)out(&x == &v[0]?"":" "),out(x);out('\n');}
 #undef vo
 
-struct point {int x, y;};
+struct P {int x, y;};
 
 int main() {
+	vector<int> dx = {-1, 0, 1, 0}, dy = {0, 1, 0, -1};
 	for (int n; (n = in());) {
-		point ps = {0, 0}, pe = ps;
-		vector<point> tiles = {ps};
+		vector<P> t = {{0, 0}};
 		for (int i = 1; i < n; i++) {
-			int n = in(), d = in();
-			point p = tiles[n];
-			switch (d) {
-			case 0: p.x--; ps.x = min(ps.x, p.x); break;
-			case 1: p.y++; pe.y = max(pe.y, p.y); break;
-			case 2: p.x++; pe.x = max(pe.x, p.x); break;
-			case 3: p.y--; ps.y = min(ps.y, p.y); break;
-			}
-			tiles.push_back(p);
+			P p = t[in()];
+			int d = in();
+			t.push_back({p.x + dx[d], p.y + dy[d]});
 		}
-		out(pe.x - ps.x + 1, " ", pe.y - ps.y + 1, '\n');
+#define mmelm(o, b) minmax_element(o.begin(), o.end(), b)
+#define cmp(xy) [](const P &a, const P &b) {return a.xy < b.xy;}
+#define diff(xy) (*xy.second).xy - (*xy.first).xy + 1
+		auto x = mmelm(t, cmp(x));
+		auto y = mmelm(t, cmp(y));
+		out(diff(x), " ", diff(y), '\n');
 	}
 }
 
