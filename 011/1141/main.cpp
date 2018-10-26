@@ -52,13 +52,9 @@ bool is_prime(int n) {
 int main() {
 	make_sieve(1000000);
 	for (int a, b, c; a = in(), b = in(), c = in();) {
-		for (int i = 0;; a += b) {
-			if (is_prime(a)) {
-				i++;
-				if (i == c)
-					break;
-			}
-		}
+		for (int i = 0;; a += b)
+			if (is_prime(a) && ++i == c)
+				break;
 		out(a, '\n');
 	}
 }
