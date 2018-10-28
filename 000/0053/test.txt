@@ -1,0 +1,7 @@
+# Sample Input
+2
+9
+0
+# Output for the Sample Input
+5
+100
