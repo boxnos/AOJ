@@ -1,0 +1,11 @@
+# Sample Input
+4
+aa
+abba
+abcd
+abcde
+# Output for the Sample Input
+1
+6
+12
+18
