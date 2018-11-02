@@ -27,7 +27,7 @@ template <typename head, typename... tail> vo(head&& h, tail&&... t){out(h);out(
 
 int main() {
 	for (int e, m; (e = m = in());) {
-		for (int z = cbrt(e) + 0.0001; z >= 0; z--) {
+		for (int z = cbrtl(e); z >= 0; z--) {
 			int te = e - z * z * z;
 			int y = (int)sqrt(te);
 			int tm = z + y + te - y * y;
