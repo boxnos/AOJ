@@ -1,0 +1,8 @@
+# Sample Input
+4823108376
+1234567890
+0123456789
+# Output for the Sample Input
+5
+6
+4
