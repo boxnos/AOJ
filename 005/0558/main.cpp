@@ -29,30 +29,19 @@ template <typename head, typename... tail> vo(head&& h, tail&&... t){out(h);out(
 struct point {int x, y;};
 typedef vector<string> map;
 
-int distance(point s, point e) {
-	return abs(e.x - s.x) + abs(e.y - s.y);
-}
-struct node {
-	int g, h, f;
-	point p;
-	bool operator < (const node &a) const {
-		return f > a.f;
-	};
-};
+struct node {int d; point p;};
 
 int walk(point s, point e, map m) {
-	priority_queue<node> q;
+	queue<node> q;
 	static point d[4] = {{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
 
-	int sd = distance(s, e);
-	q.push({0, sd, sd, s});
+	q.push({0, s});
 
 	while (!q.empty()) {
-		node n = q.top();
+		node n = q.front();
 		q.pop();
-		if (!n.h)
-			return n.g;
-		m[n.p.y][n.p.x] = '#';
+		if (n.p.x == e.x && n.p.y == e.y)
+			return n.d;
 		for (auto p: d) {
 			p.x += n.p.x;
 			p.y += n.p.y;
@@ -60,8 +49,8 @@ int walk(point s, point e, map m) {
 				&& p.y >= 0 && p.y < (int) m.size()) {
 				char &c = m[p.y][p.x];
 				if (c == '.') {
-					int g = n.g + 1, h = distance(p, e);
-					q.push({g, h, g + h, p});
+					c = 'X';
+					q.push({n.d + 1, p});
 				}
 			}
 		}
@@ -69,11 +58,10 @@ int walk(point s, point e, map m) {
 	return 0;
 }
 
-
 int main() {
-	int h = in(), w = in(), d = 0, n = in();
-	vector<string> m(h);
-	vector<point> p(n);
+	int h = in(), w = in(), d = 0;
+	map m(h);
+	vector<point> p(in());
 	point s;
 	for (int i = 0; i < h; i++) {
 		for (int j = 0; j < w; j++) {
