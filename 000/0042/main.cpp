@@ -26,35 +26,26 @@ template <typename head, typename... tail> vo(head&& h, tail&&... t){out(h);out(
 
 struct T {int v, w;};
 
-T find(int n, int w, vector<T> &ts, vector<vector<T>> &m) {
-	T r;
-	if (n < 0)
-		return {0, w};
-	else if (m[n][w].w != -1)
-		return m[n][w];
-	else if (ts[n].w > w)
-		r = find(n - 1, w, ts, m);
-	else {
-		T a = find(n - 1, w, ts, m),
-		  b = find(n - 1, w - ts[n].w, ts, m);
-		b.v += ts[n].v;
-		r = a.v > b.v ? a : b;
-	}
-	m[n][w] = r;
-	return r;
-}
-
 int main() {
 	for (int w, n, i = 1; (w = in()) && (n = in()); i++) {
 		out("Case ", i, ":\n");
 		vector<T> ts(n);
-		vector<vector<T>> m(n, vector<T>(w + 1, {0, -1}));
+		vector<vector<T>> m(n + 1, vector<T>(w + 1, {0, 0}));
 		for (auto &t: ts) {
 			int v = in();
 			t = {v, in()};
 		}
-		T r = find(n - 1, w, ts, m);
-		out(r.v, '\n', w - r.w, '\n');
+		for (int i = n - 1; i >= 0; i--)
+			for (int j = 0; j <= w; j++)
+				if (j < ts[i].w)
+					m[i][j] = m[i + 1][j];
+				else {
+					T a = m[i + 1][j], b = m[i + 1][j - ts[i].w];
+					b = {b.v + ts[i].v, b.w + ts[i].w};
+					m[i][j] = (a.v >= b.v) ? a : b;
+				}
+		T r = m[0][w];
+		out(r.v, '\n', r.w, '\n');
 	}
 }
 
