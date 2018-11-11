@@ -28,22 +28,22 @@ typedef vector<int> vi;
 
 int main() {
 	for (int a, b; a = in(), b = in(), a || b;) {
-		vector<vi> m(b, vi(a));
+		vector<vi> m(b + 1, vi(a + 1));
 		for (int n = in(); n--;) {
-			int x = in() - 1, y = in() - 1;
+			int x = in(), y = in();
 			m[y][x] = -1;
 		}
-		m[0][0] = 1;
-		for (int i = 0; i < b; i++)
-			for (int j = 0; j < a; j++) {
+		m[1][1] = 1;
+		for (int i = 1; i <= b; i++)
+			for (int j = 1; j <= a; j++) {
 				if (m[i][j] == -1)
 					continue;
-				if (i - 1 >= 0 && m[i - 1][j] != -1)
+				if (m[i - 1][j] != -1)
 					m[i][j] += m[i - 1][j];
-				if (j - 1 >= 0 && m[i][j - 1] != -1)
+				if (m[i][j - 1] != -1)
 					m[i][j] += m[i][j - 1];
 			}
-		out(m[b - 1][a - 1], '\n');
+		out(m[b][a], '\n');
 	}
 }
 
