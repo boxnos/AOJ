@@ -6,7 +6,7 @@ rm_prefix = $(subst test-in,,$1)
 make = make --no-print-directory
 
 test: in_0 $(target)
-	time  $(make) $(addprefix test-,$(shell ls -v in*))
+	time $(make) $(addprefix test-,$(shell ls -v in*))
 
 test-in%:
 #	./$(target) < in$(call rm_prefix,$@)
