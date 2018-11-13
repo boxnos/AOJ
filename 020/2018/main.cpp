@@ -1,6 +1,5 @@
 #include <cstdio>
 #include <utility>
-#include <vector>
 using namespace std;
 
 #define gcu getchar_unlocked
@@ -24,17 +23,15 @@ template <typename head, typename... tail> vo(head&& h, tail&&... t){out(h);out(
 //template <typename T> vo(vector<T> &v){for(T &x:v)out(&x == &v[0]?"":" "),out(x);out('\n');}
 #undef vo
 
-typedef vector<int> vi;
-
 int main() {
 	for (int N, M, P; N = in(), M = in(), P = in(), N || M || P;) {
-		int sum = 0;
-		vector<int> X(N);
-		for (int &x: X) {
-			x = in();
-			sum += x * 100;
+		int s = 0, x = 0, t;
+		for (int i = 1; i <= N; i++) {
+			s += t = in();
+			if (i == M)
+				x = t;
 		}
-		out(X[--M] ? (sum - sum * P / 100) / X[M] : 0, '\n');
+		out(x ? s * (100 - P) / x : 0, '\n');
 	}
 }
 
