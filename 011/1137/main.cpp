@@ -2,6 +2,7 @@
 #include <utility>
 #include <string>
 #include <cctype>
+#include <stack>
 using namespace std;
 
 #define gcu getchar_unlocked
@@ -20,7 +21,7 @@ vo(T n){static char buf[20];char *p=buf;
 	while (p!=buf)pcu(*--p);}
 vo(const char *s){while(*s)pcu(*s++);}
 vo(char c){pcu(c);}
-vo(string &s){for (char c: s) pcu(c);}
+//vo(string &s){for (char c: s) pcu(c);}
 template <typename head, typename... tail> vo(head&& h, tail&&... t){out(h);out(move(t)...);}
 //template <typename T> vo(vector<T> &v){for(T &x:v)out(&x == &v[0]?"":" "),out(x);out('\n');}
 #undef vo
@@ -42,14 +43,16 @@ int decode() {
 	return n;
 }
 
-string encode(int n) {
-	string s, suffix = "ixcm";
+stack<char> encode(int n) {
+	stack<char> s;
+	static const string suffix = "ixcm";
 	for (auto i = suffix.begin(); n; i++, n /= 10) {
 		char d = n % 10;
-		if (d == 1)
-			s = *i + s;
-		else if (d)
-			s = to_string(d) + *i + s;
+		if (d) {
+			s.push(*i);
+			if (d > 1)
+				s.push(d + '0');
+		}
 	}
 	return s;
 }
@@ -57,7 +60,9 @@ string encode(int n) {
 int main() {
 	for (int n = in(); n--;) {
 		int a = decode();
-		out(encode(a + decode()), '\n');
+		for (stack<char> s = encode(a + decode()); !s.empty();s.pop())
+			out(s.top());
+		out('\n');
 	}
 }
 
