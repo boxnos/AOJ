@@ -38,7 +38,7 @@ void out(head&& h, tail&&... t){out(h);out(move(t)...);}
 int main() {
 	double a;
 	while (scanf("%lf", &a) != EOF)
-		printf("%.8lf\n", 211.0/27 * a);
+		printf("%.8lf\n", a * 211/27);
 }
 
 /* vim: set ts=4 noet: */
