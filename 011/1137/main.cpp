@@ -36,7 +36,6 @@ int decode() {
 		case 'm': d *= 1000; break;
 		case 'c': d *= 100; break;
 		case 'x': d *= 10; break;
-		default:;
 		}
 		n += d;
 	}
@@ -54,7 +53,7 @@ stack<char> encode(int n) {
 				s.push(d + '0');
 		}
 	}
-	return s;
+	return move(s);
 }
 
 int main() {
