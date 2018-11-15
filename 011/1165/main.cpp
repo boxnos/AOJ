@@ -42,11 +42,10 @@ int main() {
 			int d = in();
 			t.push_back({p.x + dx[d], p.y + dy[d]});
 		}
-#define mmelm(o, b) minmax_element(o.begin(), o.end(), b)
-#define cmp(xy) [](const P &a, const P &b) {return a.xy < b.xy;}
+#define mme(o, xy) minmax_element(o.begin(), o.end(), [](const P &a, const P &b) {return a.xy < b.xy;})
 #define diff(xy) (*xy.second).xy - (*xy.first).xy + 1
-		auto x = mmelm(t, cmp(x));
-		auto y = mmelm(t, cmp(y));
+		auto x = mme(t, x);
+		auto y = mme(t, y);
 		out(diff(x), " ", diff(y), '\n');
 	}
 }
