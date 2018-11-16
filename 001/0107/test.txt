@@ -1,0 +1,15 @@
+# Sample Input
+10 6 8
+5
+4
+8
+6
+2
+5
+0 0 0
+# Output for the Sample Input
+NA
+OK
+OK
+NA
+NA
