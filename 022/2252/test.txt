@@ -1,0 +1,13 @@
+# Sample Input
+koukyoukoukokukikou
+abrakadabra
+acmicpc
+japaque
+helloworld
+#
+# Output for the Sample Input
+0
+2
+4
+5
+7
