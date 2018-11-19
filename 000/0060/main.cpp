@@ -26,13 +26,8 @@ template <typename head, typename... tail> vo(head&& h, tail&&... t){out(h);out(
 #undef vo
 
 int main() {
-	for (int c[3]; scan(c[0], c[1], c[2]);) {
-		int d = 20 - c[0] - c[1];
-		for (int n : c)
-			if (n <= d)
-				d--;
-		out(d > 3 ? "YES" : "NO", '\n');
-	}
+	for (int a, b, c, m; scan(a, b, c);)
+		out((55 - a - b - c) / 7 <= 20 - a - b ? "YES" : "NO", '\n');
 }
 
 /* vim: set ts=4 noet: */
