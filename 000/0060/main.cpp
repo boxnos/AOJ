@@ -28,12 +28,10 @@ template <typename head, typename... tail> vo(head&& h, tail&&... t){out(h);out(
 int main() {
 	for (int c[3]; scan(c[0], c[1], c[2]);) {
 		int d = 20 - c[0] - c[1];
-		d = d > 10 ? 10 : d;
-		int s = d;
 		for (int n : c)
 			if (n <= d)
-				s--;
-		out(s > (7 - s) ? "YES" : "NO", '\n');
+				d--;
+		out(d > 3 ? "YES" : "NO", '\n');
 	}
 }
 
