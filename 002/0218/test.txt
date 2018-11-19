@@ -1,0 +1,17 @@
+# Sample Input
+4
+100 70 20
+98 86 55
+80 34 36
+65 79 65
+2
+99 81 20
+66 72 90
+0
+# Output for the Sample Input
+A
+A
+B
+C
+A
+B
