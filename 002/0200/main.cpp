@@ -2,8 +2,6 @@
 #include <utility>
 #include <vector>
 #include <array>
-#include <unordered_map>
-#include <queue>
 #include <climits>
 #include <algorithm>
 using namespace std;
@@ -31,44 +29,27 @@ template <typename head, typename... tail> vo(head&& h, tail&&... t){out(h);out(
 //template <typename T> vo(vector<T> &v){for(T &x:v)out(&x == &v[0]?"":" "),out(x);out('\n');}
 #undef vo
 
-typedef unordered_map<int ,array<int, 2>> node;
-struct cost {
-	int n, c;
-	bool operator <(const cost &co) const {
-		return c > co.c;
-	}
-};
+typedef vector<array<int, 2>> node;
 
 int main() {
 	for (int n, m; n = in(), m = in(), n || m;) {
-		vector<node> v(m + 1);
+		vector<node> v(m + 1, node(m + 1, {INT_MAX/2, INT_MAX/2}));
 		while (n--) {
-			int a, b, c, t;
-			scan(a, b, c, t);
+			int a = in(), b = in(), c = in(), t = in();
 			v[a][b] = {c, t};
 			v[b][a] = {c, t};
 		}
-		for (int k = in(); k--;) {
-			vector<cost> w(m + 1, {0, INT_MAX});
-			priority_queue<cost> Q;
-			Q.push({in(), 0});
-			int q = in(), r = in();
-			while (!Q.empty()) {
-				cost c = Q.top();
-				Q.pop();
-				if (c.n == q) {
-					out(c.c, '\n');
-					break;
-				}
-				if (w[c.n].n)
-					continue;
-				w[c.n].n = 1;
-				for (auto x: v[c.n]) {
-					int &m = w[x.first].c;
-					m = min(m, c.c + x.second[r]);
-					Q.push({x.first, m});
+		for (int k = 1; k <= m; k++)
+			for (int i = 1; i <= m; i++) {
+				for (int j = 1; j <= m; j++) {
+					auto &t = v[i][j];
+					t[0] = min(t[0], v[i][k][0] + v[k][j][0]);
+					t[1] = min(t[1], v[i][k][1] + v[k][j][1]);
 				}
 			}
+		for (int k = in(); k--;) {
+			int p = in(), q = in(), r = in();
+			out(v[p][q][r], '\n');
 		}
 	}
 }
