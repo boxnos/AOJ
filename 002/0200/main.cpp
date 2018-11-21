@@ -32,21 +32,18 @@ template <typename head, typename... tail> vo(head&& h, tail&&... t){out(h);out(
 typedef vector<array<int, 2>> node;
 
 int main() {
-	for (int n, m; n = in(), m = in(), n || m;) {
-		vector<node> v(m + 1, node(m + 1, {INT_MAX/2, INT_MAX/2}));
+	for (int n, m; n = in(), m = in(), m++ || n;) {
+		vector<node> v(m, node(m, {INT_MAX/2, INT_MAX/2}));
 		while (n--) {
 			int a = in(), b = in(), c = in(), t = in();
-			v[a][b] = {c, t};
-			v[b][a] = {c, t};
+			v[a][b] = v[b][a] = {c, t};
 		}
-		for (int k = 1; k <= m; k++)
-			for (int i = 1; i <= m; i++) {
-				for (int j = 1; j <= m; j++) {
+		for (int k = 1; k < m; k++)
+			for (int i = 1; i < m; i++)
+				for (int j = 1; j < m; j++) {
 					auto &t = v[i][j];
-					t[0] = min(t[0], v[i][k][0] + v[k][j][0]);
-					t[1] = min(t[1], v[i][k][1] + v[k][j][1]);
+					t = {min(t[0], v[i][k][0] + v[k][j][0]), min(t[1], v[i][k][1] + v[k][j][1])};
 				}
-			}
 		for (int k = in(); k--;) {
 			int p = in(), q = in(), r = in();
 			out(v[p][q][r], '\n');
