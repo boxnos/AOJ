@@ -30,14 +30,14 @@ int main() {
 		int r = 0;
 		for (int i = 1; i <= 12; i++) {
 			int m = in(), n = in();
-			if ((l -= m - n) <= 0 && !r)
-				r = i;
+			if ((l -= m - n) <= 0) {
+				out(r = i, '\n');
+				for (;++i <= 12;) while (gcu() != '\n');
+				break;
+			}
 		}
-		if (r)
-			out(r);
-		else
-			out("NA");
-		out('\n');
+		if (!r)
+			out("NA\n");
 	}
 }
 
