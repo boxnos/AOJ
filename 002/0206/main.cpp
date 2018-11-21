@@ -32,7 +32,7 @@ int main() {
 			int m = in(), n = in();
 			if ((l -= m - n) <= 0) {
 				out(r = i, '\n');
-				for (;++i <= 12;) while (gcu() != '\n');
+				while (++i <= 12) while (gcu() != '\n');
 				break;
 			}
 		}
