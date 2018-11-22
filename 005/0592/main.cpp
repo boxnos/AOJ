@@ -1,5 +1,6 @@
 #include <cstdio>
 #include <utility>
+#include <algorithm>
 using namespace std;
 
 #define gcu getchar_unlocked
@@ -27,10 +28,8 @@ template <typename head, typename... tail> vo(head&& h, tail&&... t){out(h);out(
 
 int main() {
 	int sum = 0;
-	for (int i = 5; i; i--) {
-		int s = in();
-		sum += s < 40 ? 40 : s;
-	}
+	for (int i = 5; i; i--)
+		sum += max(40, in());
 	out(sum / 5, '\n');
 }
 
