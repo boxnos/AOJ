@@ -1,0 +1,5 @@
+# Sample Input
+Thereare100yenonthetable.Iam17yearsold.
+Ishouldgohomeat6pm.
+# Output for the Sample Input
+123
