@@ -5,7 +5,7 @@ using namespace std;
 
 #define gcu getchar_unlocked
 int in(int c){int n=0;bool m=false;if(c=='-')m=true,c=gcu();
-	do{n=10*n+(c-'0'),c=gcu();}while(c>='0'&&c<='9');return m?-n:n;}
+	do{n=10*n+(c-'0'),c=gcu();}while(c>='0');return m?-n:n;} //&&c<='9'
 int in() {return in(gcu());}
 bool scan(int &n){int c=gcu();return c==EOF?false:(n=in(c),true);}
 bool scan(char &c){c=gcu();gcu();return c!=EOF;}
