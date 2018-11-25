@@ -28,14 +28,15 @@ template <typename head, typename... tail> vo(head&& h, tail&&... t){out(h);out(
 #undef vo
 
 struct node {int x, y, d;};
+typedef vector<bool> vb;
 
 int main() {
 	for (int w, h; w = in(), h = in(), w || h;) {
-		vector<vector<bool>> m(h * 2 + 1, vector<bool>(w + 2, true));
+		vector<vb> m(h * 2 + 1, vb(w + 2));
 		for (size_t i = 1; i < m.size() - 1; i++)
 			for (int j = 1, e = i % 2 ? (gcu(), w - 1) : w; j < e + 1; j++)
-				m[i][j] = in();
-		vector<vector<bool>> v(h + 1, vector<bool>(w + 1));
+				m[i][j] = !in();
+		vector<vb> v(h + 1, vb(w + 1));
 		queue<node> q;
 		q.push({1, 1, 1});
 		int res = 0;
@@ -47,12 +48,11 @@ int main() {
 			if (v[n.y][n.x])
 				continue;
 			v[n.y][n.x] = true;
-			static int dx[] = {1, 0, -1, 0}, dy[] = {0, 1, 0, -1}, tx[] = {0, 0, -1, 0};
-			int ty[] = {n.y * 2 - 1, n.y * 2, n.y * 2 - 1, (n.y - 1) * 2};
-			for (int i = 0; i < 4; i++) {
-				if (!m[ty[i]][n.x + tx[i]] && !v[n.y + dy[i]][n.x + dx[i]])
+			static int dx[] = {1, 0, -1, 0}, dy[] = {0, 1, 0, -1},
+					   tx[] = {0, 0, -1, 0}, ty[] = {-1, 0, 0, -2};
+			for (int i = 0; i < 4; i++)
+				if (m[n.y * 2 + ty[i]][n.x + tx[i]] && !v[n.y + dy[i]][n.x + dx[i]])
 					q.push({n.x + dx[i], n.y + dy[i], n.d + 1});
-			}
 		}
 		out(res, '\n');
 	}
