@@ -39,22 +39,22 @@ int main() {
 		vector<vb> v(h + 1, vb(w + 1));
 		queue<node> q;
 		q.push({1, 1, 1});
-		int res = 0;
+		int r = 0;
 		while (!q.empty()) {
 			node n = q.front();
 			q.pop();
 			if (n.x == w && n.y == h)
-				res = n.d;
+				r = n.d;
 			if (v[n.y][n.x])
 				continue;
 			v[n.y][n.x] = true;
 			static int dx[] = {1, 0, -1, 0}, dy[] = {0, 1, 0, -1},
-					   tx[] = {0, 0, -1, 0}, ty[] = {-1, 0, 0, -2};
+					   tx[] = {0, 0, -1, 0}, ty[] = {-1, 0, -1, -2};
 			for (int i = 0; i < 4; i++)
 				if (m[n.y * 2 + ty[i]][n.x + tx[i]] && !v[n.y + dy[i]][n.x + dx[i]])
 					q.push({n.x + dx[i], n.y + dy[i], n.d + 1});
 		}
-		out(res, '\n');
+		out(r, '\n');
 	}
 }
 
