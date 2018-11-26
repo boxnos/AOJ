@@ -37,12 +37,10 @@ int main() {
 			for (int j = 1, e = i % 2 ? (gcu(), w - 1) : w; j < e + 1; j++)
 				m[i][j] = !in();
 		vector<vb> v(h + 1, vb(w + 1));
-		queue<node> q;
-		q.push({1, 1, 1});
 		int r = 0;
-		while (!q.empty()) {
+		queue<node> q;
+		for (q.push({1, 1, 1}); !q.empty(); q.pop()) {
 			node n = q.front();
-			q.pop();
 			if (n.x == w && n.y == h)
 				r = n.d;
 			if (v[n.y][n.x])
