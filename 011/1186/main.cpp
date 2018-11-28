@@ -35,7 +35,7 @@ int main() {
 	vector<P> p;
 	for (int i = 1; i < N; i++)
 		for (int j = i + 1; j < N; j++)
-			p.push_back({i * i + j * j, i, j});
+			p.push_back(P{i * i + j * j, i, j});
 	sort(p.begin(), p.end());
 	for (int w, h; w = in(), h = in(), w || h;) {
 		auto r = upper_bound(p.begin(), p.end(), P{w * w + h * h, w, h});
