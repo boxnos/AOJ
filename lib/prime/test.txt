@@ -1,0 +1,4 @@
+# Sample Input
+50000000
+# Output for the Sample Input
+3001134
