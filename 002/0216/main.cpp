@@ -26,13 +26,21 @@ template <typename head, typename... tail> vo(head&& h, tail&&... t){out(h);out(
 //template <typename T> vo(vector<T> &v){for(T &x:v)out(&x == &v[0]?"":" "),out(x);out('\n');}
 #undef vo
 
+template<int N>
+struct T{
+	int a[N];
+	constexpr T() : a() {
+		int s[10] = {0, 125, 140};
+		for (int i = 3; i < 10; i++) s[i] = 160;
+		for (int i = 0; i < 10; i++) a[i] = 1150;
+		for (int i = 10; i < N; i++) a[i] = a[i - 1] + s[(i - 1) / 10];
+	}
+};
+
 int main() {
-	vector<int> s(10, 160), t(101, 1150);
-	s = {0, 125, 140};
-	for (int i = 10; i < 101; i++)
-		t[i] = t[i - 1] + s[(i - 1) / 10];
+	constexpr auto t = T<101>();
 	for (int w; ~(w = in());)
-		out(4280 - t[w], '\n');
+		out(4280 - t.a[w], '\n');
 }
 
 /* vim: set ts=4 noet: */

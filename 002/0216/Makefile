@@ -1,5 +1,5 @@
 SHELL = /bin/bash
-FLAGS = -std=c++11 -Wall -Wextra
+FLAGS = -std=c++14 -Wall -Wextra
 CXXFLAGS = $(FLAGS) -O2
 target = main
 rm_prefix = $(subst test-in,,$1)
