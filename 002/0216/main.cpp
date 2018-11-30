@@ -1,8 +1,5 @@
 #include <cstdio>
 #include <utility>
-#include <vector>
-#include <array>
-#include <algorithm>
 using namespace std;
 
 #define gcu getchar_unlocked
