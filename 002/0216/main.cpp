@@ -1,6 +1,8 @@
 #include <cstdio>
 #include <utility>
 #include <vector>
+#include <array>
+#include <algorithm>
 using namespace std;
 
 #define gcu getchar_unlocked
@@ -26,19 +28,18 @@ template <typename head, typename... tail> vo(head&& h, tail&&... t){out(h);out(
 //template <typename T> vo(vector<T> &v){for(T &x:v)out(&x == &v[0]?"":" "),out(x);out('\n');}
 #undef vo
 
-template<int N>
-struct T{
-	int a[N];
+struct T {
+	int a[101];
 	constexpr T() : a() {
 		int s[10] = {0, 125, 140};
 		for (int i = 3; i < 10; i++) s[i] = 160;
-		for (int i = 0; i < 10; i++) a[i] = 1150;
-		for (int i = 10; i < N; i++) a[i] = a[i - 1] + s[(i - 1) / 10];
+		for (int i = 0; i < 101; i++)
+			a[i] = i <= 10 ? 1150 : a[i - 1] + s[(i - 1) / 10];
 	}
 };
 
 int main() {
-	constexpr auto t = T<101>();
+	constexpr T t;
 	for (int w; ~(w = in());)
 		out(4280 - t.a[w], '\n');
 }
