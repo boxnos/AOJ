@@ -31,7 +31,7 @@ int main() {
 	s = {0, 125, 140};
 	for (int i = 10; i < 101; i++)
 		t[i] = t[i - 1] + s[(i - 1) / 10];
-	for (int w; ((w = in()) != -1);)
+	for (int w; ~(w = in());)
 		out(4280 - t[w], '\n');
 }
 
