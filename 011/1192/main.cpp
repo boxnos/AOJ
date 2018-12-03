@@ -38,7 +38,7 @@ int fix(int p, int r) {
 int main() {
 	for (int x, y, s; x = in(), y = in(), s = in(), x || y || s;) {
 		int m = INT_MIN;
-		for (int i = 1; i < s; i++) {
+		for (int i = 1, e = s / 2; i <= e; i++) {
 			int a = fix(i, x), b = fix(s - i, x);
 			if (tax(a, x) + tax(b, x) == s)
 				m = max(m, tax(a, y) + tax(b, y));
