@@ -1,0 +1,14 @@
+# 入力例 1
+ABCD
+3
+ABCDXXXXXX
+YYYYABCDXX
+DCBAZZZZZZ
+# 出力例 1
+2
+# 入力例 2
+XYZ
+1
+ZAAAAAAAXY
+# 出力例 2
+1
