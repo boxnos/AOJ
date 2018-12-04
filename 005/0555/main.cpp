@@ -1,7 +1,6 @@
 #include <cstdio>
 #include <utility>
 #include <string>
-#include <regex>
 using namespace std;
 
 #define gcu getchar_unlocked
@@ -32,10 +31,9 @@ int main() {
 	string p, s;
 	int n, c = 0;
 	scan(p, n);
-	regex r(p);
 	while (n--) {
 		scan(s);
-		if (regex_search(s + s.substr(0, p.size() - 1), r))
+		if ((s +s.substr(0, p.size() - 1)).find(p) != string::npos)
 			c++;
 	}
 	outl(c);
