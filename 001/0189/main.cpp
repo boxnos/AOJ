@@ -33,7 +33,7 @@ template <typename... T> _vl(T&&... t){out(move(t)...);outl();}
 
 int main() {
 	for (int n; (n = in());) {
-		vector<vector <int>> v(10, vector<int>(10, INT_MAX));
+		vector<vector <int>> v(10, vector<int>(10, INT_MAX/2));
 		int s = 0;
 		while (n--) {
 			int a = in(), b = in();
