@@ -33,12 +33,11 @@ template <typename... T> _vl(T&&... t){out(move(t)...);outl();}
 
 int main() {
 	for (int n; (n = in());) {
-		vector<vector <int>> v(10, vector<int>(10, 999));
+		vector<vector <int>> v(10, vector<int>(10, INT_MAX));
 		int s = 0;
 		while (n--) {
-			int a = in(), b = in(), c = in();
-			v[a][b] = c;
-			v[b][a] = c;
+			int a = in(), b = in();
+			v[a][b] = v[b][a] = in();
 			s = max(s, max(a, b));
 		}
 		s++;
