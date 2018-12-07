@@ -30,24 +30,21 @@ template <typename H,typename... T> _vo(H&& h, T&&... t){out(h);out(move(t)...);
 _vl(){out('\n');}
 template <typename... T> _vl(T&&... t){out(move(t)...);outl();}
 
-#define ifret(body) {char r; if ((r = body)) return r;}
-char solve(string &s) {
-	static auto check = [&s](int a, int b,int c) {
-		return s[a] == s[b] && s[b] == s[c] && s[a] != 's' ? s[a] : 0;};
-	for (int i = 0, j; i < 3; i++) {
-		j = i * 3;
-		ifret(check(j, j + 1, j + 2));
-		ifret(check(i, i + 3, i + 6));
-	}
-	ifret(check(0, 4, 8));
-	ifret(check(2, 4, 6));
-	return 0;
+bool solve(string &s, char &r) {
+	static auto check = [&s, &r](int a, int b,int c) {
+		return s[a] == s[b] && s[b] == s[c] && s[a] != 's' ? r = s[a], true : false;};
+	for (int i = 0, j; i < 3; i++)
+		if (check(i, i + 3, i + 6) || (j = i * 3, check(j, j + 1, j + 2)))
+			return true;
+	if (check(0, 4, 8) || check(2, 4, 6))
+		return true;
+	return false;
 }
 
 int main() {
 	for (string s; scan(s);) {
-		char r = solve(s);
-		outl(r ? r : 'd');
+		char r = 0;
+		outl(solve(s, r) ? r : 'd');
 	}
 }
 
