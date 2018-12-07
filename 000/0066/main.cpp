@@ -33,7 +33,7 @@ template <typename... T> _vl(T&&... t){out(move(t)...);outl();}
 bool solve(string &s, char &r) {
 	static auto check = [&](int a, int b,int c) {
 		r = s[a];
-		return s[a] == s[b] && s[b] == s[c] && s[a] != 's';};
+		return r == s[b] && r == s[c] && r != 's';};
 	for (int i = 0, j; i < 3; i++)
 		if (check(i, i + 3, i + 6) || (j = i * 3, check(j, j + 1, j + 2)))
 			return true;
