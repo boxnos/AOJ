@@ -1,0 +1,8 @@
+# Sample Input
+ooosxssxs
+xoosxsosx
+ooxxxooxo
+# Output for the Sample Input
+o
+x
+d
