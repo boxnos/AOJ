@@ -43,10 +43,9 @@ bool solve(string &s, char &r) {
 }
 
 int main() {
-	for (string s; scan(s);) {
-		char r = 0;
+	char r;
+	for (string s; scan(s);)
 		outl(solve(s, r) ? r : 'd');
-	}
 }
 
 /* vim: set ts=4 noet: */
