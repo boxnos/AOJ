@@ -2,6 +2,7 @@
 #include <utility>
 #include <vector>
 #include <climits>
+#include <queue>
 using namespace std;
 
 #define gcu getchar_unlocked
@@ -33,12 +34,16 @@ template <typename... T> _vl(T&&... t){out(move(t)...);outl();}
 
 int main() {
 	for (int n, k; n = in(), k = in(), k || n;) {
-		int r = INT_MIN;
-		vector<int> s(n + 1);
+		int r = INT_MIN, s = 0;
+		queue<int> q;
 		for (int i = 1; i <= n; i++) {
-			s[i] = s[i - 1] + in();
-			if (i >= k)
-				r = max(r, s[i] - s[i - k]);
+			q.push(in());
+			s += q.back();
+			if (i >= k) {
+				r = max(r, s);
+				s -= q.front();
+				q.pop();
+			}
 		}
 		outl(r);
 	}
