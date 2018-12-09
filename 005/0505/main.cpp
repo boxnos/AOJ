@@ -31,19 +31,17 @@ template <typename H,typename... T> _vo(H&& h, T&&... t){out(h);out(move(t)...);
 _vl(){out('\n');}
 template <typename... T> _vl(T&&... t){out(move(t)...);outl();}
 
-struct q {int n, i;};
-
 int main() {
 	for (int n, m; n = in(), m = in(), n || m;) {
-		vector<q> p(m);
-		for (q &i : p)
-			i.i = &i - &p[0] + 1;
+		vector<pair <int, int>> p(m);
+		for (auto &i: p)
+			i.second = -(&i - &p[0] + 1);
 		while (n--)
-			for (q &i: p)
-				i.n += in();
-		sort(p.begin(), p.end(), [](auto a, auto b){return a.n == b.n ? a.i < b.i : a.n > b.n;});
-		for (q &i: p)
-			out(&i == &p[0] ? "" : " ", i.i);
+			for (auto &i: p)
+				i.first += in();
+		sort(p.rbegin(), p.rend());
+		for (auto &i: p)
+			out(&i == &p[0] ? "" : " ", -i.second);
 		outl();
 	}
 }
