@@ -41,7 +41,7 @@ int main() {
 		while (n--)
 			for (q &i: p)
 				i.n += in();
-		sort(p.rbegin(), p.rend(), [](auto a, auto b){return a.n == b.n ? a.i > b.i : a.n < b.n;});
+		sort(p.begin(), p.end(), [](auto a, auto b){return a.n == b.n ? a.i < b.i : a.n > b.n;});
 		for (q &i: p)
 			out(&i == &p[0] ? "" : " ", i.i);
 		outl();
