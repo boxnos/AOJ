@@ -3,6 +3,7 @@
 #include <unordered_map>
 #include <queue>
 #include <vector>
+#include <climits>
 using namespace std;
 
 #define gcu getchar_unlocked
@@ -35,24 +36,26 @@ template <typename... T> _vl(T&&... t){out(move(t)...);outl();}
 #define B(n) n = in()
 typedef unordered_map<int, unordered_map<int, int>> R;
 
+struct N {
+	int n, c;
+	bool operator < (const N &a) const {return a.c < c;}
+};
 
 int min_cost(int s, int g, int n, R &r) {
-	struct N {
-		int n, c;
-		bool operator < (const N &a) const {return a.c < c;}
-	};
 	priority_queue<N> q;
-	vector<bool> v(n + 1);
-	q.push({s,0});
-	while (!q.empty()) {
-		auto p = q.top();
-		q.pop();
-		if (p.n == g)
-			return p.c;
-		v[p.n] = true;
-		for (auto n: r[p.n])
-			if (!v[n.first])
-				q.push({n.first, p.c + n.second});
+	vector<N> v(n + 1);
+	for (N &n: v)
+		n.c = INT_MAX;
+	for (q.push({s,0}) ;!q.empty();) {
+		auto p = q.top(); q.pop();
+		if (p.n == g) return p.c;
+		if (v[p.n].n) continue;
+		v[p.n].n = 1;
+		for (auto n: r[p.n]) {
+			int c = p.c + n.second;
+			if (v[n.first].c > c)
+				q.push({n.first, v[n.first].c = c});
+		}
 	}
 	return -1;
 }
