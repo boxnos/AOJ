@@ -43,9 +43,7 @@ struct N {
 
 int min_cost(int s, int g, int n, R &r) {
 	priority_queue<N> q;
-	vector<N> v(n + 1);
-	for (N &n: v)
-		n.c = INT_MAX;
+	vector<N> v(n + 1, {0, INT_MAX});
 	for (q.push({s,0}) ;!q.empty();) {
 		auto p = q.top(); q.pop();
 		if (p.n == g) return p.c;
