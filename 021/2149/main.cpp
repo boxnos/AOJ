@@ -35,7 +35,7 @@ int main() {
 	for (int n, a, b, c, x; n = in(), a = in(), b = in(), c = in(), x = in(), n;) {
 		int f = 0;
 		for (;;) {
-			for (int y = in();x != y && f <= 10000; f++)
+			for (y = in(); x != y && f <= 10000; f++)
 				x = (a * x + b) % c;
 			if (--n) {
 				x = (a * x + b) % c;
