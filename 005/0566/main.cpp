@@ -38,10 +38,8 @@ int main() {
 		int a = in() - 1, b = in() - 1, c = in(), d = in();
 		if (c == d)
 			g[a]++, g[b]++;
-		else if (c > d)
-			g[a] += 3;
 		else
-			g[b] += 3;
+			g[c > d ? a : b] += 3;
 	}
 	map<int, int> m;
 	for (int i: g)
