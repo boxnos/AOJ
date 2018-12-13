@@ -2,6 +2,7 @@
 #include <utility>
 #include <vector>
 #include <map>
+#include <algorithm>
 using namespace std;
 
 #define gcu getchar_unlocked
@@ -31,9 +32,11 @@ template <typename H,typename... T> _vo(H&& h, T&&... t){out(h);out(move(t)...);
 _vl(){out('\n');}
 template <typename... T> _vl(T&&... t){out(move(t)...);outl();}
 
+#define all(o) o.begin(), o.end()
+
 int main() {
 	int n = in();
-	vector<int> g(n);
+	vector<int> g(n), r(n);
 	for (int i = n * (n - 1) / 2; i--;) {
 		int a = in() - 1, b = in() - 1, c = in(), d = in();
 		if (c == d)
@@ -41,13 +44,10 @@ int main() {
 		else
 			g[c > d ? a : b] += 3;
 	}
-	map<int, int> m;
+	r = g;
+	sort(all(r));
 	for (int i: g)
-		m[i]++;
-	for (auto &i: m)
-		i.second = (n -= i.second) + 1;
-	for (int i: g)
-		outl(m[i]);
+		outl(n + 1 - (upper_bound(all(r), i) - r.begin()));
 }
 
 /* vim: set ts=4 noet: */
