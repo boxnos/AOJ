@@ -48,18 +48,18 @@ int main() {
 	int n = in();
 	for (int k = 1; k <= n; k++) {
 		gcu();
-		for (int i = 0; i < 8; i++) {
-			for (int j = 0; j < 8; j++)
-				m[i][j] = gcu() - '0';
+		for (auto &i: m) {
+			for (int &j: i)
+				j = gcu() - '0';
 			gcu();
 		}
 		int x = in() - 1, y = in() - 1;
 		if (m[y][x])
 			bom(m, x, y);
 		outl("Data ", k ,":");
-		for (int i = 0; i < 8; i++) {
-			for (int j = 0; j < 8; j++)
-				out(m[i][j]);
+		for (auto i: m) {
+			for (int j: i)
+				out(j);
 			outl();
 		}
 	}
