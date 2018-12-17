@@ -2,6 +2,7 @@
 #include <utility>
 #include <algorithm>
 #include <climits>
+#include <queue>
 using namespace std;
 
 #define gcu getchar_unlocked
@@ -31,28 +32,35 @@ template <typename H,typename... T> _vo(H&& h, T&&... t){out(h);out(move(t)...);
 _vl(){out('\n');}
 template <typename... T> _vl(T&&... t){out(move(t)...);outl();}
 
-template <int N, int T>
+template<int N, int T>
 struct tetra {
-	int m[N];
-	tetra(int s) {
-		int t[T];
-		int k = 0;
-		for (int i = 1, n = 0; (n = i * (i + 1) * (i + 2) / 6) < N; k++, i += s)
-			t[k] = n;
-		m[0] = 0;
-		for (int i = 1; i < N; i++) {
-			int r = INT_MAX;
-			for (int j = 0; j < k && t[j] <= i; j++)
-				r = min(r, m[i - t[j]] + 1);
-			m[i] = r;
-		}
+	int t[T], l;
+	constexpr tetra(int s) : t(), l(0) {
+		for (int i = 1, n = 0; (n = i * (i + 1) * (i + 2) / 6) < N; l++, i += s)
+			t[l] = n;
 	}
 };
+struct N {int n, c;};
+
+using T = const tetra<1000000, 180>;
+
+int bfs(int n, T &t) {
+	queue<N> q;
+	for (q.push({n, 0}); !q.empty(); q.pop()) {
+		N p = q.front();
+		if (!p.n)
+			return p.c;
+		for (int i = 0; i < t.l && t.t[i] <= p.n; i++)
+			q.push({p.n - t.t[i], p.c + 1});
+	}
+	
+	return -1;
+}
 
 int main() {
-	tetra<1000000, 180> t1(1), t2(4);
+	constexpr T t1(1), t2(4);
 	for (int n; (n = in());)
-		outl(t1.m[n], ' ', t2.m[n]);
+		outl(bfs(n, t1), ' ', bfs(n, t2));
 }
 
 /* vim: set ts=4 noet: */
