@@ -1,6 +1,5 @@
 #include <cstdio>
 #include <utility>
-#include <vector>
 #include <algorithm>
 #include <climits>
 using namespace std;
@@ -35,11 +34,12 @@ template <typename... T> _vl(T&&... t){out(move(t)...);outl();}
 template <int N, int T>
 struct tetra {
 	int m[N];
-	tetra(int step) : m()  {
+	tetra(int s) {
 		int t[T];
 		int k = 0;
-		for (int i = 1, n; (n = i * (i + 1) * (i + 2) / 6) < N; k++, i += step)
+		for (int i = 1, n = 0; (n = i * (i + 1) * (i + 2) / 6) < N; k++, i += s)
 			t[k] = n;
+		m[0] = 0;
 		for (int i = 1; i < N; i++) {
 			int r = INT_MAX;
 			for (int j = 0; j < k && t[j] <= i; j++)
