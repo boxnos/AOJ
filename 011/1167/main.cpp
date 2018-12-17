@@ -1,8 +1,7 @@
 #include <cstdio>
 #include <utility>
 #include <algorithm>
-#include <climits>
-#include <queue>
+#include <numeric>
 using namespace std;
 
 #define gcu getchar_unlocked
@@ -32,35 +31,21 @@ template <typename H,typename... T> _vo(H&& h, T&&... t){out(h);out(move(t)...);
 _vl(){out('\n');}
 template <typename... T> _vl(T&&... t){out(move(t)...);outl();}
 
-template<int N, int T>
-struct tetra {
-	int t[T], l;
-	constexpr tetra(int s) : t(), l(0) {
-		for (int i = 1, n = 0; (n = i * (i + 1) * (i + 2) / 6) < N; l++, i += s)
-			t[l] = n;
-	}
-};
-struct N {int n, c;};
-
-using T = const tetra<1000000, 180>;
-
-int bfs(int n, T &t) {
-	queue<N> q;
-	for (q.push({n, 0}); !q.empty(); q.pop()) {
-		N p = q.front();
-		if (!p.n)
-			return p.c;
-		for (int i = 0; i < t.l && t.t[i] <= p.n; i++)
-			q.push({p.n - t.t[i], p.c + 1});
-	}
-	
-	return -1;
-}
+enum {N = 1000000};
 
 int main() {
-	constexpr T t1(1), t2(4);
+	int s1[N], s2[N];
+	iota(s1, s1 + N, 0);
+	copy(s1, s1 + N, s2);
+	for (int i = 1, n; (n = i * (i + 1) * (i + 2) / 6) < N; i++) {
+		for (int j = n; j < N; j++)
+			s1[j] = min(s1[j], s1[j - n] + 1);
+		if (n % 2)
+			for (int j = n; j < N; j++)
+				s2[j] = min(s2[j], s2[j - n] + 1);
+	}
 	for (int n; (n = in());)
-		outl(bfs(n, t1), ' ', bfs(n, t2));
+		outl(s1[n], ' ', s2[n]);
 }
 
 /* vim: set ts=4 noet: */
