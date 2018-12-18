@@ -1,6 +1,7 @@
 #include <cstdio>
 #include <utility>
 #include <algorithm>
+#include <array>
 #include <numeric>
 using namespace std;
 
@@ -34,15 +35,15 @@ template <typename... T> _vl(T&&... t){out(move(t)...);outl();}
 enum {N = 1000000};
 
 int main() {
-	int s1[N], s2[N];
-	iota(s1, s1 + N, 0);
-	copy(s1, s1 + N, s2);
+	array<int, N> s1, s2;
+	iota(s1.begin(), s1.end(), 0);
+	iota(s2.begin(), s2.end(), 0);
 	for (int i = 1, n; (n = i * (i + 1) * (i + 2) / 6) < N; i++) {
-		for (int j = n; j < N; j++)
-			s1[j] = min(s1[j], s1[j - n] + 1);
+		for (auto j = s1.begin() + n; j != s1.end(); j++)
+			*j = min(*j, *(j - n) + 1);
 		if (n % 2)
-			for (int j = n; j < N; j++)
-				s2[j] = min(s2[j], s2[j - n] + 1);
+			for (auto j = s2.begin() + n; j != s2.end(); j++)
+				*j = min(*j, *(j - n) + 1);
 	}
 	for (int n; (n = in());)
 		outl(s1[n], ' ', s2[n]);
