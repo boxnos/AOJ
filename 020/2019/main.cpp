@@ -1,6 +1,6 @@
 #include <cstdio>
 #include <utility>
-#include <vector>
+#include <array>
 #include <algorithm>
 using namespace std;
 
@@ -31,24 +31,18 @@ template <typename H,typename... T> _vo(H&& h, T&&... t){out(h);out(move(t)...);
 _vl(){out('\n');}
 template <typename... T> _vl(T&&... t){out(move(t)...);outl();}
 
-struct S {
-	int d, p;
-	bool operator < (const S a) const {
-		return p > a.p;
-	}
-};
-
 int main() {
 	for (int n, m; n = in(), m = in(), n || m;) {
-		vector<S> s(n);
-		for (S &i: s)
-			i = {in(), in()};
-		sort(s.begin(), s.end());
+		array<int, 11> s = {};
+		while (n--) {
+			int d = in();
+			s[in()] += d;
+		}
 		int c = 0;
-		for (S &i: s) {
-			int d = min(i.d, m);
+		for (int i = 10; i >= 0; i--) {
+			int d = min(s[i], m);
 			m -= d;
-			c += (i.d - d) * i.p;
+			c += (s[i] - d) * i;
 		}
 		outl(c);
 	}
