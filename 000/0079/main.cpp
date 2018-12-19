@@ -13,7 +13,7 @@ _in(int c){int n=0;bool m=false;if(c=='-')m=true,c=gcu();
 _in() {return in(gcu());}
 _sc(int &n){int c=gcu();return c==EOF?false:(n=in(c),true);}
 _sc(char &c){c=gcu();gcu();return c!=EOF;}
-bool scan(complex<double> &p) {
+_sc(complex<double> &p) {
 	double x, y;
 	if (scanf("%lf,%lf", &x, &y) == EOF)
 		return false;
@@ -37,7 +37,6 @@ template <typename H,typename... T> _vo(H&& h, T&&... t){out(h);out(move(t)...);
 _vl(){out('\n');}
 template <typename... T> _vl(T&&... t){out(move(t)...);outl();}
 
-
 int main() {
 	complex<double> p1, p2, p3;
 	double s = 0;
@@ -45,10 +44,10 @@ int main() {
 	p2 -= p1;
 	while (scan(p3)) {
 		p3 -= p1;
-		s += abs(p2.real() * p3.imag() - p3.real() * p2.imag()) / 2;
+		s += p2.real() * p3.imag() - p3.real() * p2.imag();
 		p2 = p3;
 	}
-	printf("%lf\n", s);
+	printf("%lf\n", abs(s) / 2);
 }
 
 /* vim: set ts=4 noet: */
