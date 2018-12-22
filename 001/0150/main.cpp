@@ -51,15 +51,23 @@ struct sieve {
 	}
 };
 
+template<int N>
+struct twin {
+	int t[N/10], l;
+	constexpr twin() : t(), l(1) {
+		sieve<N> s;
+		t[0] = 5;
+		for (int i = 0; i < N; i++)
+			if (s.s[i - 2] && s.s[i])
+				t[l++] = i;
+	}
+};
+
 int main() {
 	enum {N = 10001};
-	constexpr sieve<N> s;
-	vector<int> t = {5};
-	for (int i = 7; i < N; i += 6)
-		if (s.s[i - 2] && s.s[i])
-			t.push_back(i);
+	twin<N> t;
 	for (int n; (n = in());) {
-		auto r = upper_bound(t.begin(), t.end(), n) - 1;
+		auto r = upper_bound(t.t, t.t + t.l, n) - 1;
 		outl(*r - 2, ' ', *r);
 	}
 }
