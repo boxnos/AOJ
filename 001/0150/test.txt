@@ -1,0 +1,15 @@
+# Sample Input
+12
+100
+200
+300
+73
+5
+0
+# Output for the Sample Input
+5 7
+71 73
+197 199
+281 283
+71 73
+3 5
