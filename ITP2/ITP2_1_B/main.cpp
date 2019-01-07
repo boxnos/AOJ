@@ -36,19 +36,19 @@ int main() {
 	while (n--) {
 		switch (in()) {
 		case 0:
-			if (in() == 0)
-				q.push_front(in());
-			else
+			if (in())
 				q.push_back(in());
+			else
+				q.push_front(in());
 			break;
 		case 1:
 			outl(q[in()]);
 			break;
 		default:
-			if (in() == 0)
-				q.pop_front();
-			else
+			if (in())
 				q.pop_back();
+			else
+				q.pop_front();
 		}
 	}
 }
