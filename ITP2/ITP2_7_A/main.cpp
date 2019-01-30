@@ -1,6 +1,6 @@
 #include <cstdio>
 #include <utility>
-#include <set>
+#include <unordered_set>
 using namespace std;
 
 #define gcu getchar_unlocked
@@ -33,7 +33,7 @@ _HT _vo(H&& h, T&&... t){out(h);out(move(t)...);}
 template <typename... T> _vl(T&&... t){out(move(t)...);outl();}
 
 int main() {
-	set<int> A;
+	unordered_set<int> A;
 	for (int i = in(); i; i--)
 		if (in() == 0) {
 			A.insert(in());
