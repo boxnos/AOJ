@@ -1,0 +1,61 @@
+# Sample Input 1
+9
+0 blue 4
+0 red 1
+0 white 5
+1 red
+1 blue
+2 red
+1 black
+1 red
+3 w z
+# Sample Output 1
+1
+4
+0
+0
+white 5
+# 
+24
+0 pink 300
+0 blue 250
+0 red 100
+1 blue
+2 red
+0 black 380
+0 yellow 400
+0 green 80
+1 green
+2 pink
+1 red
+1 blue
+1 pink
+1 black
+0 pink 1000
+0 black 1000
+1 pink
+1 black
+1 white
+2 black
+1 black
+3 a z
+3 green pink
+3 green pin
+# 
+250
+80
+0
+250
+0
+380
+1000
+1000
+0
+0
+blue 250
+green 80
+pink 1000
+yellow 400
+green 80
+pink 1000
+green 80
