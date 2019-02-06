@@ -1,0 +1,17 @@
+# Sample Input 1
+10
+0 blue 6
+0 red 1
+0 blue 4
+0 white 5
+1 red
+1 blue
+2 red
+1 black
+1 red
+3 w z
+# Sample Output 1
+1
+6
+4
+white 5
