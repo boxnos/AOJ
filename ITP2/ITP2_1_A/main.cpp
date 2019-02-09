@@ -32,7 +32,7 @@ template <typename... T> _vl(T&&... t){out(move(t)...);outl();}
 
 int main() {
 	int n = in();
-	vector<long> v;
+	vector<int> v;
 	while (n--) {
 		switch (in()) {
 		case 0:
