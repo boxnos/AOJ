@@ -2,7 +2,6 @@
 #include <utility>
 #include <bitset>
 #include <vector>
-#include <iostream>
 using namespace std;
 
 #define gcu getchar_unlocked
@@ -61,7 +60,7 @@ int main() {
 			f ^= M[m];
 			break;
 		case 4:
-			outl((int) ((f & M[m] | ~M[m]).all()));
+			outl((int) ((f & M[m]) | ~M[m]).all());
 			break;
 		case 5:
 			outl((int) (f & M[m]).any());
