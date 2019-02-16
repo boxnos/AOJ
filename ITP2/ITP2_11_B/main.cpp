@@ -62,14 +62,18 @@ void enumeration(int t, int i, int n, v &r) {
 }
 
 int main() {
-	int n = in(), u = 0;
+	int n = in(), u = 0, k = in();
 	v r;
-	for (int i = in(); i; i--)
-		u |= 1 << in();
-	enumeration(u, 0, n, r);
-	sort(r.begin(), r.end());
-	for (int x: r)
-		dump(x);
+	if (k) {
+		for (int i = k; i; i--)
+			u |= 1 << in();
+		enumeration(u, 0, n, r);
+		sort(r.begin(), r.end());
+		for (int x: r)
+			dump(x);
+	} else
+		for (int i = 0, e = 1 << n; i < e; i++)
+			dump(i);
 }
 
 /* vim: set ts=4 noet: */
