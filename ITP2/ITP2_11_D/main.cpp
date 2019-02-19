@@ -1,7 +1,5 @@
 #include <cstdio>
 #include <utility>
-#include <vector>
-#include <algorithm>
 using namespace std;
 
 #define gcu getchar_unlocked
@@ -39,32 +37,22 @@ _HT _vo(H&& h, T&&... t){out(h);out(move(t)...);}
 template <typename... T> _vl(T&&... t){out(move(t)...);outl();}
 
 void dump(int n) {
-		out(n, ':');
-		for (int j = 0, t; (t = n >> j); j++)
-			if (t & 1)
-				out(' ', j);
-		outl();
+	out(n, ':');
+	for (int i = 0, t; (t = n >> i); i++)
+		if (t & 1)
+			out(' ', i);
+	outl();
 }
 
-typedef vector<int> v;
-void enumeration(int t, int i, int n, int j, int k, v &r) {
-	if (j >= k) {
-		r.push_back(t);
-		return;
-	} else if (i + k - j > n)
-		return;
-
-	enumeration(t, i + 1, n, j, k, r);
-	enumeration(t | (1 << i), i + 1, n, j + 1, k, r);
+int next(int i) {
+	int x = i & -i, y = i + x;
+	return (i & ~y) / x >> 1 | y;
 }
 
 int main() {
-	int n = in(), k = in();
-	v r;
-	enumeration(0, 0, n, 0, k, r);
-	sort(r.begin(), r.end());
-	for (int x: r)
-		dump(x);
+	int n = 1 << in(), i = (1 << in()) - 1;
+	for (;i < n; i = next(i))
+		dump(i);
 }
 
 /* vim: set ts=4 noet: */
