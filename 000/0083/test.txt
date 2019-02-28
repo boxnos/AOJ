@@ -1,0 +1,8 @@
+# Sample Input
+2005 9 3
+1868 12 2
+1868 9 7
+# Output for the Sample Input
+heisei 17 9 3
+meiji 1 12 2
+pre-meiji
