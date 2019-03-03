@@ -1,9 +1,7 @@
 #include <cstdio>
+#include <utility>
 #include <cstdlib>
 #include <cctype>
-#include <utility>
-#include <functional>
-#include <stack>
 using namespace std;
 
 #define gcu getchar_unlocked
@@ -41,12 +39,12 @@ _HT _vo(H&& h, T&&... t){out(h);out(move(t)...);}
 template <typename... T> _vl(T&&... t){out(move(t)...);outl();}
 
 struct calc {
-	stack<int> s;
 	char c;
 
 	calc() {
 		c = gcu();
 	}
+
 	bool consume(char e) {
 		if (c != e)
 			return false;
@@ -56,66 +54,56 @@ struct calc {
 		}
 	}
 
-	void eval(function<int(int, int)> f) {
-		int b = s.top(); s.pop();
-		int a = s.top(); s.pop();
-		s.push(f(a, b));
-	}
-
-	void number() {
+	int number() {
 		if (isdigit(c)) {
 			int d;
 			ungetc(c, stdin);
 			scanf("%d", &d);
-			s.push(d);
 			c = gcu();
+			return d;
 		} else {
 			fprintf(stderr,"ERROR: expected number\n, but got %c\n", c);
 			exit(0);
 		}
 	}
 
-	void mul() {
-		term();
+	int mul() {
+		int a = term();
 		for (;;)
-			if (consume('*')) {
-				term();
-				eval([](int a, int b) {return a * b;});
-			} else if (consume('/')) {
-				term();
-				eval([](int a, int b) {return a / b;});
-			} else
-				return;
+			if (consume('*'))
+				a *= term();
+			else if (consume('/'))
+				a /= term();
+			else
+				return a;
 	}
 
-	void add() {
-		mul();
+	int add() {
+		int a = mul();
 		for (;;)
-			if (consume('+')) {
-				mul();
-				eval([](int a, int b) {return a + b;});
-			} else if (consume('-')) {
-				mul();
-				eval([](int a, int b) {return a - b;});
-			} else
-				return;
+			if (consume('+'))
+				a += mul();
+			else if (consume('-'))
+				a -= mul();
+			else
+				return a;
 	}
 
-	void term() {
+	int term() {
 		if (consume('(')) {
-			add();
+			int a = add();
 			consume(')');
-			return;
-		}
-		number();
+			return a;
+		} else
+			return number();
 	}
 
 
 	int exec() {
-		add();
-		if (consume('=')) {
-			return s.top();
-		} else {
+		int n = add();
+		if (consume('='))
+			return n;
+		else {
 			fprintf(stderr,"ERROR: expected =, but got %c\n", c);
 			exit(0);
 		}
