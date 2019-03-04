@@ -1,0 +1,10 @@
+# Sample Input
+50
+5576
+5577
+5578
+# Output for the Sample Input
+3C11
+3C38
+3C39
+3C01
