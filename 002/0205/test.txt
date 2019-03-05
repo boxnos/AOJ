@@ -1,0 +1,23 @@
+# Sample Input
+1
+2
+3
+2
+1
+1
+2
+2
+2
+1
+0
+# Output for the Sample Input
+3
+3
+3
+3
+3
+1
+2
+2
+2
+1
