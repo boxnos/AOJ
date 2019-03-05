@@ -48,12 +48,12 @@ int main() {
 		}
 		if ((m[0] && m[1] && m[2]) || (m[0] == 5 || m[1] == 5 || m[2] == 5))
 			r = {3, 3, 3};
-		else if (!m[0])
-			r = {0, 1, 2};
-		else if (!m[1])
-			r = {2, 0, 1};
 		else
-			r = {1, 2, 0};
+			for (int i = 0; i < 3; i++)
+				if (!m[i]) {
+					r[++i % 3] = 1, r[++i % 3] = 2;
+					break;
+				}
 		for (int h: H)
 			outl(r[h]);
 	}
