@@ -40,20 +40,20 @@ template <typename... T> _vl(T&&... t){out(move(t)...);outl();}
 int main() {
 	array<int, 5> H;
 	for (;;) {
-		array<int, 4> m = {}, r;
+		array<int, 3> m = {}, r;
 		for (int &h: H) {
 			if (!(h = in()))
 				return 0;
-			m[h]++;
+			m[--h]++;
 		}
-		if ((m[1] && m[2] && m[3]) || (m[1] == 5 || m[2] == 5 || m[3] == 5))
-			r = {0, 3, 3, 3};
+		if ((m[0] && m[1] && m[2]) || (m[0] == 5 || m[1] == 5 || m[2] == 5))
+			r = {3, 3, 3};
+		else if (!m[0])
+			r = {0, 1, 2};
 		else if (!m[1])
-			r = {0, 0, 1, 2};
-		else if (!m[2])
-			r = {0, 2, 0, 1};
+			r = {2, 0, 1};
 		else
-			r = {0, 1, 2, 0};
+			r = {1, 2, 0};
 		for (int h: H)
 			outl(r[h]);
 	}
