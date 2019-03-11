@@ -49,15 +49,13 @@ int main() {
 		vv g = vv(n, v(n));
 
 		for (int i = 1, x = n / 2, y = n / 2 + 1; i <= n * n; i++) {
-			auto shift = [&]() {
-				if (x >= n) x = 0;
-				if (x < 0)  x = n - 1;
-				if (y >= n) y = 0;};
 			g[y++][x++] = i;
-			shift();
+			if (x >= n) x = 0;
+			if (y >= n) y = 0;
 			if (g[y][x]) {
 				x--, y++;
-				shift();
+				if (x < 0) x = n - 1;
+				if (y >= n) y = 0;
 			}
 		}
 
