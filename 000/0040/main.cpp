@@ -63,14 +63,14 @@ K attack(S s) {
 		else {
 			if (w.size() == 4)
 				for (int a = 1; a < 26; a += 2)
-					if (a != 13)
-						for (int b = 0; b < 26; b++) {
-							auto d = [=](int c) {return ((c - 'a') * a + b) % 26 + 'a';};
-							if (w[0] == d('t') && w[1] == d('h') &&
-								((w[2] == d('a') && w[3] == d('t')) ||
-								 (w[2] == d('i') && w[3] == d('s'))))
-								return {a, b};
-						}
+					if (a != 13) {
+						char b = (26 + ((w[0] - 'a') - (('t' - 'a') * a) % 26)) % 26;
+						auto d = [=](int c) {return ((c - 'a') * a + b) % 26 + 'a';};
+						if (w[1] == d('h') &&
+							((w[2] == d('a') && w[3] == d('t')) ||
+							 (w[2] == d('i') && w[3] == d('s'))))
+							return {a, b};
+					}
 			w = "";
 		}
 	}
