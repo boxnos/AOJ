@@ -1,0 +1,6 @@
+# Sample Input
+40.0 70.0
+72.5 140.51
+# Output for the Sample Input
+B
+NA
