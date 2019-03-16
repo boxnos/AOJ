@@ -33,14 +33,14 @@ template <typename... T> _vl(T&&... t){out(move(t)...);outl();}
 using M = array<array<int , 8>, 8>;
 
 void bom(M &m, int x, int y) {
-	static int dx[] = {-3, -2, -1, 1, 2, 3, 0, 0, 0, 0, 0, 0},
-			   dy[] = {0, 0, 0, 0, 0, 0,-3, -2, -1, 1, 2, 3};
+	static int dx[] = {-1, 1, 0, 0}, dy[] = {0, 0, -1, 1};
 	m[y][x] = 0;
-	for (int i = 0; i < 12; i++) {
-		int tx = x + dx[i], ty = y + dy[i];
-		if (tx >= 0 && tx < 8 && ty >= 0 && ty < 8 && m[ty][tx])
-			bom(m, tx, ty);
-	}
+	for (int i = 1; i <= 3; i++)
+		for (int j = 0; j < 4; j++) {
+			int tx = x + dx[j] * i, ty = y + dy[j] * i;
+			if (tx >= 0 && tx < 8 && ty >= 0 && ty < 8 && m[ty][tx])
+				bom(m, tx, ty);
+		}
 }
 
 int main() {
