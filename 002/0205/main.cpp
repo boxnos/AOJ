@@ -1,6 +1,5 @@
 #include <cstdio>
 #include <utility>
-#include <array>
 using namespace std;
 
 #define gcu getchar_unlocked
