@@ -1,0 +1,7 @@
+# Sample Input
+1071 1029
+5 5
+0 0
+# Output for the Sample Input
+21 3
+5 1
