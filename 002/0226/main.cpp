@@ -1,7 +1,7 @@
 #include <cstdio>
 #include <cctype>
 #include <utility>
-#include <array>
+#include <string>
 using namespace std;
 
 #define gcu getchar_unlocked
@@ -39,21 +39,15 @@ _T _vo(vector<T> &v){for(T &x:v)out(&x == &v[0]?"":" "),out(x);outl();}
 _HT _vo(H&& h, T&&... t){out(h);out(move(t)...);}
 template <typename... T> _vl(T&&... t){out(move(t)...);outl();}
 
-using s = array<int, 4>;
-
 int main() {
-	s R, A;
-	auto bind = [](s &a, int n) {for (int &x: a) x = n % 10, n /= 10; };
-	for (int r, a; r = in(), a = in(), r || a;) {
+	for (string r, a; scan(r, a), r != "0";) {
 		int h = 0, b = 0;
-		bind(R, r);
-		bind(A, a);
 		for (int i = 0; i < 4; i++)
-			if (R[i] == A[i])
+			if (r[i] == a[i])
 				h++;
 			else
 				for (int j = 0; j < 4; j++)
-					if (i != j && R[i] == A[j])
+					if (i != j && r[i] == a[j])
 						b++;
 		outl(h, ' ', b);
 	}
