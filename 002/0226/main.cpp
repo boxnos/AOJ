@@ -47,8 +47,10 @@ int main() {
 				h++;
 			else
 				for (int j = 0; j < 4; j++)
-					if (i != j && r[i] == a[j])
+					if (i != j && r[i] == a[j]) {
 						b++;
+						break;
+					}
 		outl(h, ' ', b);
 	}
 }
