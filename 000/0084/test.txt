@@ -1,0 +1,8 @@
+# Sample Input
+Rain, rain, go to Spain.
+# Output for the Sample Input
+Rain rain Spain
+# Sample Input 2
+Win today's preliminary contest and be qualified to visit University of Aizu.
+# Output for the Sample Input 2
+Win and visit Aizu
