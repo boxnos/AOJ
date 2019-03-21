@@ -5,6 +5,6 @@ int main() {
     for (int c; c = getchar_unlocked(), c != EOF; b = c)
         putchar_unlocked(c);
     if (b = b != '\n')
-        printf("\nCAT-POLICE: Include '\\n' before EOF");
+        puts("\nCAT-POLICE: Include '\\n' before EOF");
     return b;
 }
