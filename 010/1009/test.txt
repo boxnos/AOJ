@@ -1,0 +1,6 @@
+# Sample Input
+57 38
+60 84
+# Output for the Sample Input
+19
+12
