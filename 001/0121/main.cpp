@@ -5,6 +5,7 @@
 #include <queue>
 #include <algorithm>
 #include <set>
+#include <cmath>
 using namespace std;
 
 #define gcu getchar_unlocked
@@ -43,21 +44,37 @@ _HT _vo(H&& h, T&&... t){out(h);out(move(t)...);}
 template <typename... T> _vl(T&&... t){out(move(t)...);outl();}
 
 using T = array<array<int, 4>, 2>;
-using N = pair<int, T>;
+struct N {
+	int f, g, h;
+	T a;
+	bool operator < (N a) const {return a.f < f;}
+};
+
+int md(T a) {
+	int d = 0;
+	for (int i = 0; i < 2; i++)
+		for (int j = 0; j < 4; j++)
+			if (a[i][j])
+				d += abs(a[i][j] / 4 - i) + abs(a[i][j] % 4 - j);
+	return d;
+}
 
 int find(T &t) {
-	static const T e = {0, 1, 2, 3, 4, 5, 6, 7};
 	static const int r[4][2] = {{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
 	set<T> m;
-	queue<N> q;
-	q.push({0, t});
-	m.insert(t);
+	priority_queue<N> q;
+	int d = md(t);
+	q.push({d, 0, d, t});
 	while (!q.empty()) {
-		N a = q.front();
+		N a = q.top();
 		q.pop();
-		T &u = a.second;
-		if (u == e)
-			return a.first;
+		if (!a.h)
+			return a.g;
+		T &u = a.a;
+		if (m.count(u))
+			continue;
+		else
+			m.insert(u);
 		int px = 0, py = 0;
 		for (;; py++) {
 			auto r = find(u[py].begin(), u[py].end(), 0);
@@ -66,14 +83,13 @@ int find(T &t) {
 				break;
 			}
 		}
+		a.g++;
 		for (auto &p: r) {
 			int tx = px + p[0], ty = py + p[1];
 			if (tx >= 0 && tx < 4 && ty >= 0 && ty < 2) {
 				swap(u[py][px], u[ty][tx]);
-				if (!m.count(u)) {
-					m.insert(u);
-					q.push({a.first + 1, u});
-				}
+				int h = md(u);
+				q.push({h + a.g, a.g, h, u});
 				swap(u[py][px], u[ty][tx]);
 			}
 		}
