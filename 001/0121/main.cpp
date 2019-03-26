@@ -4,7 +4,7 @@
 #include <array>
 #include <queue>
 #include <algorithm>
-#include <set>
+#include <unordered_set>
 #include <cmath>
 using namespace std;
 
@@ -43,54 +43,55 @@ _T _vo(vector<T> &v){for(T &x:v)out(&x == &v[0]?"":" "),out(x);outl();}
 _HT _vo(H&& h, T&&... t){out(h);out(move(t)...);}
 template <typename... T> _vl(T&&... t){out(move(t)...);outl();}
 
-using T = array<array<int, 4>, 2>;
+using T = array<int, 8>;
 struct N {
-	int f, g, h;
+	int f, g, h, o;
 	T a;
 	bool operator < (N a) const {return a.f < f;}
 };
 
 int md(T a) {
 	int d = 0;
-	for (int i = 0; i < 2; i++)
-		for (int j = 0; j < 4; j++)
-			if (a[i][j])
-				d += abs(a[i][j] / 4 - i) + abs(a[i][j] % 4 - j);
+	for (int i = 0; i < 8; i++)
+		if (a[i])
+			d += abs(a[i] / 4 - i / 4) + abs(a[i] % 4 - i % 4);
 	return d;
 }
 
+int encode(T a) {
+	int r = 0;
+	for (int x:a) {
+		r += x;
+		r *= 10;
+	}
+	return r;
+}
+
 int find(T &t) {
-	static const int r[4][2] = {{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
-	set<T> m;
+	static const int r[] = {1, 4, -1, -4};
+	unordered_set<int> m;
 	priority_queue<N> q;
 	int d = md(t);
-	q.push({d, 0, d, t});
+	q.push({d, 0, d, (int)(find(t.begin(), t.end(), 0) - t.begin()), t});
 	while (!q.empty()) {
 		N a = q.top();
 		q.pop();
 		if (!a.h)
 			return a.g;
 		T &u = a.a;
-		if (m.count(u))
+		int e = encode(u);
+		if (m.count(e))
 			continue;
 		else
-			m.insert(u);
-		int px = 0, py = 0;
-		for (;; py++) {
-			auto r = find(u[py].begin(), u[py].end(), 0);
-			if (r != u[py].end()) {
-				px = r - u[py].begin();
-				break;
-			}
-		}
+			m.insert(e);
 		a.g++;
-		for (auto &p: r) {
-			int tx = px + p[0], ty = py + p[1];
-			if (tx >= 0 && tx < 4 && ty >= 0 && ty < 2) {
-				swap(u[py][px], u[ty][tx]);
+		for (auto &x: r) {
+			int p = x + a.o;
+			if (p >= 0 && p < 8 && !(p == 4 && x == 1) && !(p == 3 && x == -1)) {
+				swap(u[p], u[a.o]);
 				int h = md(u);
-				q.push({h + a.g, a.g, h, u});
-				swap(u[py][px], u[ty][tx]);
+				q.push({h + a.g, a.g, h, p, u});
+				swap(u[p], u[a.o]);
 			}
 		}
 	}
@@ -101,9 +102,8 @@ int main() {
 	T t;
 	for (;;) {
 		for (auto &a: t)
-			for (int &x: a)
-				if (!scan(x))
-					return 0;
+			if (!scan(a))
+				return 0;
 		outl(find(t));
 	}
 }
