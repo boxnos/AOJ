@@ -40,22 +40,25 @@ _T _vo(vector<T> &v){for(T &x:v)out(&x == &v[0]?"":" "),out(x);outl();}
 _HT _vo(H&& h, T&&... t){out(h);out(move(t)...);}
 template <typename... T> _vl(T&&... t){out(move(t)...);outl();}
 
+using v = vector<int>;
+using vv = vector<v>;
+#define all(a) a.begin(), a.end()
+
 int main() {
 	for (int N; (N = in());) {
-		vector<vector<int>> v(N);
-		for (auto &x: v)
+		vv s(N);
+		for (auto &x: s)
 			for (int M = in(); M; M--)
 				x.push_back(in());
-		vector<int> l(in());
+		v l(in());
 		for (int &x: l)
 			x = in();
-		sort(l.begin(), l.end());
+		sort(all(l));
 		int i = 1, q = -1;
-		for (auto x: v) {
-			vector<int> r;
-			sort(x.begin(), x.end());
-			set_intersection(x.begin(), x.end(), l.begin(), l.end(), inserter(r, r.end()));
-			if (r.size() == l.size()) {
+		for (auto x: s) {
+			v r;
+			sort(all(x));
+			if (includes(all(x), all(l))) {
 				if (q == -1)
 					q = i;
 				else {
