@@ -50,25 +50,20 @@ int main() {
 			g.insert({a, b});
 			g.insert({b, a});
 		}
-		int r = 0;
-		if (g.count(1)) {
-			unordered_set<int> c{1};
-			queue<pair<int, int>> q;
-			q.push({1, 0});
-			while (!q.empty()) {
-				auto n = q.front();
-				q.pop();
-				auto i = g.equal_range(n.first);
-				for_each(i.first, i.second,
-						 [&](auto a) {
-						 if (!c.count(a.second)) {
-						 r++;
-						 c.insert(a.second);
-						 if (n.second < 1)
-							q.push({a.second, n.second + 1});}});
-			}
+		unordered_set<int> c{1};
+		queue<pair<int, int>> q;
+		q.push({1, 0});
+		while (!q.empty()) {
+			auto n = q.front();
+			q.pop();
+			auto i = g.equal_range(n.first);
+			for_each(i.first, i.second, [&](auto a) {
+					 if (!c.count(a.second)) {
+						c.insert(a.second);
+						if (n.second < 1)
+							 q.push({a.second, n.second + 1});}});
 		}
-		outl(r);
+		outl(c.size() - 1);
 	}
 }
 
