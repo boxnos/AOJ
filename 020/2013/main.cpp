@@ -45,14 +45,9 @@ int time() {
 	return h * 3600 + m * 60 + in();
 }
 
-struct T {
-	int t, s;
-	bool operator < (T a) const {return t == a.t ? s < a.s : t < a.t;}
-};
-
 int main() {
 	for (int n; (n = in());) {
-		vector<T> t;
+		vector<pair<int, int>> t;
 		while (n--) {
 			t.push_back({time(), 1});
 			t.push_back({time(), -1});
@@ -60,7 +55,7 @@ int main() {
 		sort(t.begin(), t.end());
 		int c = 0, m = 0;
 		for (auto a: t)
-			m = max(c += a.s, m);
+			m = max(c += a.second, m);
 		outl(m);
 	}
 }
