@@ -3,6 +3,7 @@
 #include <utility>
 #include <climits>
 #include <algorithm>
+#include <map>
 using namespace std;
 
 #define gcu getchar_unlocked
@@ -42,25 +43,25 @@ template <typename... T> _vl(T&&... t){out(move(t)...);outl();}
 
 struct table {
 	int t[51];
-	constexpr table() : t() {
-		t[2] = 380;
-		t[3] = 550;
-		t[5] = 850;
-		t[10] = 1520;
-		t[12] = 1870;
-		t[15] = 2244;
-		for (int i = 4; i < 51; i++)
-			if (!t[i]) {
-				int m = INT_MAX;
-				for (int j = i - 2; i - j <= j; j--)
-					m = min(m, t[i - j] + t[j]);
-				t[i] = m;
-			}
+	table() : t() {
+		map<int, int> m = {{2, 380}, {3, 550}, {5, 850}, {10, 1520}, {12, 1870}, {15, 2244}};
+		for (int i = 2; i < 51; i++) {
+			int r = INT_MAX;
+			if (m.count(i))
+				r = m[i];
+			else
+				for (auto p: m) {
+					if (p.first > i - p.first)
+						break;
+					r = min(r,  p.second + t[i - p.first]);
+				}
+			t[i] = r;
+		}
 	}
 };
 
 int main() {
-	constexpr table t;
+	table t;
 	for (int a; (a = in());)
 		outl(t.t[a/100]);
 }
