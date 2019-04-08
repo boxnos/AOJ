@@ -1,0 +1,7 @@
+# Sample Input
+500
+2200
+0
+# Output for the Sample Input
+850
+3390
