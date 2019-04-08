@@ -43,17 +43,19 @@ template <typename... T> _vl(T&&... t){out(move(t)...);outl();}
 
 struct table {
 	int t[51];
-	table() : t() {
-		map<int, int> m = {{2, 380}, {3, 550}, {5, 850}, {10, 1520}, {12, 1870}, {15, 2244}};
+	constexpr table() : t() {
+		int ma[] = {2, 3, 5, 10, 12, 15},
+			mb[] = {380, 550, 850, 1520, 1870, 2224},
+			mc[] = {0, 0, 1, 2, 0, 3, 0, 0, 0, 0, 4, 0, 5, 0, 0, 6};
 		for (int i = 2; i < 51; i++) {
 			int r = INT_MAX;
-			if (m.count(i))
-				r = m[i];
+			if (i <= 15 && mc[i])
+				r = mb[mc[i] - 1];
 			else
-				for (auto p: m) {
-					if (p.first > i - p.first)
+				for (int j = 0; j < 6; j++) {
+					if (ma[j] > i - ma[j])
 						break;
-					r = min(r,  p.second + t[i - p.first]);
+					r = min(r,  mb[j] + t[i - ma[j]]);
 				}
 			t[i] = r;
 		}
@@ -61,7 +63,7 @@ struct table {
 };
 
 int main() {
-	table t;
+	constexpr table t;
 	for (int a; (a = in());)
 		outl(t.t[a/100]);
 }
