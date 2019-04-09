@@ -44,39 +44,25 @@ template <typename... T> _vl(T&&... t){out(move(t)...);outl();}
 using D = double;
 
 int main() {
-	stack<D> s;
+	stack<D> S;
 	unordered_map<char, function<D(D, D)>> m = {{'+', plus<D>()}, {'-', minus<D>()}, {'*', multiplies<D>()}, {'/', divides<D>()}};
-	auto eval = [&](char c) {
-		D b = s.top(); s.pop();
-		D a = s.top(); s.pop();
-		s.push(m[c](a, b));
-	};
-	auto number = [](int c) {
-		ungetc(c, stdin);
-		D d;
-		scanf("%lf" ,&d);
-		return d;
-	};
+	int c;
 	for (;;) {
-		int c = gcu();
+		string s;
+		while (c = gcu(), c != EOF && !isspace(c))
+			s += c;
 		if (c == EOF)
 			return 0;
-		else if (c == ' ')
-			continue;
-		else if (c == '\n') {
-			printf("%lf\n", s.top());
-			s.pop();
-		} else if (c == '-') {
-			int d = gcu();
-			if (isspace(d)) {
-				eval(c);
-				ungetc(d, stdin);
-			} else
-				s.push(number(d) * -1);
-		} else if (isdigit(c))
-			s.push(number(c));
-		else
-			eval(c);
+		if (s.size() == 1 && !isdigit(s[0])) {
+			D b = S.top(); S.pop();
+			D a = S.top(); S.pop();
+			S.push(m[s[0]](a, b));
+		} else
+			S.push(stoi(s));
+		if (c == '\n') {
+			printf("%lf\n", S.top());
+			S.pop();
+		}
 	}
 }
 
