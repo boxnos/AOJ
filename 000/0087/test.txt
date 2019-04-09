@@ -1,0 +1,8 @@
+# Sample Input
+10 2 12 - /
+3 4 - 7 2 3 * + *
+-1 -2 3 + +
+# Output for the Sample Input
+-1.000000
+-13.000000
+0.000000
