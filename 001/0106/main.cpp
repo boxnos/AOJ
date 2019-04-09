@@ -44,18 +44,11 @@ struct table {
 	int t[51];
 	constexpr table() : t() {
 		int ma[] = {2, 3, 5, 10, 12, 15}, mb[] = {380, 550, 850, 1520, 1870, 2244};
+		for (int i = 1; i < 51; i++)
+			t[i] = INT_MAX / 2;
 		for (int i = 0; i < 6; i++)
-			t[ma[i]] = mb[i];
-		for (int i = 2; i < 51; i++)
-			if (!t[i]) {
-				int r = INT_MAX;
-				for (int j = 0; j < 6; j++) {
-					if (ma[j] > i - ma[j])
-						break;
-					r = min(r,  mb[j] + t[i - ma[j]]);
-				}
-				t[i] = r;
-			}
+			for (int j = ma[i]; j < 51; j++)
+				t[j] = min(t[j], t[j - ma[i]] + mb[i]);
 	}
 };
 
