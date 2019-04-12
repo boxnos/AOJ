@@ -1,0 +1,10 @@
+# Sample Input
+6
+12300
+5600
+33800
+0
+26495
+52000
+# Output for the Sample Input
+21699
