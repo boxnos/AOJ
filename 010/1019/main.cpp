@@ -2,6 +2,7 @@
 #include <cctype>
 #include <utility>
 #include <vector>
+#include <algorithm>
 using namespace std;
 
 #define gcu getchar_unlocked
@@ -47,12 +48,7 @@ int main() {
 		while (N--)
 			for (int &x: f)
 				x -= in();
-		outl([&f]() {
-			for (int x: f)
-				if (x < 0)
-					return false;
-			return true;
-			}() ? "Yes": "No");
+		outl(all_of(f.begin(), f.end(), [](int x){return x >= 0;}) ? "Yes": "No");
 	}
 }
 
