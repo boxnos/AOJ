@@ -47,13 +47,12 @@ int main() {
 		while (N--)
 			for (int &x: f)
 				x -= in();
-		auto p = [&f]() {
+		outl([&f]() {
 			for (int x: f)
 				if (x < 0)
 					return false;
 			return true;
-		};
-		outl(p() ? "Yes": "No");
+			}() ? "Yes": "No");
 	}
 }
 
