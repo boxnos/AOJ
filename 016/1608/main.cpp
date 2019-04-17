@@ -50,7 +50,7 @@ int main() {
 		for (int &a: v)
 			a = in();
 		sort(v.begin(), v.end());
-		outl(accumulate(v.begin() + 1, v.end(), P{v[0], INT_MAX}, [](P acc, int a) {acc.m = min(acc.m, a - acc.p), acc.p = a; return acc;}).m);
+		outl(accumulate(v.begin() + 1, v.end(), P{v[0], INT_MAX}, [](P acc, int a) {return P{a, min(acc.m, a - acc.p)};}).m);
 	}
 }
 
