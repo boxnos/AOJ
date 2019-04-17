@@ -3,6 +3,7 @@
 #include <utility>
 #include <vector>
 #include <algorithm>
+#include <numeric>
 #include <climits>
 using namespace std;
 
@@ -41,15 +42,15 @@ _T _vo(vector<T> &v){for(T &x:v)out(&x == &v[0]?"":" "),out(x);outl();}
 _HT _vo(H&& h, T&&... t){out(h);out(move(t)...);}
 template <typename... T> _vl(T&&... t){out(move(t)...);outl();}
 
+struct P {int p, m;};
+
 int main() {
 	for (int n; (n = in());) {
 		vector<int> v(n);
 		for (int &a: v)
 			a = in();
 		sort(v.begin(), v.end());
-		int p = *v.begin(), m = INT_MAX;
-		for_each(v.begin() + 1, v.end(), [&](int a) {m = min(m, a - p), p = a;});
-		outl(m);
+		outl(accumulate(v.begin() + 1, v.end(), P{v[0], INT_MAX}, [](P acc, int a) {acc.m = min(acc.m, a - acc.p), acc.p = a; return acc;}).m);
 	}
 }
 
