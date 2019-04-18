@@ -47,9 +47,8 @@ using A = array<int, 3>;
 int main() {
 	A l;
 	for (int a, b, c, N; scan(a, b, c, N);) {
-		V<int> v(a + b + c);
+		V<int> v(a + b + c, 2);
 		V<A> t;
-		fill(v.begin(), v.end(), 2);
 		while (N--) {
 			for (int &x: l)
 				x = in() - 1;
