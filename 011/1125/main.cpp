@@ -50,14 +50,14 @@ int main() {
 			int x = in(), y = in();
 			v[y][x] = 1;
 		}
-		auto all = [](int si, int ei, int sj, int ej, auto f) {
+		auto g = [](int si, int ei, int sj, int ej, auto f) {
 			for (int i = si; i < ei; i++)
 				for (int j = sj; j < ej; j++)
 					f(i, j);};
-		all(1, H, 1, W, [&](int i, int j) {
+		g(1, H, 1, W, [&](int i, int j) {
 			  v[i][j] = v[i - 1][j] + v[i][j], w[i][j] = v[i][j] + w[i][j - 1];});
 		int S = in(), T = in(), m = 0;
-		all(T, H, S, W, [&](int i, int j) {
+		g(T, H, S, W, [&](int i, int j) {
 				m = max(m, w[i][j] - w[i - T][j] - w[i][j - S] + w[i - T][j - S]);});
 		outl(m);
 	}
