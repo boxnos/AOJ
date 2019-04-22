@@ -1,0 +1,11 @@
+# Sample Input
+15
+100
+1000000000
+3
+0
+# Output for the Sample Input
+19
+155
+9358757000
+3
