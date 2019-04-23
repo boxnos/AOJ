@@ -50,8 +50,9 @@ int main() {
 			v.push_back(d);
 			p = c;
 		}
-		sort(v.rbegin(), v.rend());
-		for (int i = 0; i < (int) v.size() && i < k; i++)
+		int m = min((int) v.size(), k);
+		nth_element(v.begin(), v.begin() + m, v.end(), [](int a, int b) {return a > b;});
+		for (int i = 0; i < m; i++)
 			r -= v[i];
 		outl(r);
 	}
