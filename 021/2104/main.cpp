@@ -52,8 +52,7 @@ int main() {
 		}
 		int m = min((int) v.size(), k);
 		nth_element(v.begin(), v.begin() + m, v.end(), [](int a, int b) {return a > b;});
-		for (int i = 0; i < m; i++)
-			r -= v[i];
+		for_each(v.begin(), v.begin() + m, [&r](int i){r -= i;});
 		outl(r);
 	}
 }
