@@ -3,6 +3,8 @@
 #include <utility>
 #include <vector>
 #include <algorithm>
+#include <numeric>
+#include <functional>
 using namespace std;
 
 #define gcu getchar_unlocked
@@ -51,9 +53,8 @@ int main() {
 			p = c;
 		}
 		auto m = v.begin() + min((int) v.size(), k);
-		nth_element(v.begin(), m, v.end(), [](int a, int b) {return a > b;});
-		for_each(v.begin(), m, [&r](int i){r -= i;});
-		outl(r);
+		nth_element(v.begin(), m, v.end(), greater<int>());
+		outl(accumulate(v.begin(), m, r, minus<int>()));
 	}
 }
 
