@@ -50,9 +50,9 @@ int main() {
 			v.push_back(d);
 			p = c;
 		}
-		int m = min((int) v.size(), k);
-		nth_element(v.begin(), v.begin() + m, v.end(), [](int a, int b) {return a > b;});
-		for_each(v.begin(), v.begin() + m, [&r](int i){r -= i;});
+		auto m = v.begin() + min((int) v.size(), k);
+		nth_element(v.begin(), m, v.end(), [](int a, int b) {return a > b;});
+		for_each(v.begin(), m, [&r](int i){r -= i;});
 		outl(r);
 	}
 }
