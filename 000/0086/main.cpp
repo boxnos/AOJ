@@ -41,19 +41,20 @@ _HT _vo(H&& h, T&&... t){out(h);out(move(t)...);}
 template <typename... T> _vl(T&&... t){out(move(t)...);outl();}
 
 int main() {
-	unordered_map<int, int> m;
+	unordered_map<int, bool> m;
 	auto o = [&m](int i) {
-		bool r = m[i] & 1;
+		bool r = m[i];
 		m.erase(i);
 		return r;
 	};
 	for (int a, b;;)
 		if (scan(a, b))
 			if (a)
-				m[a]++, m[b]++;
+				m[a] ^= 1, m[b] ^= 1;
 			else {
-				outl(o(1) && o(2) &&
-					 none_of(m.begin(), m.end(), [](auto x) {return x.second & 1;}) ? "OK" : "NG");
+				outl(o(1) && o(2)
+					 && none_of(m.begin(), m.end(), [](auto x) {return x.second;})
+					 ? "OK" : "NG");
 				m.clear();
 			}
 		else
