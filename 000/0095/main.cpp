@@ -1,7 +1,6 @@
 #include <cstdio>
 #include <cctype>
 #include <utility>
-#include <climits>
 #include <algorithm>
 using namespace std;
 
@@ -41,8 +40,9 @@ _HT _vo(H&& h, T&&... t){out(h);out(move(t)...);}
 template <typename... T> _vl(T&&... t){out(move(t)...);outl();}
 
 int main() {
-	pair<int, int> m = {0, INT_MIN}, t;
-	for (int n = in(); n; n--) {
+	int n = in(), at = -in();
+	pair<int, int> m = {in(), at}, t;
+	while (n--) {
 		int a = -in();
 		t = {in(), a};
 		m = max(m, t);
