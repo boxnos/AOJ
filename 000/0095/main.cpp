@@ -40,7 +40,7 @@ _HT _vo(H&& h, T&&... t){out(h);out(move(t)...);}
 template <typename... T> _vl(T&&... t){out(move(t)...);outl();}
 
 int main() {
-	int n = in(), at = -in();
+	int n = in() - 1, at = -in();
 	pair<int, int> m = {in(), at}, t;
 	while (n--) {
 		int a = -in();
