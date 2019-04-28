@@ -40,10 +40,10 @@ _HT _vo(H&& h, T&&... t){out(h);out(move(t)...);}
 template <typename... T> _vl(T&&... t){out(move(t)...);outl();}
 
 int main() {
-	int n = in() - 1, at = -in();
-	pair<int, int> m = {in(), at}, t;
-	while (n--) {
-		int a = -in();
+	int n = in(), a = -in();
+	pair<int, int> m = {in(), a}, t;
+	while (--n) {
+		a = -in();
 		t = {in(), a};
 		m = max(m, t);
 	}
