@@ -1,0 +1,9 @@
+# Sample Input
+4 2
+50 40 100 80
+7 3
+400 300 100 700 200 600 500
+0 0
+# Output for the Sample Input
+150
+2100
