@@ -42,8 +42,8 @@ template <typename... T> _vl(T&&... t){out(move(t)...);outl();}
 int main() {
 	for (int N = in(); N; N--) {
 		int x = in(), y = in(), b = in(), p = in();
-		auto f = [=](int b, int p, double r) {return (int) ((x * b + y * p) * r);};
-		outl(min(f(b, p, 1), f(max(5, b), max(2, p), 0.8)));
+		auto f = [=](int b, int p, int r) {return (x * b + y * p) * r / 10;};
+		outl(min(f(b, p, 10), f(max(5, b), max(2, p), 8)));
 	}
 }
 
