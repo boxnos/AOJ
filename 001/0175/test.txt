@@ -1,0 +1,15 @@
+# Sample Input
+7
+4
+0
+12
+10
+10000
+-1
+# Output for the Sample Input
+13
+10
+0
+30
+22
+2130100
