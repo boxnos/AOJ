@@ -61,47 +61,50 @@ struct boad {
 			}
 	}
 
-	int move(int r) {
-		for (int i = 0, tx = sx, ty = sy;; i++) {
-			tx += d[r][0]; ty += d[r][1];
-			if(tx < 0 || tx >= (int) b[0].size() || ty < 0 || ty >= (int) b.size())
-				return 0;
-			if (b[ty][tx] == 3)
-				return -1;
-			else if (b[ty][tx] == 1) {
-				b[ty][tx] = 0;
-				sx = tx - d[r][0];
-				sy = ty - d[r][1];
-				c++;
-				return i;
-			}
+	void dump() {
+		outl("{", sx, ",", sy ,"}");
+		for (auto y: b) {
+			for (int x: y)
+				out(x);
+			outl();
 		}
 	}
+
 };
 
-int bfs (boad &b) {
+int bfs (int w, int h) {
 	queue<boad> q;
-	q.push(b);
+	q.push(boad(w, h));
 	while (!q.empty()) {
 		boad t = q.front();
 		q.pop();
-		for (int i = 0; i < 4; i++) {
-			boad tt = t;
-			int r = tt.move(i);
-			if (r == -1)
-				return tt.c;
-			else if (tt.c <= 10 && r)
-				q.push(tt);
+		for (int r = 0; r < 4; r++) {
+			for (int i = 0, tx = t.sx, ty = t.sy;; i++) {
+				tx += d[r][0]; ty += d[r][1];
+				if(tx < 0 || tx >= w || ty < 0 || ty >= h)
+					break;
+				if (t.b[ty][tx] == 3)
+					return t.c;
+				else if (t.b[ty][tx] == 1) {
+					if (t.c < 10 && i) {
+						boad tt = t;
+						tt.b[ty][tx] = 0;
+						tt.sx = tx - d[r][0];
+						tt.sy = ty - d[r][1];
+						tt.c++;
+						q.push(tt);
+					}
+					break;
+				}
+			}
 		}
 	}
 	return -1;
 }
 
 int main() {
-	for (int w, h; w = in(), h = in();) {
-		boad b(w, h);
-		outl(bfs(b));
-	}
+	for (int w, h; w = in(), h = in();)
+		outl(bfs(w, h));
 }
 
 /* vim: set ts=4 noet: */
