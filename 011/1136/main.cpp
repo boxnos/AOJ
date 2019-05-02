@@ -47,10 +47,10 @@ using V = vector<C>;
 
 void shift(V &v) {
 	C c = v[0], &d = v[1];
-	for_each(all(v), [&c](auto &x) {x -= c;});
+	for_each(all(v), [c](auto &x) {x -= c;});
 	C r = d.imag() < 0 ? C{0, 1} : d.imag() > 0 ? C{0, -1} :
 		  d.real() < 0 ? C{-1, 0} : C{1, 0};
-	for_each(1 + all(v), [&r](auto &x) {x *= r;});
+	for_each(1 + all(v), [r](auto &x) {x *= r;});
 }
 
 V read () {
