@@ -43,32 +43,31 @@ template <typename... T> _vl(T&&... t){out(move(t)...);outl();}
 
 using C = complex<int>;
 using V = vector<C>;
+#define all(a) a.begin(), a.end()
+
+void shift(V &v) {
+	C c = v[0], &d = v[1];
+	for_each(all(v), [&c](auto &x) {x -= c;});
+	C r = d.imag() < 0 ? C{0, 1} : d.imag() > 0 ? C{0, -1} :
+		  d.real() < 0 ? C{-1, 0} : C{1, 0};
+	for_each(1 + all(v), [&r](auto &x) {x *= r;});
+}
 
 V read () {
 	V v(in());
-	C c = {in(), in()};
-	v[0] = {0, 0};
-	for_each(v.begin() + 1, v.end(), [&](auto &x) {x = C{in(), in()} - c;});
+	for (auto &x: v)
+		x = {in(), in()};
+	shift(v);
 	return move(v);
 }
 
 int main() {
 	for (int n; (n = in());) {
-		V a = read(), b;
-		vector<V> v(8);
-		auto rot = [&a](auto b, auto e) {
-			for_each (b, e, [&a](auto &x) {
-					  x = a;
-					  for_each(a.begin() + 1, a.end(), [](auto &x) {x *= C{0, 1};});});
-		};
-		rot(v.begin(), v.begin() + 4);
-		reverse(a.begin(), a.end());
-		C c = a[0];
-		for_each(a.begin(), a.end(), [=](auto &x) {x -= c;});
-		rot(v.begin() + 4, v.end());
+		V a = read();
+		vector<V> v = {a, (reverse(all(a)), shift(a), a)};
 		for (int i = 1; i <= n; i++) {
-			b = read();
-			if(find(v.begin(), v.end(), b) != v.end())
+			V b = read();
+			if(find(all(v), b) != v.end())
 				outl(i);
 		}
 		outl("+++++");
