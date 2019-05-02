@@ -5,7 +5,6 @@
 #include <cmath>
 #include <algorithm>
 #include <set>
-#include <climits>
 using namespace std;
 
 #define gcu getchar_unlocked
@@ -87,7 +86,7 @@ struct min_list {
 			return false;
 	}
 	int max() {
-		return s.empty() ? INT_MAX : *s.rbegin();
+		return s.empty() ? 0 : *s.rbegin();
 	}
 };
 
