@@ -1,0 +1,23 @@
+# Sample Input
+10 10
+.....W....
+....W.W...
+...W...W..
+....W...W.
+.....W...W
+......W.W.
+BBB....W..
+..B..BBBBB
+..B..B....
+..B..B..W.
+5 3
+...B.
+...BB
+.....
+1 1
+.
+0 0
+# Output for the Sample Input
+6 21
+12 0
+0 0
