@@ -48,11 +48,11 @@ struct P {int x, y;};
 int main() {
 	int dx[] = {4, 2}, dy[] = {2, 4};
 	for (int w, h; w = in(), h = in();) {
-		P s = {in() - 1, in() - 1}, g = {in() - 1, in() - 1};
+		P s = {in(), in()}, g = {in(), in()};
 		int n = in();
-		VV m(h, V(w));
+		VV m(h + 2, V(w + 2));
 		while (n--) {
-			int c = in(), d = in(), x = in() - 1, y = in() - 1;
+			int c = in(), d = in(), x = in(), y = in();
 			for (int i = 0; i < dy[d]; i++)
 				for (int j = 0; j < dx[d]; j++)
 					m[i + y][j + x] = c;
@@ -65,7 +65,7 @@ int main() {
 			P d = {1, 0};
 			for (int i = 0; i < 4; i++) {
 				int tx = x + d.x, ty = y + d.y;
-				if (tx >= 0 && ty >= 0 && tx < w && ty < h && m[ty][tx] == c) {
+				if (m[ty][tx] == c) {
 					m[ty][tx] = 0;
 					if (f(tx, ty))
 						return true;
