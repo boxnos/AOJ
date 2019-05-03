@@ -50,7 +50,7 @@ int main() {
 		int B = 0, W = 0;
 		for (auto &y: m)
 			scan(y);
-		function<P(int, char)> f = [&](int x, int y) {
+		function<P(int, int)> f = [&](int x, int y) {
 			char &t = m[y][x];
 			if (t == 'B' || t == 'W')
 				return P{0, t};
