@@ -41,23 +41,19 @@ _T _vo(vector<T> &v){for(T &x:v)out(&x == &v[0]?"":" "),out(x);outl();}
 _HT _vo(H&& h, T&&... t){out(h);out(move(t)...);}
 template <typename... T> _vl(T&&... t){out(move(t)...);outl();}
 
-struct P {
-	double r;
-	string s;
-	bool operator < (P a) {return r == a.r ? s < a.s : r > a.r;}
-};
+using P = pair<double, string>;
 
 int main() {
 	for (int N; (N = in());) {
 		vector<P> l(N);
 		for (P &p: l) {
 			int P, A, B, C, D, E, F, S, M;
-			scan(p.s, P, A, B, C, D, E, F, S, M);
-			p.r = (double) ((F * S * M) - P) / (A + B + C + (D + E) * M);
+			scan(p.second, P, A, B, C, D, E, F, S, M);
+			p.first = (double) -((F * S * M) - P) / (A + B + C + (D + E) * M);
 		}
 		sort(l.begin(), l.end());
 		for (P p :l)
-			outl(p.s);
+			outl(p.second);
 		outl('#');
 	}
 }
