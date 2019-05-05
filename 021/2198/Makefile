@@ -14,6 +14,7 @@ test-in%:
 #	./$(target) < in$(call rm_prefix,$@) | ruby -e 'e=0;f=ARGV.map {|n|n=="-" ? STDIN : open(n)};while l=f[0].gets;m=f[1].gets;if(l.to_f-m.to_f).abs>=0.0001;puts"< #{l}> #{m}";e=1;end;end;exit e' - out$(call rm_prefix,$@)
 
 in_0 : test.txt
+	make clean
 	ruby -ne'BEGIN{b=[]};if$$_=~/^# /;b<<"";else b[-1]<<$$_;end;END{b.each.with_index{|f,i|File.write("#{i.odd? ? "out":"in"}_#{i/2}",f)}}'<$<
 
 clean:
