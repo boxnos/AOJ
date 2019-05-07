@@ -1,0 +1,9 @@
+# Sample Input
+3
+6
+-1
+# Output for the Sample Input
+0.29
+1.71
+-2.31
+0.80
