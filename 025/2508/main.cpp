@@ -41,8 +41,7 @@ _HT _vo(H&& h, T&&... t){out(h);out(move(t)...);}
 template <typename... T> _vl(T&&... t){out(move(t)...);outl();}
 
 struct T {
-	int a[256];
-	char b[52];
+	char a[256], b[52];
 	constexpr T() : a(), b() {
 		int i = 0;
 		for (int c = 'a'; c <= 'z'; c++) a[c] = i++;
@@ -63,7 +62,7 @@ int main() {
 		scan(s);
 		int i = 0;
 		for (int c: s)
-			out(t.b[(52 + t.a[c] - k[i++ % k.size()]) % 52]);
+			out(t.b[(52 + t.a[c] - k[i++ % n]) % 52]);
 		outl();
 	}
 }
