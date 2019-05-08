@@ -46,14 +46,15 @@ using T = tuple<D, D, D>;
 
 int main() {
 	vector<T> l;
-	D N = in(), W = in(), V = 0;
+	int N = in();
+	D W = in(), V = 0;
 	for (; N; N--) {
-		D v = in(), w = in();
+		const D v = in(), w = in();
 		l.push_back(make_tuple(v / w, v, w));
 	}
-	sort(l.rbegin(), l.rend(), [](T &a, T &b) {return get<0>(a) < get<0>(b);});
+	sort(l.rbegin(), l.rend(), [](const T &a, const T &b) {return get<0>(a) < get<0>(b);});
 	for (auto x: l) {
-		D w = get<2>(x) ,m = min(W, w);
+		const D w = get<2>(x), m = min(W, w);
 		W -= m;
 		V += get<1>(x) * (m / w);
 		if (W <= 0)
