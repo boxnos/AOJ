@@ -51,7 +51,7 @@ int main() {
 		D v = in(), w = in();
 		l.push_back(make_tuple(v / w, v, w));
 	}
-	sort(l.rbegin(), l.rend());
+	sort(l.rbegin(), l.rend(), [](T &a, T &b) {return get<0>(a) < get<0>(b);});
 	for (auto x: l) {
 		D w = get<2>(x) ,m = min(W, w);
 		W -= m;
