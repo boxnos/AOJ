@@ -42,6 +42,7 @@ template <typename... T> _vl(T&&... t){out(move(t)...);outl();}
 struct P {int x, y;};
 
 int main() {
+	const int d[4][4] = {{0, 0, 1, 0}, {0, -1, 0, -2}, {-1, 0, -1, 0}, {0, 1, 0, 2}};
 	array<array<int, 6>, 11> m{};
 	for (int i = 1; i <= 9; i++) {
 		for (int j = 1, e = 5 - i % 2; j <= e; j ++)
@@ -52,14 +53,11 @@ int main() {
 	int r = 0;
 	do {
 		[&]() {
-			for (r = (r + 1) % 4;; r = (r + 3) % 4) {
-				switch (r) {
-				case 0: if (m[p.y][p.x])     { p.x++; return; } break;
-				case 1: if (m[p.y - 1][p.x]) { p.y -= 2; return; } break;
-				case 2: if (m[p.y][p.x - 1]) { p.x--; return; } break;
-				case 3: if (m[p.y + 1][p.x]) { p.y += 2; return; } break;
+			for (r = (r + 1) % 4;; r = (r + 3) % 4)
+				if (m[p.y + d[r][1]][p.x + d[r][0]]) {
+					p.x += d[r][2], p.y += d[r][3];
+					return;
 				}
-			}
 		}();
 		out("RULD"[r]);
 	} while(!(p.x == 1 && p.y == 1));
