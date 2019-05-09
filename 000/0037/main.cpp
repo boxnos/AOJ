@@ -52,13 +52,11 @@ int main() {
 	P p = {1, 1};
 	int r = 0;
 	do {
-		[&]() {
-			for (r = (r + 1) % 4;; r = (r + 3) % 4)
-				if (m[p.y + d[r][1]][p.x + d[r][0]]) {
-					p.x += d[r][2], p.y += d[r][3];
-					return;
-				}
-		}();
+		for (r = (r + 1) % 4;; r = (r + 3) % 4)
+			if (m[p.y + d[r][1]][p.x + d[r][0]]) {
+				p.x += d[r][2], p.y += d[r][3];
+				break;
+			}
 		out("RULD"[r]);
 	} while(!(p.x == 1 && p.y == 1));
 	outl();
