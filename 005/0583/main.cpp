@@ -70,21 +70,27 @@ int main() {
 	int n = in(), c = in();
 	while (--n)
 		c = __gcd(c, in());
-	vector<int> a;
+
+	vector<pair<int, int>> a;
 	for (int i = 0; c != 1; i++)
 		while (c % s.v[i] == 0) {
 			c /= s.v[i];
-			a.push_back(s.v[i]);
+			if (a.size() && a.back().first == s.v[i])
+				a.back().second++;
+			else
+				a.push_back({s.v[i], 1});
 		}
 
-	vector<int> r(1 << a.size(), 1);
-	for (size_t i = 0; i < r.size(); i++)
-		for (size_t j = 0; j < a.size(); j++)
-			if (i >> j & 1)
-				r[i] *= a[j];
+	vector<int> r = {1};
+	for (auto p: a) {
+		size_t i = 0;
+		while (p.second--) {
+			size_t e = r.size();
+			for (; i < e; i++)
+				r.push_back(r[i] * p.first);
+		}
+	}
 	sort(r.begin(), r.end());
-	auto u = unique(r.begin(), r.end());
-	r.erase(u, r.end());
 
 	for (int x: r)
 		outl(x);
