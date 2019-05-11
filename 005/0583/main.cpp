@@ -72,14 +72,22 @@ int main() {
 		c = __gcd(c, in());
 
 	vector<pair<int, int>> a;
-	for (int i = 0; c != 1; i++)
-		while (c % s.v[i] == 0) {
-			c /= s.v[i];
-			if (a.size() && a.back().first == s.v[i])
-				a.back().second++;
-			else
-				a.push_back({s.v[i], 1});
+	for (int i = 0; ; i++) {
+		if (c >= s.v[i] * s.v[i]) {
+			while (c % s.v[i] == 0) {
+				c /= s.v[i];
+				if (a.size() && a.back().first == s.v[i])
+					a.back().second++;
+				else
+					a.push_back({s.v[i], 1});
+			}
+		} else if (c == 1)
+			break;
+		else {
+			a.push_back({c, 1});
+			break;
 		}
+	}
 
 	vector<int> r = {1};
 	for (auto p: a) {
