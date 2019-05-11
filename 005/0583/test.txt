@@ -1,0 +1,135 @@
+# 入力例１
+2
+75 125
+# 出力例１
+1
+5
+25
+# 入力例２
+3
+110 22 88
+# 出力例２
+1
+2
+11
+22
+# 入力例３
+3
+66 11 3
+# 出力例３
+1
+# in https://judgedat.u-aizu.ac.jp/testcases/0583/1
+2
+72 54
+# out https://judgedat.u-aizu.ac.jp/testcases/0583/1
+1
+2
+3
+6
+9
+18
+# in https://judgedat.u-aizu.ac.jp/testcases/0583/2
+2
+1620 1296
+# out https://judgedat.u-aizu.ac.jp/testcases/0583/2
+1
+2
+3
+4
+6
+9
+12
+18
+27
+36
+54
+81
+108
+162
+324
+# in https://judgedat.u-aizu.ac.jp/testcases/0583/3
+2
+311696 298144
+# out https://judgedat.u-aizu.ac.jp/testcases/0583/3
+1
+2
+4
+7
+8
+11
+14
+16
+22
+28
+44
+56
+77
+88
+112
+121
+154
+176
+242
+308
+484
+616
+847
+968
+1232
+1694
+1936
+3388
+6776
+13552
+# in https://judgedat.u-aizu.ac.jp/testcases/0583/4
+3
+1610 1715 1505
+# out https://judgedat.u-aizu.ac.jp/testcases/0583/4
+1
+5
+7
+35
+# in https://judgedat.u-aizu.ac.jp/testcases/0583/5
+3
+1849232 1265264 2238544
+# out https://judgedat.u-aizu.ac.jp/testcases/0583/5
+1
+2
+4
+7
+8
+11
+14
+16
+22
+28
+44
+56
+77
+79
+88
+112
+154
+158
+176
+308
+316
+553
+616
+632
+869
+1106
+1232
+1264
+1738
+2212
+3476
+4424
+6083
+6952
+8848
+12166
+13904
+24332
+48664
+97328
