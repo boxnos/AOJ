@@ -1,0 +1,26 @@
+# in
+0
+2
+-P
+-0
+.
+# out
+0
+27
+9
+27
+# Sample Input
+(P*Q)
+(--R+(P*Q))
+(P*-P)
+2
+1
+(-1+(((---P+Q)*(--Q+---R))*(-R+-P)))
+.
+# Output for the Sample Input
+3
+11
+0
+27
+0
+7
