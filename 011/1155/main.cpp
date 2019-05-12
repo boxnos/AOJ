@@ -45,16 +45,12 @@ using A = array<int, 3>;
 
 function<int(A &)> f(string::iterator &i) {
 	switch (*i) {
-	case '0':
-	case '1':
-	case '2':
+	case '0': case '1': case '2':
 		{
 			char c = *i++ - '0';
 			return [c](...) { return c; };
 		}
-	case 'P':
-	case 'Q':
-	case 'R':
+	case 'P': case 'Q': case 'R':
 		{
 			int j = *i == 'P' ? 0 : *i == 'Q' ? 1 : 2;
 			i++;
@@ -72,15 +68,9 @@ function<int(A &)> f(string::iterator &i) {
 			auto b = f(++i);
 			i++;
 			if (op == '*')
-				return [a, b](A &e) {
-					const int t[][3] = {{0, 0, 0}, {0, 1, 1}, {0, 1, 2}};
-					return t[a(e)][b(e)];
-				};
+				return [a, b](A &e) { return min(a(e), b(e)); };
 			else
-				return [a, b](A &e) {
-					const int t[][3] = {{0, 1, 2}, {1, 1, 2}, {2, 2, 2}};
-					return t[a(e)][b(e)];
-				};
+				return [a, b](A &e) { return max(a(e), b(e)); };
 		}
 	}
 }
@@ -89,17 +79,17 @@ int main() {
 	for (string s; scan(s), s[0] != '.';) {
 		auto i = s.begin();
 		auto e = f(i);
-		auto set = [](int &p, auto f) {
-			int a = 0;
-			for (p = 0; p < 3; p++)
-				a += f();
-			return a;
-		};
 		A t;
-		outl(set(t[0], [&]{
-				 return set(t[1], [&]{
-							return set(t[2], [&]{
-									   return e(t) == 2;});});}));
+		function<int(int)> loop = [&](int i) {
+			if (i--) {
+				int a = 0;
+				for (t[i] = 0; t[i] < 3; t[i]++)
+					a += loop(i);
+				return a;
+			} else
+				return (int) (e(t) == 2);
+		};
+		outl(loop(3));
 	}
 }
 
