@@ -80,16 +80,15 @@ int main() {
 		auto i = s.begin();
 		auto e = f(i);
 		A t;
-		function<int(int)> loop = [&](int i) {
+		function<int(int, int)> loop = [&](int i, int a) {
 			if (i--) {
-				int a = 0;
 				for (t[i] = 0; t[i] < 3; t[i]++)
-					a += loop(i);
+					a = loop(i, a);
 				return a;
 			} else
-				return (int) (e(t) == 2);
+				return a + (e(t) == 2);
 		};
-		outl(loop(3));
+		outl(loop(3, 0));
 	}
 }
 
