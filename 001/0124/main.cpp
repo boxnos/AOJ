@@ -6,8 +6,8 @@
 #include <algorithm>
 using namespace std;
 
-#define gcu getchar_unlocked
-#define pcu putchar_unlocked
+const auto gcu = getchar_unlocked;
+const auto pcu = putchar_unlocked;
 #define _T template <typename T>
 #define _HT template <typename H, typename... T>
 #define _il inline
@@ -31,9 +31,8 @@ _vo(char c){pcu(c);}
 #ifdef _GLIBCXX_STRING
 _vo(string s){for(char c:s)pcu(c);}
 #endif
-_T _vo(T n){static char buf[20];char *p=buf;
-	if(n<0)pcu('-'),n*=-1;if(!n)*p++='0';else while(n)*p++=n%10+'0',n/=10;
-	while (p!=buf)pcu(*--p);}
+_T _vo(T n){static char buf[20];char *p=buf;if(n<0)pcu('-'),n*=-1;
+	if(!n)*p++='0';else while(n)*p++=n%10+'0',n/=10; while (p!=buf)pcu(*--p);}
 _vl(){out('\n');}
 #ifdef _GLIBCXX_VECTOR
 _T _vo(vector<T> &v){for(T &x:v)out(&x == &v[0]?"":" "),out(x);outl();}
