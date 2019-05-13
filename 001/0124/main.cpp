@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include <algorithm>
+#include <functional>
 using namespace std;
 
 const auto gcu = getchar_unlocked;
@@ -43,9 +44,9 @@ template <typename... T> _vl(T&&... t){out(move(t)...);outl();}
 struct T { string s; int r; };
 
 int main() {
-	for (int n, c = 0; (n = in());) {
-		if (c++)
-			outl();
+	function<void()> f = [&]{f = []{outl();};};
+	for (int n; (n = in());) {
+		f();
 		vector<T> v(n);
 		for (T &x: v) {
 			int w, l, d;
