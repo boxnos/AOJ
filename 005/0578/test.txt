@@ -1,0 +1,18 @@
+# in
+4
+bar
+bar
+aabar
+abbxaxr
+c
+# out
+3
+# input
+4
+bar
+abracadabra
+bear
+bar
+baraxbara
+# 出力例
+3
