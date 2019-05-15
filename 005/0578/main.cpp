@@ -48,12 +48,14 @@ int main() {
 			for (int i = 0; i <= (int) t.size() - (int) s.size(); i++)
 				if (s[0] == t[i])
 					for (int j = 1; i + j * (s.size() - 1) < t.size(); j++) {
-						if ([&] {
+						try {
 							for (size_t k = 1; k < s.size() ; k++)
 								if (t[i + j * k] != s[k])
-									return false;
-							return true;}())
+									throw 0;
 							return 1;
+						} catch (...) {
+							;
+						}
 					}
 			return 0;
 		}();
