@@ -36,8 +36,7 @@ struct union_find {
 	struct node {int p, r = 0;};
 	vector<node> nodes;
 
-	union_find(int n) {
-		nodes.resize(n);
+	union_find(int n) : nodes(n) {
 		int i = 0;
 		for (node &n: nodes)
 			n.p = i++;
@@ -51,33 +50,31 @@ struct union_find {
 			return p;
 		}
 	}
-	void _union(int a, int b) {
+	void unite(int a, int b) {
 		int ar = find(a), br = find(b);
 		node &an = nodes[ar], &bn = nodes[br];
 		if (an.r > bn.r)
 			bn.p = ar;
-		else if (an.r > bn.r)
-			an.p = br;
 		else if (ar != br) {
 			bn.p = ar;
 			an.r++;
 		}
 	}
-	void read(int n) {
-		int a;
-		while(n--) {
-			a = in();
-			_union(a, in());
-		}
+	bool equal(int a, int b) {
+		return find(a) == find(b);
 	}
 };
 
 int main() {
 	union_find u(in());
-	u.read(in());
+	int n = in();
+	while(n--) {
+		int a = in();
+		u.unite(a, in());
+	}
 	int q = in();
 	while (q--)
-		out(u.find(in()) == u.find(in()) ? "yes" : "no", '\n');
+		out(u.equal(in(), in()) ? "yes" : "no", '\n');
 }
 
 /* vim: set ts=4 noet: */
