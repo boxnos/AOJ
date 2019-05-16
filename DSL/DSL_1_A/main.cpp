@@ -39,7 +39,7 @@ _HT _vo(H&& h, T&&... t){out(h);out(move(t)...);}
 template <typename... T> _vl(T&&... t){out(move(t)...);outl();}
 
 struct union_find {
-	struct node {int p, r = 1;};
+	struct node {int p, r = 0;};
 	vector<node> nodes;
 
 	union_find(int n) : nodes(n) {
