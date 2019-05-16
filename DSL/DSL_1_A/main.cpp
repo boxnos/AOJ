@@ -49,22 +49,19 @@ struct union_find {
 	}
 	int find(int x) {
 		int &p = nodes[x].p;
-		if (p == x)
-			return x;
-		else {
+		if (p != x)
 			p = find(p);
-			return p;
-		}
+		return p;
 	}
 	void unite(int a, int b) {
 		int ar = find(a), br = find(b);
 		node &an = nodes[ar], &bn = nodes[br];
-		if (an.r > bn.r) {
+		if (an.r > bn.r)
 			bn.p = ar;
-			an.r += bn.r;
-		} else if (ar != br) {
+		else {
 			an.p = br;
-			bn.r += an.r;
+			if (an.r == bn.r)
+				bn.r++;
 		}
 	}
 	bool equal(int a, int b) {
