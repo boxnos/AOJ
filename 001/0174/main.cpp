@@ -2,6 +2,7 @@
 #include <cctype>
 #include <utility>
 #include <string>
+#include <algorithm>
 using namespace std;
 
 const auto gcu = getchar_unlocked;
@@ -41,11 +42,9 @@ template <typename... T> _vl(T&&... t){out(move(t)...);outl();}
 int main() {
 	for (char c; c = gcu(), c != '0';) {
 		string s; scan(s);
-		int A = 0, B = 0;
-		auto p = [&] (auto f){if (f()) A++; else B++;};
-		for (char w: s)
-			p([w]{return w == 'A';});
-		p([A, B]{return A > B;});
+		int A = count(s.begin(), s.end(), 'A'),
+			B = s.size() - A;
+		(*(A > B ? &A : &B))++;
 		outl(A, ' ', B);
 	}
 }
