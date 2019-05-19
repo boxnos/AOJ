@@ -43,11 +43,11 @@ int main() {
 	for (auto &y: a)
 		scan(y);
 	int i, j, go[] = {0, 8, 1}, back[] = {7, -1, -1};
-	const struct T{int r, *i, *j, &x, &y;} tr[] =
+	const struct {int r, *i, *j, &x, &y;} tr[] =
 		{90, go, back, i, j, 180, back, back, j, i, 270, back, go, i, j};
 	auto loop = [](int o[], int &k, auto f) {
 		for (k = o[0]; k != o[1]; k += o[2]) f();};
-	for (T t: tr) {
+	for (auto &t: tr) {
 		outl(t.r);
 		loop(t.i, i, [&] {
 			 loop(t.j, j, [&] {
