@@ -38,15 +38,14 @@ _T _ot(vector<T> &v){for(T &x:v)out(&x == &v[0]?"":" "),out(x);outl();}
 _HT _ot(H&& h, T&&... t){out(h);out(move(t)...);}
 template <typename... T> _ol(T&&... t){out(move(t)...);outl();}
 
-struct T {int r, i[3], j[3], &x, &y;};
+struct T {int r, *i, *j, &x, &y;};
 
 int main() {
 	array<string, 8> a;
 	for (auto &y: a)
 		scan(y);
 	int i, j;
-#define go {0, 8, 1}
-#define back {7, -1, -1}
+	int go[] = {0, 8, 1}, back[] = {7, -1, -1};
 	const T tr[] = {90, go, back, i, j, 180, back, back, j, i, 270, back, go, i, j};
 	auto loop = [](int o[], int &k, auto f) {
 		for (k = o[0]; k != o[1]; k += o[2])
