@@ -2,6 +2,7 @@
 #include <cctype>
 #include <utility>
 #include <array>
+#include <functional>
 using namespace std;
 
 const auto gcu = getchar_unlocked;
@@ -38,23 +39,23 @@ _T _ot(vector<T> &v){for(T &x:v)out(&x == &v[0]?"":" "),out(x);outl();}
 _HT _ot(H&& h, T&&... t){out(h);out(move(t)...);}
 template <typename... T> _ol(T&&... t){out(move(t)...);outl();}
 
-struct T {int r, x[3], y[3];};
+struct T {int r, i[3], j[3];};
 
 int main() {
 	array<string, 8> a;
 	for (auto &y: a)
 		scan(y);
-	const T tr[] = {90, {0, 1, 0}, {-1, 0, 7},
-		180, {-1, 0, 7}, {0, -1, 7}, 270, {0, -1, 7}, {1, 0, 0}};
+	const T tr[] = {90, {7, -1, -1}, {0, 8, 1},
+		180, {7, -1, -1}, {7, -1, -1}, 270, {0, 8, 1}, {7, -1, -1}};
+	auto loop = [](int o[], auto f) {
+		for (int i = o[0]; i != o[1]; i = plus<int>()(i, o[2]))
+			f(i);};
 	for (T t: tr) {
 		outl(t.r);
-		for (int y = 0; y < 8; y++) {
-			for (int x = 0; x < 8; x++) {
-				auto c = [&](int o[]){return x * o[0] + y * o[1] + o[2];};
-				out(a[c(t.y)][c(t.x)]);
-			}
-			outl();
-		}
+		loop(t.i, [&](int i){
+			 loop(t.j, [&](int j){
+				  out(a[i][j]);});
+			 outl();;});
 	}
 }
 
