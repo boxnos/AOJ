@@ -2,7 +2,6 @@
 #include <cctype>
 #include <utility>
 #include <array>
-#include <functional>
 using namespace std;
 
 const auto gcu = getchar_unlocked;
@@ -39,28 +38,26 @@ _T _ot(vector<T> &v){for(T &x:v)out(&x == &v[0]?"":" "),out(x);outl();}
 _HT _ot(H&& h, T&&... t){out(h);out(move(t)...);}
 template <typename... T> _ol(T&&... t){out(move(t)...);outl();}
 
-struct T {
-	int r, i[3], j[3];
-	function<char(int, int)> f;
-};
+struct T {int r, i[3], j[3], &x, &y;};
 
 int main() {
 	array<string, 8> a;
 	for (auto &y: a)
 		scan(y);
-	auto g = [&a](int i, int j) {return a[i][j];};
-	auto h = [&a](int i, int j) {return a[j][i];};
-	const T tr[] = {90, {0, 8, 1}, {7, -1, -1}, h,
-		180, {7, -1, -1}, {7, -1, -1}, g, 270, {7, -1, -1}, {0, 8, 1}, h};
-	auto loop = [](int o[], auto f) {
-		for (int i = o[0]; i != o[1]; i = plus<int>()(i, o[2]))
-			f(i);};
+	int i, j;
+	const T tr[] = {
+		90, {0, 8, 1}, {7, -1, -1}, i, j,
+		180, {7, -1, -1}, {7, -1, -1}, j, i,
+		270, {7, -1, -1}, {0, 8, 1}, i, j};
+	auto loop = [](int o[], int &k, auto f) {
+		for (k = o[0]; k != o[1]; k = k + o[2])
+			f();};
 	for (T t: tr) {
 		outl(t.r);
-		loop(t.i, [&](int i){
-			 loop(t.j, [&](int j){
-				  out(t.f(i, j));});
-			 outl();;});
+		loop(t.i, i, [&](){
+			 loop(t.j, j, [&](){
+				  out(a[t.y][t.x]);});
+			 outl();});
 	}
 }
 
