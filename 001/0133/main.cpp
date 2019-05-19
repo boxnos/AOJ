@@ -45,17 +45,16 @@ int main() {
 	for (auto &y: a)
 		scan(y);
 	int i, j;
-	const T tr[] = {
-		90, {0, 8, 1}, {7, -1, -1}, i, j,
-		180, {7, -1, -1}, {7, -1, -1}, j, i,
-		270, {7, -1, -1}, {0, 8, 1}, i, j};
+#define go {0, 8, 1}
+#define back {7, -1, -1}
+	const T tr[] = {90, go, back, i, j, 180, back, back, j, i, 270, back, go, i, j};
 	auto loop = [](int o[], int &k, auto f) {
 		for (k = o[0]; k != o[1]; k += o[2])
 			f();};
 	for (T t: tr) {
 		outl(t.r);
-		loop(t.i, i, [&](){
-			 loop(t.j, j, [&](){
+		loop(t.i, i, [&] {
+			 loop(t.j, j, [&] {
 				  out(a[t.y][t.x]);});
 			 outl();});
 	}
