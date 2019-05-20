@@ -11,8 +11,10 @@ const auto pcu = putchar_unlocked;
 #define _il inline
 #define _in _il int in
 #define _sc _il bool scan
-_T T in(int c){T n=0;bool m=false;while(isspace(c)){c=gcu();}if(c=='-')m=true,c=gcu();
-	do{n=10*n+(c-'0'),c=gcu();}while(c>='0'&&c<='9');return m?-n:n;}
+_T T in(int c){T n=0;while(isspace(c)){c=gcu();}
+	do{n=10*n+(c-'0'),c=gcu();}while(c>='0'&&c<='9');return n;}
+//_T T in(int c){T n=0;bool m=false;while(isspace(c)){c=gcu();}if(c=='-')m=true,c=gcu();
+//	do{n=10*n+(c-'0'),c=gcu();}while(c>='0'&&c<='9');return m?-n:n;}
 _in() {return in<int>(gcu());}
 _T T scan(T &n){int c=gcu();return c==EOF?false:(n=in<T>(c),true);}
 _sc(char &c){c=gcu();gcu();return c!=EOF;}
@@ -59,7 +61,7 @@ struct weighted_union_find {
 	void unite(int a, int b, int w) {
 		P ar = find(a), br = find(b);
 		node &an = nodes[ar.p], &bn = nodes[br.p];
-		w = w + ar.w - br.w;
+		w += ar.w - br.w;
 		if (an.r > bn.r) {
 			bn.p = ar.p;
 			bn.w = w;
