@@ -38,11 +38,11 @@ _T _ot(vector<T> &v){for(T &x:v)out(&x == &v[0]?"":" "),out(x);outl();}
 _HT _ot(H&& h, T&&... t){out(h);out(move(t)...);}
 template <typename... T> _ol(T&&... t){out(move(t)...);outl();}
 
-struct waighted_union_find {
+struct weighted_union_find {
 	struct node {int p, r, w;};
 	struct P {int p, w;};
 	vector<node> nodes;
-	waighted_union_find (int n) : nodes(n) {
+	weighted_union_find (int n) : nodes(n) {
 		for (node &n: nodes)
 			n.p = &n - &nodes[0];
 	}
@@ -80,7 +80,7 @@ struct waighted_union_find {
 };
 
 int main() {
-	waighted_union_find u(in());
+	weighted_union_find u(in());
 	for (int q = in(); q; q--) {
 		if (in()) {
 			int x = in();
