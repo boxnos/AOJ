@@ -46,10 +46,10 @@ int main() {
 		vector<int> K(N);
 		for (int &k: K)
 			k = in();
-		if (find_if(all(K), [](int a){return a > 1;}) == K.end())
+		if (find_if(all(K), [](const int a){return a > 1;}) == K.end())
 			outl("NA");
 		else
-			outl(count_if(all(K), [](int a){return a > 0;}) + 1);
+			outl(count_if(all(K), [](const int a){return a > 0;}) + 1);
 	}
 }
 
