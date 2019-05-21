@@ -43,36 +43,32 @@ struct RMQ {
 	vector<int> t;
 	RMQ (int l) :
 		n(1 << (32 - __builtin_clz(l - 1))),
-		t(n * 2 - 1, INT_MAX) {}
+		t(n * 2, INT_MAX) {}
 	void update(int i, int v) {
-		i += n - 1, t[i] = v;
-		while (i) {
-			i = (i - 1) / 2;
-			t[i] = min(t[i * 2 + 1], t[i * 2 + 2]);
+		i += n, t[i] = v;
+		while (i > 1) {
+			i >>= 1;
+			t[i] = min(t[i << 1], t[i << 1 | 1]);
 		}
 	}
-	int find(int a, int b, int k, int l, int r) {
-		if (r <= a || b <= l)
-			return INT_MAX;
-		if (a <= l && r <= b)
-			return t[k];
-		int m = (l + r) / 2;
-		k *= 2;
-		return min(find(a, b, k + 1, l, m),
-				   find(a, b, k + 2, m, r));
+	int find(int a, int b) {
+		int x = INT_MAX;
+		for (a += n, b += n; a < b; a >>= 1, b >>= 1) {
+			if (a & 1) x = min(x, t[a++]);
+			if (b & 1) x = min(x, t[--b]);
+		}
+		return x;
 	}
 };
 
 int main() {
 	RMQ r(in());
 	for (int q = in(); q; q--) {
-		if (in()) {
-			int x = in(), y = in();
-			outl(r.find(x, y + 1, 0, 0, r.n));
-		} else {
-			int x = in(), y = in();
+		int o = in(), x = in(), y = in();
+		if (o)
+			outl(r.find(x, y + 1));
+		else
 			r.update(x, y);
-		}
 	}
 }
 
