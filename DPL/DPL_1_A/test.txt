@@ -1,0 +1,110 @@
+# Sample Input 1
+55 4
+1 5 10 50
+# Sample Output 1
+2
+# Sample Input 2
+15 6
+1 2 7 8 12 50
+# Sample Output 2
+2
+# in https://judgedat.u-aizu.ac.jp/testcases/DPL_1_A/1
+55 4
+1 5 10 50
+# out https://judgedat.u-aizu.ac.jp/testcases/DPL_1_A/1
+2
+# in https://judgedat.u-aizu.ac.jp/testcases/DPL_1_A/2
+15 6
+1 2 7 8 12 50
+# out https://judgedat.u-aizu.ac.jp/testcases/DPL_1_A/2
+2
+# in https://judgedat.u-aizu.ac.jp/testcases/DPL_1_A/3
+65 6
+1 2 7 8 12 50
+# out https://judgedat.u-aizu.ac.jp/testcases/DPL_1_A/3
+3
+# in https://judgedat.u-aizu.ac.jp/testcases/DPL_1_A/4
+100 6
+1 72 93 34 24 37
+# out https://judgedat.u-aizu.ac.jp/testcases/DPL_1_A/4
+5
+# in https://judgedat.u-aizu.ac.jp/testcases/DPL_1_A/5
+100 6
+1 92 93 7 62 24
+# out https://judgedat.u-aizu.ac.jp/testcases/DPL_1_A/5
+2
+# in https://judgedat.u-aizu.ac.jp/testcases/DPL_1_A/6
+100 6
+1 93 20 22 46 70
+# out https://judgedat.u-aizu.ac.jp/testcases/DPL_1_A/6
+5
+# in https://judgedat.u-aizu.ac.jp/testcases/DPL_1_A/7
+100 6
+1 58 35 2 22 49
+# out https://judgedat.u-aizu.ac.jp/testcases/DPL_1_A/7
+3
+# in https://judgedat.u-aizu.ac.jp/testcases/DPL_1_A/8
+100 6
+1 83 4 7 91 13
+# out https://judgedat.u-aizu.ac.jp/testcases/DPL_1_A/8
+3
+# in https://judgedat.u-aizu.ac.jp/testcases/DPL_1_A/9
+50000 20
+1 92 1377 3168 7095 1170 1809 5046 3225 1054 4016 142 108 6430 3970 48 8416 4909 114 6968
+# out https://judgedat.u-aizu.ac.jp/testcases/DPL_1_A/9
+9
+# in https://judgedat.u-aizu.ac.jp/testcases/DPL_1_A/10
+4187 6
+1 412 3784 896 307 2639
+# out https://judgedat.u-aizu.ac.jp/testcases/DPL_1_A/10
+10
+# in https://judgedat.u-aizu.ac.jp/testcases/DPL_1_A/11
+19910 16
+1 7908 7426 3886 551 5064 1590 9441 2371 2401 9592 8627 2046 6353 2913 8123
+# out https://judgedat.u-aizu.ac.jp/testcases/DPL_1_A/11
+6
+# in https://judgedat.u-aizu.ac.jp/testcases/DPL_1_A/12
+2786 11
+1 439 1430 1728 896 1682 1045 69 511 684 1593
+# out https://judgedat.u-aizu.ac.jp/testcases/DPL_1_A/12
+5
+# in https://judgedat.u-aizu.ac.jp/testcases/DPL_1_A/13
+23566 8
+1 4459 8146 7230 2072 9974 8276 9857
+# out https://judgedat.u-aizu.ac.jp/testcases/DPL_1_A/13
+47
+# in https://judgedat.u-aizu.ac.jp/testcases/DPL_1_A/14
+22183 15
+1 3033 2858 2254 2820 7552 850 4690 3956 2842 1840 6390 4858 6002 2958
+# out https://judgedat.u-aizu.ac.jp/testcases/DPL_1_A/14
+6
+# in https://judgedat.u-aizu.ac.jp/testcases/DPL_1_A/15
+50000 20
+1 666 3798 1614 2423 3413 7678 5312 7955 1910 6447 7092 4821 7673 1292 7798 3161 5010 6926 6848
+# out https://judgedat.u-aizu.ac.jp/testcases/DPL_1_A/15
+7
+# in https://judgedat.u-aizu.ac.jp/testcases/DPL_1_A/16
+50000 20
+1 5617 2394 303 5498 6530 5499 5296 5609 1797 7269 2873 7217 3010 5101 4335 6590 3194 8208 8841
+# out https://judgedat.u-aizu.ac.jp/testcases/DPL_1_A/16
+7
+# in https://judgedat.u-aizu.ac.jp/testcases/DPL_1_A/17
+50000 20
+1 1841 7856 1687 6028 3577 8940 7740 6942 5463 7463 7074 7976 6983 4621 2353 2888 9651 9935 5037
+# out https://judgedat.u-aizu.ac.jp/testcases/DPL_1_A/17
+7
+# in https://judgedat.u-aizu.ac.jp/testcases/DPL_1_A/18
+50000 20
+1 4901 2991 2872 8886 7674 2519 3205 9135 3898 8444 7308 7865 8558 8325 1929 830 3963 1230 4834
+# out https://judgedat.u-aizu.ac.jp/testcases/DPL_1_A/18
+7
+# in https://judgedat.u-aizu.ac.jp/testcases/DPL_1_A/19
+50000 20
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20
+# out https://judgedat.u-aizu.ac.jp/testcases/DPL_1_A/19
+2500
+# in https://judgedat.u-aizu.ac.jp/testcases/DPL_1_A/20
+50000 20
+1 4 9 16 25 36 49 64 81 100 121 144 169 196 225 256 289 324 361 400
+# out https://judgedat.u-aizu.ac.jp/testcases/DPL_1_A/20
+125
