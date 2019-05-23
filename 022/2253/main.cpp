@@ -50,18 +50,20 @@ struct map {
 		static const int tx[] = {1, 0, -1, -1, 0, 1}, ty[] = {0, -1, -1, 0, 1, 1};
 		queue<node> q;
 		q.push({x, y, c});
-		int r = 0;
+		put(x, y);
+		int r = 1;
 		while (!q.empty()) {
 			node n = q.front();
 			q.pop();
-			if (!t[n.y][n.x])
-				continue;
-			put(n.x, n.y);
-			r++;
 			if (n.c--)
-				for (int i = 0; i < 6; i++)
-					if (t[n.y + ty[i]][n.x + tx[i]])
-						q.push({n.x + tx[i], n.y + ty[i], n.c});
+				for (int i = 0; i < 6; i++) {
+					int nx = n.x + tx[i], ny = n.y + ty[i];
+					if (t[ny][nx]) {
+						q.push({nx, ny, n.c});
+						put(nx, ny);
+						r++;
+					}
+				}
 		}
 		return r;
 	}
