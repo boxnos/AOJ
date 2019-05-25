@@ -44,13 +44,11 @@ int main() {
 	vector<item> items(N);
 	for (item &i : items)
 		i = {in(), in()};
-	vector<vector<int>> dp(N + 1, vector<int>(W + 1));
+	vector<int> dp(W + 1);
 	for (int i = 0; i < N; i++)
-		for (int w = 0; w <= W; w++)
-			dp[i + 1][w] = items[i].w <= w ?
-				max(dp[i][w - items[i].w] + items[i].v, dp[i][w]) :
-				dp[i][w];
-	outl(dp[N][W]);
+		for (int w = W; w >= items[i].w; w--)
+			dp[w] = max(dp[w - items[i].w] + items[i].v, dp[w]);
+	outl(dp[W]);
 }
 
 /* vim: set ts=4 noet: */
