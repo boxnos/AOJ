@@ -57,9 +57,8 @@ struct graph {
 			node n = q.top();
 			q.pop();
 			for (node &x: nodes[n.n]) {
-				w[x.n].w = min(w[x.n].w, n.w + x.w);
-				if (!w[n.n].n)
-					q.push({x.n, w[x.n].w});
+				if (!w[n.n].n && w[x.n].w > n.w + x.w)
+					q.push({x.n, w[x.n].w = n.w + x.w});
 			}
 			w[n.n].n |= 1;
 		}
