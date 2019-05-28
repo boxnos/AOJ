@@ -1,0 +1,88 @@
+# Sample Input 1
+2 3
+# Sample Output 1
+8
+# Sample Input 2
+5 8
+# Sample Output 2
+390625
+# in https://judgedat.u-aizu.ac.jp/testcases/NTL_1_B/1
+31 8
+# out https://judgedat.u-aizu.ac.jp/testcases/NTL_1_B/1
+891031477
+# in https://judgedat.u-aizu.ac.jp/testcases/NTL_1_B/2
+39 1000
+# out https://judgedat.u-aizu.ac.jp/testcases/NTL_1_B/2
+430776345
+# in https://judgedat.u-aizu.ac.jp/testcases/NTL_1_B/3
+55 1024
+# out https://judgedat.u-aizu.ac.jp/testcases/NTL_1_B/3
+989051574
+# in https://judgedat.u-aizu.ac.jp/testcases/NTL_1_B/4
+77 9823
+# out https://judgedat.u-aizu.ac.jp/testcases/NTL_1_B/4
+639091938
+# in https://judgedat.u-aizu.ac.jp/testcases/NTL_1_B/5
+99 100007
+# out https://judgedat.u-aizu.ac.jp/testcases/NTL_1_B/5
+585110612
+# in https://judgedat.u-aizu.ac.jp/testcases/NTL_1_B/6
+93 200023
+# out https://judgedat.u-aizu.ac.jp/testcases/NTL_1_B/6
+415192366
+# in https://judgedat.u-aizu.ac.jp/testcases/NTL_1_B/7
+1 1
+# out https://judgedat.u-aizu.ac.jp/testcases/NTL_1_B/7
+1
+# in https://judgedat.u-aizu.ac.jp/testcases/NTL_1_B/8
+2 13
+# out https://judgedat.u-aizu.ac.jp/testcases/NTL_1_B/8
+8192
+# in https://judgedat.u-aizu.ac.jp/testcases/NTL_1_B/9
+3 15
+# out https://judgedat.u-aizu.ac.jp/testcases/NTL_1_B/9
+14348907
+# in https://judgedat.u-aizu.ac.jp/testcases/NTL_1_B/10
+12 11
+# out https://judgedat.u-aizu.ac.jp/testcases/NTL_1_B/10
+8365487
+# in https://judgedat.u-aizu.ac.jp/testcases/NTL_1_B/11
+7 15
+# out https://judgedat.u-aizu.ac.jp/testcases/NTL_1_B/11
+561476714
+# in https://judgedat.u-aizu.ac.jp/testcases/NTL_1_B/12
+15 25
+# out https://judgedat.u-aizu.ac.jp/testcases/NTL_1_B/12
+51316526
+# in https://judgedat.u-aizu.ac.jp/testcases/NTL_1_B/13
+23 13
+# out https://judgedat.u-aizu.ac.jp/testcases/NTL_1_B/13
+408212877
+# in https://judgedat.u-aizu.ac.jp/testcases/NTL_1_B/14
+2 32
+# out https://judgedat.u-aizu.ac.jp/testcases/NTL_1_B/14
+294967268
+# in https://judgedat.u-aizu.ac.jp/testcases/NTL_1_B/15
+39 5325621
+# out https://judgedat.u-aizu.ac.jp/testcases/NTL_1_B/15
+717283387
+# in https://judgedat.u-aizu.ac.jp/testcases/NTL_1_B/16
+97 9999782
+# out https://judgedat.u-aizu.ac.jp/testcases/NTL_1_B/16
+500346330
+# in https://judgedat.u-aizu.ac.jp/testcases/NTL_1_B/17
+99 999999991
+# out https://judgedat.u-aizu.ac.jp/testcases/NTL_1_B/17
+631782380
+# in https://judgedat.u-aizu.ac.jp/testcases/NTL_1_B/18
+100 1000000000
+# out https://judgedat.u-aizu.ac.jp/testcases/NTL_1_B/18
+591857147
+# in https://judgedat.u-aizu.ac.jp/testcases/NTL_1_B/19
+1 999999999
+# out https://judgedat.u-aizu.ac.jp/testcases/NTL_1_B/19
+1
+# in https://judgedat.u-aizu.ac.jp/testcases/NTL_1_B/20
+83 999999570
+# out https://judgedat.u-aizu.ac.jp/testcases/NTL_1_B/20
+642657703
