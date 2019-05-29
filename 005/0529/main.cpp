@@ -2,9 +2,7 @@
 #include <cctype>
 #include <utility>
 #include <vector>
-#include <array>
 #include <algorithm>
-#include <functional>
 using namespace std;
 
 const auto gcu = getchar_unlocked;
@@ -40,30 +38,27 @@ _T _ot(vector<T> &v){for(T &x:v)out(&x == &v[0]?"":" "),out(x);outl();}
 _HT _ot(H&& h, T&&... t){out(h);out(move(t)...);}
 template <typename... T> _ol(T&&... t){out(move(t)...);outl();}
 
-using V = vector<int>;
+struct P {int c, w;};
 
 int main() {
 	for (int N, M; N = in(), M = in();) {
-		V t(N);
+		vector<int> t(N);
 		for (int &p: t)
 			p = in();
-		V m(M + 1);
 		sort(t.rbegin(), t.rend());
-		function<int(int, V::iterator, int)> f = [&](int i, auto j, int n) {
-			int r = n;
-			for (; j != t.end(); j++) {
-				if (n + *j <= M) {
-					if (i == 1)
-						r = max(r, n + *j);
-					else if (!m[n + *j] && M - r < *j * i)
-						r = max(r, f(i - 1, j, n + *j));
-					else
-						break;
-				}
+		vector<P> dp(M + 1);
+		for (int i = 0; i < N; i++)
+			for (int w = t[i]; w <= M; w++) {
+				P &p = dp[w - t[i]];
+				if (p.c < 4 && p.w + t[i] > dp[w].w)
+					dp[w] = {p.c + 1, p.w + t[i]};
+				else if (dp[w - 1].w > dp[w].w)
+					dp[w] = dp[w - 1];
 			}
-			return m[n] = r;
-		};
-		outl(f(4, t.begin(), 0));
+		outl(dp[M].w);
+		//for (P x: dp)
+		//	fprintf(stderr, "{%d, %d} ", x.c, x.w);
+		//fprintf(stderr, "\n");
 	}
 }
 
