@@ -3,6 +3,7 @@
 #include <utility>
 #include <vector>
 #include <algorithm>
+#include <functional>
 using namespace std;
 
 const auto gcu = getchar_unlocked;
@@ -38,27 +39,24 @@ _T _ot(vector<T> &v){for(T &x:v)out(&x == &v[0]?"":" "),out(x);outl();}
 _HT _ot(H&& h, T&&... t){out(h);out(move(t)...);}
 template <typename... T> _ol(T&&... t){out(move(t)...);outl();}
 
-struct P {int c, w;};
-
 int main() {
 	for (int N, M; N = in(), M = in();) {
-		vector<int> t(N);
+		vector<int> t(N), u;
 		for (int &p: t)
 			p = in();
-		sort(t.rbegin(), t.rend());
-		vector<P> dp(M + 1);
-		for (int i = 0; i < N; i++)
-			for (int w = t[i]; w <= M; w++) {
-				P &p = dp[w - t[i]];
-				if (p.c < 4 && p.w + t[i] > dp[w].w)
-					dp[w] = {p.c + 1, p.w + t[i]};
-				else if (dp[w - 1].w > dp[w].w)
-					dp[w] = dp[w - 1];
-			}
-		outl(dp[M].w);
-		//for (P x: dp)
-		//	fprintf(stderr, "{%d, %d} ", x.c, x.w);
-		//fprintf(stderr, "\n");
+		t.push_back(0);
+		for (auto i = t.begin(); i != t.end(); i++)
+			for (auto j = i; j != t.end(); j++)
+				if (*i + *j <= M)
+					u.push_back(*i + *j);
+		sort(u.rbegin(), u.rend());
+		u.erase(unique(u.begin(), u.end()), u.end());
+		int r = 0;
+		for (auto i = u.begin(), e = u.end(); i != e; i++) {
+			e = lower_bound(i + 1, e, M - *i, greater<int>());
+			r = max(r, *i + *e);
+		}
+		outl(r);
 	}
 }
 
