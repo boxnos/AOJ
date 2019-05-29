@@ -3,7 +3,6 @@
 #include <utility>
 #include <vector>
 #include <algorithm>
-#include <functional>
 using namespace std;
 
 const auto gcu = getchar_unlocked;
@@ -45,17 +44,18 @@ int main() {
 		for (int &p: t)
 			p = in();
 		t.push_back(0);
-		sort(t.rbegin(), t.rend());
+		sort(t.begin(), t.end());
 		for (auto i = t.begin(); i != t.end(); i++)
 			for (auto j = i; j != t.end(); j++)
 				if (*i + *j <= M)
 					u.push_back(*i + *j);
-		sort(u.rbegin(), u.rend());
-		u.erase(unique(u.begin(), u.end()), u.end());
+		sort(u.begin(), u.end());
 		int r = 0;
-		for (auto i = u.begin(), e = u.end(); i != e; i++) {
-			e = lower_bound(i + 1, e, M - *i, greater<int>());
-			r = max(r, *i + *e);
+		for (auto i = u.begin(), e = u.end() - 1; i <= e; i++) {
+			for (; *i + *e >= M; e--)
+				;
+			if (*i + *e > r)
+				r = *i + *e;
 		}
 		outl(r);
 	}
