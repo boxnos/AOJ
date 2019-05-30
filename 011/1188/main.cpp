@@ -48,9 +48,9 @@ int elect() {
 		vector<int> v;
 		for (int r; (r = elect());)
 			v.push_back(r);
-		auto m = v.begin() + v.size() / 2 + 1;
-		nth_element(v.begin(), m, v.end());
-		return accumulate(v.begin(), m, 0);
+		auto b = v.begin(), m = b + v.size() / 2 + 1;
+		nth_element(b, m, v.end());
+		return accumulate(b, m, 0);
 		}
 	case ']':
 		return 0;
