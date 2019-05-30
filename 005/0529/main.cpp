@@ -59,7 +59,6 @@ int main() {
 		for (int &p: t)
 			p = in();
 		t.push_back(0);
-		sort(t.begin(), t.end());
 		for (auto i = t.begin(); i != t.end(); i++)
 			for (auto j = i; j != t.end(); j++)
 				if (*i + *j <= M)
