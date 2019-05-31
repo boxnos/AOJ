@@ -40,17 +40,19 @@ _T _ot(vector<T> &v){for(T &x:v)out(&x == &v[0]?"":" "),out(x);outl();}
 _HT _ot(H&& h, T&&... t){out(h);out(move(t)...);}
 template <typename... T> _ol(T&&... t){out(move(t)...);outl();}
 
-void radix_sort(vector<int>::iterator b,vector<int>::iterator e) {
-    vector<int> t(e - b);
-    array<int, 256> c, s;
-    for (int i = 0; i < 32; i += 8) {
-        fill(c.begin(), c.end(), 0);
-        for_each(b, e, [&](int j) {c[(j >> i) & 255]++;});
-        s[0] = 0;
-        partial_sum(c.begin(), c.end() - 1, s.begin() + 1);
-        for_each(b, e, [&](int j) {t[s[(j >> i) & 255]++] = j;});
-        copy(t.begin(), t.end(), b);
-    }
+#define all(o) o.begin(), o.end()
+
+void radix_sort(vector<int> &v) {
+	vector<int> t(v.size());
+	array<int, 256> c, s;
+	for (int i = 0; i < 32; i += 8) {
+		fill(all(c), 0);
+		for_each(all(v), [&](int j) {c[(j >> i) & 255]++;});
+		s.front() = 0;
+		partial_sum(all(c) - 1, s.begin() + 1);
+		for_each(all(v), [&](int j) {t[s[(j >> i) & 255]++] = j;});
+		swap(v, t);
+	}
 }
 
 int main() {
@@ -63,7 +65,7 @@ int main() {
 			for (auto j = i; j != t.end(); j++)
 				if (*i + *j <= M)
 					u.push_back(*i + *j);
-		radix_sort(u.begin(), u.end());
+		radix_sort(u);
 		int r = 0;
 		for (auto i = u.begin(), e = u.end() - 1; i <= e; i++) {
 			for (; *i + *e >= M; e--)
