@@ -1,0 +1,12 @@
+# Sample Input 1
+12
+# Sample Output 1
+12: 2 2 3
+# Sample Input 2
+126
+# Sample Output 2
+126: 2 3 3 7
+# in
+999993031
+# out
+999993031: 999993031
