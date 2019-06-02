@@ -3,6 +3,7 @@
 #include <utility>
 #include <vector>
 #include <algorithm>
+#include <queue>
 using namespace std;
 
 const auto gcu = getchar_unlocked;
@@ -37,6 +38,48 @@ _T _OUT(vector<T> &v){for(T &x:v)out(&x == &v[0]?"":" "),out(x);outl();}
 #endif
 _HT _OUT(H&& h, T&&... t){out(h);out(move(t)...);}
 template <typename... T> _OUTL(T&&... t){out(move(t)...);outl();}
+
+/*
+template <typename T>
+using V = vector<T>;
+struct node {
+	int n, w;
+	bool operator < (const node &a) const { return w > a.w; }
+};
+struct graph {
+	V<V<node>> nodes;
+
+	int prim() {
+		int w = 0;
+		V<bool> v(nodes.size());
+		priority_queue<node> q;
+		q.push({0, 0});
+		while (!q.empty()) {
+			node n = q.top();
+			q.pop();
+			if (v[n.n])
+				continue;
+			w += n.w;
+			v[n.n] = true;
+			for (node &i: nodes[n.n])
+				if (!v[i.n])
+					q.push(i);
+		}
+		return w;
+	}
+};
+
+int main() {
+	graph g;
+	g.nodes.resize(in());
+	for (int m = in(); m; m--) {
+		int a = in(), b = in(), d = in();
+		g.nodes[a].push_back({b, d});
+		g.nodes[b].push_back({a, d});
+	}
+	outl(g.prim());
+}
+*/
 
 struct union_find {
 	struct node {int p, r = 0;};
