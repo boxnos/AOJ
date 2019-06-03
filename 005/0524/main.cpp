@@ -42,8 +42,11 @@ template <typename... T> _OUTL(T&&... t){out(move(t)...);outl();}
 
 using P = complex<long>;
 
-P dec(long n) {return {n >> 32, n & ((1L << 32) - 1)};}
-long enc(P p) {return (p.real() << 32) + p.imag();}
+struct hash_complex {
+	inline size_t operator() (const P &p) const {
+		return (p.real() << 32) + p.imag();
+	}
+};
 
 int main() {
 	for (int m; (m = in());) {
@@ -51,16 +54,16 @@ int main() {
 		P z = {in(), in()};
 		for(P &x : p)
 			x = P{in(), in()} - z;
-		unordered_set<long> s;
+		unordered_set<P, hash_complex> S;
 		for (int n = in(); n--;)
-			s.insert(enc({in(), in()}));
-		for (long n: s)
+			S.insert(P{in(), in()});
+		for (P s: S)
 			if([&]{
 			   for (P i: p)
-				   if (!s.count(enc(dec(n) + i)))
+				   if (!S.count(s + i))
 					   return false;
 			   return true;}()) {
-				P r = dec(n) - z;
+				P r = s - z;
 				outl(r.real(), ' ', r.imag());
 				break;
 			}
