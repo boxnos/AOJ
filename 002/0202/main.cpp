@@ -1,7 +1,7 @@
 #include <cstdio>
 #include <cctype>
 #include <utility>
-#include <vector>
+#include <bitset>
 #include <cmath>
 #include <algorithm>
 using namespace std;
@@ -59,15 +59,12 @@ struct sieve {
 
 int main() {
 	sieve<1000001> s;
+	bitset<1000001> dp;
 	for (int n, x; n = in(), x = in();) {
-		vector<int> dp(x + 1);
-		dp[0] = true;
-		while (n--) {
-			int v = in();
-			for (int i = v; i <= x; i++)
-				if (dp[i - v])
-					dp[i] = true;
-		}
+		dp = 1;
+		while (n--)
+			for (int i = in(); i <= x; i <<= 1)
+				dp |= dp << i;
 		int r = [&] {
 		for (int i = x; i > 1; i--)
 			if (dp[i] && s.s[i])
