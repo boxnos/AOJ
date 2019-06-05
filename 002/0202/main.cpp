@@ -60,13 +60,13 @@ struct sieve {
 int main() {
 	sieve<1000001> s;
 	for (int n, x; n = in(), x = in();) {
-		vector<bool> dp(x + 1);
+		vector<int> dp(x + 1);
+		dp[0] = true;
 		while (n--) {
 			int v = in();
-			dp[0] = true;
-			for (int i = 0; i + v <= x; i++)
-				if (dp[i])
-					dp[i + v] = true;
+			for (int i = v; i <= x; i++)
+				if (dp[i - v])
+					dp[i] = true;
 		}
 		int r = [&] {
 		for (int i = x; i > 1; i--)
