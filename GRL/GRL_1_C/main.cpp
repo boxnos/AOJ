@@ -39,10 +39,10 @@ _HT _OUT(H&& h, T&&... t){out(h);out(move(t)...);}
 template <typename... T> _OUTL(T&&... t){out(move(t)...);outl();}
 
 int main() {
-	int V = in(), inf = INT_MAX;
+	int V{in()}, inf{INT_MAX};
 	vector<vector<int>> v(V, vector<int>(V, inf));
 	auto loop = [&](auto f) {
-		for (int i = 0; i < V; i++)
+		for (int i{0}; i < V; i++)
 			f(i);};
 	loop([&](int i) {
 		 v[i][i] = 0;});
@@ -56,7 +56,7 @@ int main() {
 				   if (v[i][k] < inf && v[k][j] < inf)
 						v[i][j] = min(v[i][j], v[i][k] + v[k][j]);});});});
 	if ([&]{
-		for (int i = 0; i < V; i++)
+		for (int i{0}; i < V; i++)
 			if (v[i][i] < 0)
 				return false;
 		return true;}())
