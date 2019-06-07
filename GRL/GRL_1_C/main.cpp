@@ -52,8 +52,9 @@ int main() {
 	}
 	loop([&](int k) {
 		 loop([&](int i) {
-			  loop([&](int j) {
-				   if (v[i][k] < inf && v[k][j] < inf)
+			  if (v[i][k] < inf)
+				loop([&](int j) {
+					 if (v[k][j] < inf)
 						v[i][j] = min(v[i][j], v[i][k] + v[k][j]);});});});
 	if ([&]{
 		for (int i{0}; i < V; i++)
