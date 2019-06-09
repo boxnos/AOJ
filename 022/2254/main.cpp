@@ -51,8 +51,8 @@ struct range{
 		int operator* () const {return _v;}
 		it& operator++ () {_v+=_s;return *this;}
 	};
-	it begin() {return it{_b, _s};}
-	it end() {return it{_e, _s};}
+	it begin() {return {_b, _s};}
+	it end() {return {_e, _s};}
 };
 
 using V = vector<int>;
@@ -61,10 +61,11 @@ int main() {
 	for (int N; (N = in());) {
 		vector<V> w(N, V(N + 1)), c(1 << N, V(N, INT_MAX));
 		V b(1 << N);
+		range r{N};
 		for (auto &i: w)
 			for (auto &j: i)
 				j = in();
-		for (int i: range(N))
+		for (int i: r)
 			c[0][i] = w[i][0];
 		for (int i: range(1, c.size())) {
 			int m = i & ~-i, n = __builtin_ctz(i);
@@ -73,7 +74,7 @@ int main() {
 		}
 		for (int i: range(b.size() - 2, -1, -1)) {
 			b[i] = INT_MAX;
-			for (int j: range(N))
+			for (int j: r)
 				if (!((i >> j) & 1))
 					b[i] = min(b[i], b[i + (1 << j)] + c[i][j]);
 		}
