@@ -38,6 +38,23 @@ _T _OUT(vector<T> &v){for(T &x:v)out(&x == &v[0]?"":" "),out(x);outl();}
 _HT _OUT(H&& h, T&&... t){out(h);out(move(t)...);}
 template <typename... T> _OUTL(T&&... t){out(move(t)...);outl();}
 
+struct range{
+	int _e, _b = 0, _s = 1;
+	range(int b, int e, int s): _e(e), _b(b), _s(s) {}
+	range(int b, int e): _e(e), _b(b) {}
+	range(int e) : _e(e) {}
+	struct it {
+		int _v, _s;
+		it (int v, int s) : _v(v), _s(s) {}
+		operator int () const {return _v;}
+		operator int& () {return _v;}
+		int operator* () const {return _v;}
+		it& operator++ () {_v+=_s;return *this;}
+	};
+	it begin() {return it{_b, _s};}
+	it end() {return it{_e, _s};}
+};
+
 using V = vector<int>;
 
 int main() {
@@ -47,16 +64,16 @@ int main() {
 		for (auto &i: w)
 			for (auto &j: i)
 				j = in();
-		for (int i = 0; i < N; i++)
+		for (int i: range(N))
 			c[0][i] = w[i][0];
-		for (size_t i = 1; i < c.size(); i++) {
+		for (int i: range(1, c.size())) {
 			int m = i & ~-i, n = __builtin_ctz(i);
 			for (int j = 0; j < N; j++)
 				c[i][j] = min(c[m][j], w[j][n + 1]);
 		}
-		for (int i = b.size() - 2; i >= 0; i--) {
+		for (int i: range(b.size() - 2, -1, -1)) {
 			b[i] = INT_MAX;
-			for (int j = 0; j < N; j++)
+			for (int j: range(N))
 				if (!((i >> j) & 1))
 					b[i] = min(b[i], b[i + (1 << j)] + c[i][j]);
 		}
