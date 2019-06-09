@@ -42,23 +42,23 @@ using V = vector<int>;
 
 int main() {
 	for (int N; (N = in());) {
-		vector<V> w(N, V(N + 1));
+		vector<V> w(N, V(N + 1)), c(1 << N, V(N, INT_MAX));
 		V b(1 << N);
 		for (auto &i: w)
 			for (auto &j: i)
 				j = in();
+		for (int i = 0; i < N; i++)
+			c[0][i] = w[i][0];
+		for (size_t i = 1; i < c.size(); i++) {
+			int m = i & ~-i, n = __builtin_ctz(i);
+			for (int j = 0; j < N; j++)
+				c[i][j] = min(c[m][j], w[j][n + 1]);
+		}
 		for (int i = b.size() - 2; i >= 0; i--) {
-			int r = INT_MAX;
-			for (int j = 0; j < N; j++) {
-				if (!((i >> j) & 1)) {
-					int t = w[j][0];
-					for (int k = 0; k < N; k++)
-						if ((i >> k) & 1)
-							t = min(t, w[j][k + 1]);
-					r = min(r, b[i + (1 << j)] + t);
-				}
-			}
-			b[i] = r;
+			b[i] = INT_MAX;
+			for (int j = 0; j < N; j++)
+				if (!((i >> j) & 1))
+					b[i] = min(b[i], b[i + (1 << j)] + c[i][j]);
 		}
 		outl(b[0]);
 	}
