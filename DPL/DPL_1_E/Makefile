@@ -36,6 +36,6 @@ download:
 	for i in "https://judgedat.u-aizu.ac.jp/testcases/$$([[ $$1 ]]&&echo $$1 || echo $$(basename `pwd`))/"{1..$(dl)}; { echo "# in $$i"; curl $$i/in ; echo "# out $$i"; curl $$i/out; } >> test.txt
 
 rank:
-	curl -sS https://judgeapi.u-aizu.ac.jp/users/ranking/solved\?page=0\&size=1000 | jq '.users[] | select(.id == "boxnos") | {rank: .rank, solved: .solved}'
-	curl -sS https://judgeapi.u-aizu.ac.jp/users/ranking/rating\?page=0\&size=1000 | jq '.users[] | select(.id =="boxnos") | {rank: .rank, rating: .rating, diff: .diff}'
+	curl -sS https://judgeapi.u-aizu.ac.jp/users/ranking/solved\?page=0\&size=1000 | jq --raw-output '.users[] | select(.id == "boxnos") | {rank: .rank, solved: .solved} | "solved: \(.solved) \(.rank)th"'
+	curl -sS https://judgeapi.u-aizu.ac.jp/users/ranking/rating\?page=0\&size=1000 | jq --raw-output '.users[] | select(.id =="boxnos") | {rank: .rank, rating: .rating, diff: .diff} | "rating: \(.rating) +\(.diff) \(.rank)th"'
 
