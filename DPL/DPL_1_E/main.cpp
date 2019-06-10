@@ -39,20 +39,20 @@ _HT _OUT(H&& h, T&&... t){out(h);out(move(t)...);}
 template <typename... T> _OUTL(T&&... t){out(move(t)...);outl();}
 
 struct range{
-	int _e, _b = 0, _s = 1;
-	range(int b, int e, int s): _e(e), _b(b), _s(s) {}
-	range(int b, int e): _e(e), _b(b) {}
-	range(int e) : _e(e) {}
+	int e, b = 0, s = 1;
+	range(int _b, int _e, int _s): e(_e), b(_b), s(_s) {}
+	range(int _b, int _e): e(_e), b(_b) {}
+	range(int _e) : e(_e) {}
 	struct it {
-		int _v, _s;
-		it (int v, int s) : _v(v), _s(s) {}
-		operator int () const {return _v;}
-		operator int& () {return _v;}
-		int operator* () const {return _v;}
-		it& operator++ () {_v+=_s;return *this;}
+		int v, s;
+		it (int _v, int _s) : v(_v), s(_s) {}
+		operator int () const {return v;}
+		operator int& () {return v;}
+		int operator* () const {return v;}
+		it& operator++ () {v+=s;return *this;}
 	};
-	it begin() {return {_b, _s};}
-	it end() {return {_e, _s};}
+	it begin() {return {b, s};}
+	it end() {return {e, s};}
 };
 
 using V = vector<int>;
@@ -61,7 +61,7 @@ int main() {
 	string s1, s2;
 	scan(s1, s2);
 	range r1(s1.size() + 1), r2(s2.size() + 1);
-	vector<V> dp(r2._e, V(r1._e));
+	vector<V> dp(r2.e, V(r1.e));
 	for (int i: r2)
 		for (int j: r1)
 			dp[i][j] = min(i, j) ?
