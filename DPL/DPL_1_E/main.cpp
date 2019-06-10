@@ -60,17 +60,15 @@ using V = vector<int>;
 int main() {
 	string s1, s2;
 	scan(s1, s2);
-	range r1(1, s1.size() + 1), r2(1, s2.size() + 1);
+	range r1(s1.size() + 1), r2(s2.size() + 1);
 	vector<V> dp(r2._e, V(r1._e));
 	for (int i: r2)
-		dp[i][0] = i;;
-	for (int i: r1)
-		dp[0][i] = i;;
-	for (int i: r2)
 		for (int j: r1)
-			dp[i][j] = min(dp[i][j - 1] + 1,
-						   min(dp[i - 1][j] + 1,
-							   dp[i - 1][j - 1] + (s1[j - 1] != s2[i - 1])));
+			dp[i][j] = min(i, j) ?
+				min(dp[i][j - 1] + 1,
+					min(dp[i - 1][j] + 1,
+						dp[i - 1][j - 1] + (s1[j - 1] != s2[i - 1]))) :
+				max(i, j);
 	outl(dp.back().back());
 }
 
