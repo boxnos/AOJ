@@ -1,0 +1,10 @@
+# Sample Input 1
+acac
+acm
+# Sample Output 1
+2
+# Sample Input 2
+icpc
+icpc
+# Sample Output 2
+0
