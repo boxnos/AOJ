@@ -65,12 +65,11 @@ int main() {
 			int o{in()}, s{in() - 1}, e{in() - 1};
 			if (o) {
 				int w{in()}, m{min(dp[s][e], w)};
-				dp[s][e] = m;
-				dp[e][s] = m;
+				dp[s][e] = dp[e][s] = m;
 				for (int k: {e, s})
 					for (int i: r)
-						for (int j: r)
-							dp[i][j] = min(dp[i][j], dp[i][k] + dp[k][j]);
+						for (int j = i + 1; j < n; j++)
+							dp[i][j] = dp[j][i] = min(dp[i][j], dp[i][k] + dp[k][j]);
 			} else
 				outl(dp[s][e] < INT_MAX / 2 ? dp[s][e] : -1);
 		}
