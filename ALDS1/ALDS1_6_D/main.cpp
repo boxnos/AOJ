@@ -1,9 +1,7 @@
 #include <cstdio>
-#include <iostream>
 #include <algorithm>
 #include <vector>
-#include <queue>
-#include <set>
+#include <unordered_map>
 #include <climits>
 using namespace std;
 
@@ -37,78 +35,33 @@ svo(head&& h, tail&&... t){out(h);out(move(t)...);}
 #undef svo
 #undef si
 
-
-struct mcs {
-	typedef vector<int> v;
-	struct node {
-		v w;
-		int f, g, h;
-	};
-	node n;
-	int M;
-	v s;
-
-	mcs(int i) {
-		n.w.resize(i);
-		s.resize(i);
-
-		M = INT_MAX;
-		for (int &x : n.w) {
-			x = in();
-			M = min(M, x);
-		}
-		s = n.w;
-		sort(s.begin(), s.end());
-
-		n.h = 0;
-		auto b = s.begin();
-		for (int a: n.w)
-			if (a != *b++)
-				n.h += a;
-		n.f = n.h;
-		n.g = 0;
-	}
-
-	int solve() {
-		priority_queue<node> q;
-		set<v> m;
-		q.push(n);
-		while (!q.empty()) {
-			node a = q.top();
-			q.pop();
-
-			if (!a.h)
-				return a.f;
-			if (m.count(a.w))
-				continue;
-			m.insert(a.w);
-			for (size_t i = 0; i < s.size() - 1; i++) {
-				for (size_t j = i + 1; j < s.size(); j++) {
-					if (a.w[i] != a.w[j] || a.w[i] == M || a.w[j] == M) {
-						node b = a;
-						auto &w = b.w;
-						swap(w[i], w[j]);
-						b.g += w[i] + w[j];
-						b.h += - w[i] - w[j] + (w[i] == s[i] ? 0 : w[i]) + (w[j] == s[j] ? 0 : w[j]);
-						b.f = b.g + b.h;
-						q.push(b);
-					}
-				}
-			}
-		}
-		return -1;
-	}
-};
-
-bool operator < (const mcs::node &a, const mcs::node &b) {
-	return a.f > b.f;
-}
-
 int main()
 {
-	mcs m(in());
-//	printf("%d\n", m.n.h);
-	printf("%d\n", m.solve());
+	int n = in();
+	vector<int> W(n), S;
+	vector<bool> V(n);
+	unordered_map<int, int> M;
+	for (int &w: W)
+		w = in();
+	S = W;
+	sort(S.begin(), S.end());
+	for (int i = 0; i < n; i++)
+		M[S[i]] = i;
+	int r = 0, s = S[0];
+	for (int i = 0; i < n; i++) {
+		if (V[i])
+			continue;
+		int S = 0, l = 0, m = INT_MAX;
+		for (int c = i, v; !V[c]; c = M[v]) {
+			V[c] = true;
+			v = W[c];
+			S += v;
+			l++;
+			m = min(m, v);
+		}
+		r += min(S + (l - 2) * m, m + S + (l + 1) * s);
+	}
+	out(r, '\n');
 }
 
 /* vim: set ts=4 noet: */
