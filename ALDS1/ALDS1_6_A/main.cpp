@@ -2,8 +2,6 @@
 #include <array>
 using namespace std;
 
-typedef array<int, 10001> v;
-
 static inline int in()
 {
     int c, n = 0;
@@ -25,11 +23,15 @@ static inline void out(int n)
 		putchar_unlocked(*p);
 }
 
+static inline void out(char c) {
+	putchar_unlocked(c);
+}
+
 int main()
 {
 	int n = in(), c = n;
 
-	v b = {};
+	array<int, 10001> b = {};
 
 	while (n--)
 		b[in()]++;
@@ -37,9 +39,10 @@ int main()
 	for (int i = 0; c; i++)
 		while (b[i]--) {
 			out(i);
-			if (--c) putchar_unlocked(' ');
+			if (--c)
+				out(' ');
 		}
-	puts("");
+	out('\n');
 }
 
 /* vim: set ts=4 noet: */
