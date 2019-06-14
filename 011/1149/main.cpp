@@ -47,16 +47,14 @@ struct range{
 
 int main() {
 	for (int n, w, d; n = in(), w = in(), d = in();) {
-		deque<array<int, 2>> v = {{w, d}};
+		deque<array<int, 2>> v{{w, d}};
 		while (n--) {
 			int p = in() - 1, s = in();
 			auto a = v[p], b = a;
-			s %= a[0] + a[1];
-			int i = s > a[0];
+			int i = (s %= a[0] + a[1]) > a[0];
 			if (i)
 				s -= a[0];
-			a[i] = min(s, a[i] - s);
-			b[i] = max(s, b[i] - s);
+			b[i] -= a[i] = min(s, a[i] - s);
 			v.erase(v.begin() + p);
 			v.push_back(a);
 			v.push_back(b);
