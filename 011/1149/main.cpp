@@ -49,9 +49,9 @@ int main() {
 	for (int n, w, d; n = in(), w = in(), d = in();) {
 		deque<array<int, 2>> v{{w, d}};
 		while (n--) {
-			int p = in() - 1, s = in();
-			auto a = v[p], b = a;
-			int i = (s %= a[0] + a[1]) > a[0];
+			int p{in() - 1}, s{in()};
+			auto a{v[p]}, b{a};
+			int i{(s %= a[0] + a[1]) > a[0]};
 			if (i)
 				s -= a[0];
 			b[i] -= a[i] = min(s, a[i] - s);
@@ -60,7 +60,7 @@ int main() {
 			v.push_back(b);
 		}
 		vector<int> r;
-		transform(v.begin(), v.end(), back_inserter(r), [](auto a){return a[0] * a[1];});
+		transform(v.begin(), v.end(), back_inserter(r), [](auto &a){return a[0] * a[1];});
 		sort(r.begin(), r.end());
 		out(r);
 	}
