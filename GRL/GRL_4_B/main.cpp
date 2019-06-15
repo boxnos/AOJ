@@ -2,7 +2,6 @@
 #include <cctype>
 #include <utility>
 #include <vector>
-#include <unordered_map>
 #include <forward_list>
 #include <functional>
 using namespace std;
@@ -47,23 +46,21 @@ struct range{
 
 int main() {
 	int V {in()};
-	unordered_map<int, vector<int>> n;
+	vector<vector<int>> n(V);
+	vector<bool> v(V);
 	forward_list<int> r;
-	for (int i: range(V))
-		n[i];
 	for (int E {in()}; E; E--) {
-		int a{in()};
+		int a {in()};
 		n[a].push_back(in());
 	}
 	function<void(int)> tsort = [&](int i) {
-		auto t = n[i];
-		n.erase(i);
-		for (int j: t)
-			if (n.count(j))
+		v[i] = true;
+		for (int j: n[i])
+			if (!v[j])
 				tsort(j);
 		r.push_front(i);};
 	for (int i: range(V))
-		if (n.count(i))
+		if (!v[i])
 			tsort(i);
 	for (int i: r)
 		outl(i);
