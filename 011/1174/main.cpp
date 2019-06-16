@@ -2,7 +2,6 @@
 #include <cctype>
 #include <utility>
 #include <vector>
-#include <unordered_map>
 #include <unordered_set>
 #include <functional>
 using namespace std;
@@ -53,13 +52,13 @@ P operator +(P a, P b) {return {x(a) + x(b), y(a) + y(b)};}
 struct hash_p {
 	size_t operator()(const P &p) const {return (x(p) << 16) + y(p);}
 };
-using N = unordered_map<int, unordered_set<P, hash_p>>;
+using N = vector<unordered_set<P, hash_p>>;
 
 int main() {
 	for (int h, w, c; h = in() + 2, w = in() + 2, c = in();) {
 		V<V<int>> p(h, V<int>(w));
 		V<V<bool>> v(h, V<bool>(w));
-		N n;
+		N n(7);
 		const V<P> rot {{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
 		for (int y: range(1, h - 1))
 			for (int x: range(1, w - 1))
@@ -78,12 +77,12 @@ int main() {
 					expand(t, c, n);
 			}};
 		function<int(int, int, int, N)> dfs = [&](int i, int r, int tc, N n) {
-			auto l = n[tc];
+			auto l = move(n[tc]);
 			for (auto p: l) {
 				v[y(p)][x(p)] = true;
 				r++;
 			}
-			n.erase(tc);
+			n[tc] = {};
 			for (auto j: l)
 				for (P k: rot) {
 					P t{j + k};
@@ -94,8 +93,9 @@ int main() {
 				r += (int) n[c].size();
 			else if (!n.empty()) {
 				int tr = r;
-				for (auto j: n)
-					r = max(r, dfs(i + 1, tr, j.first,n));
+				for (int j: range(1, 7))
+					if (n[j].size())
+						r = max(r, dfs(i + 1, tr, j, n));
 			}
 			for (auto p: l)
 				v[y(p)][x(p)] = false;
