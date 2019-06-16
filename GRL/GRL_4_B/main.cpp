@@ -2,8 +2,7 @@
 #include <cctype>
 #include <utility>
 #include <vector>
-#include <forward_list>
-#include <functional>
+#include <queue>
 using namespace std;
 
 const auto gcu = getchar_unlocked;
@@ -47,23 +46,24 @@ struct range{
 int main() {
 	int V {in()};
 	vector<vector<int>> n(V);
-	vector<bool> v(V);
-	forward_list<int> r;
+	vector<int> v(V);
 	for (int E {in()}; E; E--) {
-		int a {in()};
-		n[a].push_back(in());
+		int a {in()}, b {in()};
+		n[a].push_back(b);
+		v[b]++;
 	}
-	function<void(int)> tsort = [&](int i) {
-		v[i] = true;
-		for (int j: n[i])
-			if (!v[j])
-				tsort(j);
-		r.push_front(i);};
+	queue<int> q;
 	for (int i: range(V))
 		if (!v[i])
-			tsort(i);
-	for (int i: r)
+			q.push(i);
+	while(!q.empty()) {
+		int i = q.front();
+		q.pop();
 		outl(i);
+		for (int j: n[i])
+			if (!(--v[j]))
+				q.push(j);
+	}
 }
 
 /* vim: set ts=4 noet: */
