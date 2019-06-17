@@ -4,6 +4,7 @@
 #include <vector>
 #include <unordered_set>
 #include <functional>
+#include <complex>
 using namespace std;
 
 const auto gcu = getchar_unlocked;
@@ -45,10 +46,9 @@ struct range{
 
 template <typename T>
 using V = vector<T>;
-using P = pair<int, int>;
-inline int x(P o) {return o.first;}
-inline int y(P o) {return o.second;}
-P operator +(P a, P b) {return {x(a) + x(b), y(a) + y(b)};}
+using P = complex<int>;
+inline int x(P o) {return o.real();}
+inline int y(P o) {return o.imag();}
 struct hash_p {
 	size_t operator()(const P &p) const {return (x(p) << 16) + y(p);}
 };
