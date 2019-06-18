@@ -45,11 +45,11 @@ int main() {
 		S{60, 80, 100, 120, 140, 160},
 		W{2, 5, 10, 15, 20, 25},
 		F{600, 800, 1000, 1200, 1400, 1600};
+	auto lb {[](auto &o, int n) {return lower_bound(begin(o), end(o), n);}};
 	for (int n; (n = in());) {
 		int f{};
 		while (n--) {
-			auto s{lower_bound(begin(S), end(S), in() + in() + in())},
-				 w{lower_bound(begin(W), end(W), in())};
+			auto s{lb(S, in() + in() + in())}, w{lb(W, in())};
 			if (s != end(S) && w != end(W))
 				f += F[max(s - begin(S), w - begin(W))];
 		}
