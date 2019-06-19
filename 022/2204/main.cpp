@@ -1,8 +1,7 @@
 #include <cstdio>
 #include <cctype>
 #include <utility>
-#include <vector>
-#include <algorithm>
+#include <climits>
 using namespace std;
 
 const auto gcu = getchar_unlocked;
@@ -40,14 +39,24 @@ struct range{
 	struct it { int v, s; it (int _v, int _s) : v(_v), s(_s) {} operator int()const{return v;} operator int&(){return v;} int operator*()const{return v;}
 		it& operator++(){v+=s;return *this;} }; it begin() {return {b, s};} it end() {return {e, s};}};
 
+struct min_max {
+	int min {INT_MAX}, max {INT_MIN};
+	void update(int x) {
+		if (x < min) min = x;
+		if (max < x) max = x;
+	}
+};
+
 int main() {
 	for (int n; (n = in());) {
-		vector<int> v(n);
-		for (int &i: v)
+		min_max m;
+		while (n--) {
+			int a {};
 			for (int j {}; j < 5; j++)
-				i += in();
-		auto r {minmax_element(begin(v), end(v))};
-		outl(*r.second, ' ', *r.first);
+				a += in();
+			m.update(a);
+		}
+		outl(m.max, ' ', m.min);
 	}
 }
 
