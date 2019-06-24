@@ -54,9 +54,9 @@ int main() {
 	vector<int> V(v, INT_MAX);
 	V[r] = 0;
 	for (T &a: E)
-		a = T{in(), in(), in()};
+		a = {in(), in(), in()};
 	if ([&]{
-		for (int i = 1; i < v; i++) {
+		for (int i {1}; i < v; i++) {
 			bool f {true};
 			for (T &a: E) {
 				V[a.v] = min(V[a.v], add(V[a.u], a.w));
@@ -69,7 +69,7 @@ int main() {
 		}() || [&] {
 		for (T &a: E)
 			if (V[a.v] > add(V[a.u], a.w))
-			return false;
+				return false;
 		return true;
 		}())
 		for (int n: V)
