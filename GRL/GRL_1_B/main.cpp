@@ -45,12 +45,8 @@ struct range{
 	struct it { int v, s; it (int _v, int _s) : v(_v), s(_s) {} operator int()const{return v;} operator int&(){return v;} int operator*()const{return v;}
 		it& operator++(){v+=s;return *this;} }; it begin() {return {b, s};} it end() {return {e, s};}};
 
-using T = tuple<int, int, int>;
-int tu(T &t) {return get<0>(t);}
-int tv(T &t) {return get<1>(t);}
-int tw(T &t) {return get<2>(t);}
-
-int add(int a, int b) {return a < INT_MAX ?  a + b: a;}
+struct T {int u, v, w;};
+int add(int a, int b) {return a < INT_MAX ? a + b: a;}
 
 int main() {
 	int v {in()}, e {in()}, r{in()};
@@ -61,10 +57,10 @@ int main() {
 		a = T{in(), in(), in()};
 	for (int i = 1; i < v; i++)
 		for (T &a: E)
-			V[tv(a)] = min(V[tv(a)], add(V[tu(a)], tw(a)));
+			V[a.v] = min(V[a.v], add(V[a.u], a.w));
 	if ([&] {
 		for (T &a: E)
-			if (V[tv(a)] > add(V[tu(a)], tw(a)))
+			if (V[a.v] > add(V[a.u], a.w))
 			return false;
 		return true;}())
 		for (int n: V)
