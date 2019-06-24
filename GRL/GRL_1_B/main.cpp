@@ -55,14 +55,23 @@ int main() {
 	V[r] = 0;
 	for (T &a: E)
 		a = T{in(), in(), in()};
-	for (int i = 1; i < v; i++)
-		for (T &a: E)
-			V[a.v] = min(V[a.v], add(V[a.u], a.w));
-	if ([&] {
+	if ([&]{
+		for (int i = 1; i < v; i++) {
+			bool f {true};
+			for (T &a: E) {
+				V[a.v] = min(V[a.v], add(V[a.u], a.w));
+				f = false;
+			}
+			if (f)
+				return f;
+		}
+		return false;
+		}() || [&] {
 		for (T &a: E)
 			if (V[a.v] > add(V[a.u], a.w))
 			return false;
-		return true;}())
+		return true;
+		}())
 		for (int n: V)
 			if (n < INT_MAX)
 				outl(n);
