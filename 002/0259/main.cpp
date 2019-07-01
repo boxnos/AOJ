@@ -48,6 +48,22 @@ struct range{
 	struct it { int v, s; it (int _v, int _s) : v(_v), s(_s) {} operator int()const{return v;} operator int&(){return v;} int operator*()const{return v;}
 		it& operator++(){v+=s;return *this;} }; it begin() {return {b, s};} it end() {return {e, s};}};
 
+int loop(int n) {
+	static array<int, 10000> m {};
+	if (n == 6174)
+		return 0;
+	else if (m[n])
+		return m[n];
+	stringstream s;
+	s << setw(4) << setfill('0') << n;
+	string a = s.str();
+	sort(begin(a), end(a));
+	int S {stoi(a)};
+	reverse(begin(a), end(a));
+	int L {stoi(a)};
+	return m[n] = loop(L - S) + 1;
+}
+
 int main() {
 	for (;;) {
 		string a;
@@ -64,21 +80,6 @@ int main() {
 				continue;
 			}
 		}
-		function<int(int)> loop {[&] (int n) {
-			static array<int, 10000> m {};
-			if (n == 6174)
-				return 0;
-			else if (m[n])
-				return m[n];
-			stringstream s;
-			s << setw(4) << setfill('0') << n;
-			string a = s.str();
-			sort(begin(a), end(a));
-			int S {stoi(a)};
-			reverse(begin(a), end(a));
-			int L {stoi(a)};
-			return m[n] = loop(L - S) + 1;
-		}};
 		outl(loop(stoi(a)));
 	}
 }
