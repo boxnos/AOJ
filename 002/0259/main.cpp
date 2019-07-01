@@ -1,6 +1,8 @@
 #include <cstdio>
 #include <cctype>
 #include <utility>
+#include <sstream>
+#include <iomanip>
 #include <string>
 #include <array>
 #include <algorithm>
@@ -68,8 +70,9 @@ int main() {
 				return 0;
 			else if (m[n])
 				return m[n];
-			string a = to_string(n);
-			a = string(4 - a.size(), '0') + a;
+			stringstream s;
+			s << setw(4) << setfill('0') << n;
+			string a = s.str();
 			sort(begin(a), end(a));
 			int S {stoi(a)};
 			reverse(begin(a), end(a));
