@@ -1,0 +1,9 @@
+# Sample Input
+3 8
+1 27
+1 86
+0
+# Output for the Sample Input
+5
+17
+31
