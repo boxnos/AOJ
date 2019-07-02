@@ -49,27 +49,22 @@ using D = array<C, 3>;
 int deck(int i, int j, int k, D &d) {
 	if (i == 3)
 		return 1;
-	if ([&] {
-		for (;j < 3; j++, k = 0)
-			for (;k < 9; k++)
-				if (d[j][k])
-					return false;
-		return true;
-	}())
-		return 0;
-	auto o = begin(d[j]) + k;
-	if (k < 7 && *o && o[1] && o[2]) {
-		(*o)--, o[1]--, o[2]--;
-		if (deck(i + 1, j, k, d))
-			return 1;
-		(*o)++, o[1]++, o[2]++;
-	}
-	if (*o >= 3) {
-		*o -= 3;
-		if (deck(i + 1, j, k, d))
-			return 1;
-		*o += 3;
-	}
+	for (; j < 3; j++, k = 0)
+		for (; k < 9; k++) {
+			auto o = begin(d[j]) + k;
+			if (k < 7 && *o && o[1] && o[2]) {
+				(*o)--, o[1]--, o[2]--;
+				if (deck(i + 1, j, k, d))
+					return 1;
+				(*o)++, o[1]++, o[2]++;
+			}
+			if (*o >= 3) {
+				*o -= 3;
+				if (deck(i + 1, j, k, d))
+					return 1;
+				*o += 3;
+			}
+		}
 	return 0;
 }
 
