@@ -2,6 +2,7 @@
 #include <cctype>
 #include <utility>
 #include <array>
+#include <algorithm>
 using namespace std;
 
 #define _gp(l) const auto gcu{getchar##l}; const auto pcu{putchar##l}
@@ -44,42 +45,34 @@ struct range{
 		it& operator++(){v+=s;return *this;} }; it begin() {return {b, s};} it end() {return {e, s};}};
 
 using C = array<int, 9>;
-using D = array<C, 3>;
-
-int deck(int i, int j, int k, D &d) {
-	if (i == 3)
-		return 1;
-	for (; j < 3; j++, k = 0)
-		for (; k < 9; k++) {
-			auto o = begin(d[j]) + k;
-			if (k < 7 && *o && o[1] && o[2]) {
-				(*o)--, o[1]--, o[2]--;
-				if (deck(i + 1, j, k, d))
-					return 1;
-				(*o)++, o[1]++, o[2]++;
-			}
-			if (*o >= 3) {
-				*o -= 3;
-				if (deck(i + 1, j, k, d))
-					return 1;
-				*o += 3;
-			}
-		}
-	return 0;
-}
 
 int main() {
 	for (int n {in()}; n; n--) {
 		C t;
+		array<C, 3> d {};
 		for (int &i: t)
 			i = in() - 1;
-		D d {};
 		for (int i: t) {
 			char c = gcu();
 			d[c == 'R' ? 0 : c == 'B' ? 1 : 2][i]++;
 			gcu();
 		}
-		outl(deck(0, 0, 0, d));
+		int c {};
+		for (auto &i: d)
+			for (int j: range(9)) {
+				auto o {begin(i) + j};
+				if (j < 7 && *o && o[1] && o[2]) {
+					int m {min({*o, o[1], o[2]})};
+					(*o) -= m, o[1] -= m, o[2] -= m;
+					c += m;
+				}
+				if (*o >= 3) {
+					int m {*o / 3};
+					*o -= m;
+					c += m;
+				}
+			}
+		outl((int)(c == 3));
 	}
 }
 
