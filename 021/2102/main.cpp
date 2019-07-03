@@ -58,7 +58,6 @@ int main() {
 			gcu();
 		}
 		outl([&] {
-			int c {};
 			for (auto &i: d)
 				for (int j: range(9)) {
 					auto o {begin(i) + j};
@@ -67,14 +66,8 @@ int main() {
 					if (j < 7 && *o && o[1] && o[2]) {
 						int m {min({*o, o[1], o[2]})};
 						*o -= m, o[1] -= m, o[2] -= m;
-						c += m;
 					}
-					if (*o >= 3) {
-						int m {*o / 3};
-						*o -= m * 3;
-						c += m;
-					}
-					if (*o)
+					if (*o %= 3)
 						return 0;
 				}
 			return 1;}());
