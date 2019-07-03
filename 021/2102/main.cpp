@@ -57,22 +57,27 @@ int main() {
 			d[c == 'R' ? 0 : c == 'B' ? 1 : 2][i]++;
 			gcu();
 		}
-		int c {};
-		for (auto &i: d)
-			for (int j: range(9)) {
-				auto o {begin(i) + j};
-				if (j < 7 && *o && o[1] && o[2]) {
-					int m {min({*o, o[1], o[2]})};
-					(*o) -= m, o[1] -= m, o[2] -= m;
-					c += m;
+		outl([&] {
+			int c {};
+			for (auto &i: d)
+				for (int j: range(9)) {
+					auto o {begin(i) + j};
+					if (!*o)
+						continue;
+					if (j < 7 && *o && o[1] && o[2]) {
+						int m {min({*o, o[1], o[2]})};
+						*o -= m, o[1] -= m, o[2] -= m;
+						c += m;
+					}
+					if (*o >= 3) {
+						int m {*o / 3};
+						*o -= m * 3;
+						c += m;
+					}
+					if (*o)
+						return 0;
 				}
-				if (*o >= 3) {
-					int m {*o / 3};
-					*o -= m;
-					c += m;
-				}
-			}
-		outl((int)(c == 3));
+			return 1;}());
 	}
 }
 
