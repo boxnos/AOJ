@@ -6,7 +6,6 @@
 #include <string>
 #include <array>
 #include <algorithm>
-#include <functional>
 using namespace std;
 
 #define _gp(l) const auto gcu{getchar##l}; const auto pcu{putchar##l}
