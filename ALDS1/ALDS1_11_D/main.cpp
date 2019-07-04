@@ -33,7 +33,7 @@ template <typename head, typename... tail>
 svo(head&& h, tail&&... t){out(h);out(move(t)...);}
 
 struct union_find {
-	struct node {int p, r = 0;};
+	struct node {int p, r = 1;};
 	vector<node> nodes;
 
 	union_find(int n) : nodes(n) {
@@ -53,11 +53,12 @@ struct union_find {
 	void unite(int a, int b) {
 		int ar = find(a), br = find(b);
 		node &an = nodes[ar], &bn = nodes[br];
-		if (an.r > bn.r)
+		if (an.r > bn.r) {
 			bn.p = ar;
-		else if (ar != br) {
-			bn.p = ar;
-			an.r++;
+			an.r += bn.r;
+		} else if (ar != br) {
+			an.p = br;
+			bn.r += an.r;
 		}
 	}
 	bool equal(int a, int b) {
