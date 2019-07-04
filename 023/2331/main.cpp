@@ -40,13 +40,13 @@ struct range{int e,b{0},s{1};range(int _b,int _e,int _s):e(_e),b(_b),s(_s){}rang
 	it begin(){return{b, s};}it end(){return{e,s};}};
 
 int main() {
-	int n {in()}, r {}, t {};
-	vector<int> q(100002);
+	int n {in()}, m {n + 1}, r {}, t {};
+	vector<int> q(m);
 	for (int i {}; i < n; i++) {
-		q[in() - 1]++;
-		q[in()]--;
+		q[min(m, in() - 1)]++;
+		q[min(m, in())]--;
 	}
-	for (int i: range(n + 1))
+	for (int i: range(m))
 		if ((t += q[i]) >= i)
 			r = i;
 	outl(r);
