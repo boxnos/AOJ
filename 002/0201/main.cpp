@@ -5,6 +5,7 @@
 #include <map>
 #include <string>
 #include <functional>
+#include <numeric>
 using namespace std;
 
 #define _gp(l) const auto gcu{getchar##l}; const auto pcu{putchar##l}
@@ -67,12 +68,10 @@ int main() {
 		}
 		function<int(int)> mc{[&](int i) {
 			item &o {r[i]};
-			if (!o.c.size())
-				return o.p;
-			int a {};
-			for (int j: o.c)
-				a += mc(j);
-			return min(o.p, a);
+			return o.c.size() ?
+				min(o.p, accumulate(begin(o.c), end(o.c), 0,
+									[&](int a, int j){return a + mc(j);})) :
+				o.p;
 		}};
 		scan(s);
 		outl(mc(t[s]));
