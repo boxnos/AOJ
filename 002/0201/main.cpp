@@ -2,7 +2,7 @@
 #include <cctype>
 #include <utility>
 #include <vector>
-#include <map>
+#include <unordered_map>
 #include <string>
 #include <functional>
 #include <numeric>
@@ -51,7 +51,7 @@ struct item {
 int main() {
 	string s;
 	for (int n; (n = in());) {
-		map<string, int> t;
+		unordered_map<string, int> t;
 		vector<item> r(n);
 		for (int i: range(n)) {
 			scan(s);
