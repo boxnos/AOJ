@@ -60,10 +60,10 @@ int main() {
 		}
 		for (int m {in()}; m; m--) {
 			scan(s);
-			int p {t[s]};
-			for (int i{in()}; i; i--) {
+			auto &o {r[t[s]].c};
+			for (int i {in()}; i; i--) {
 				scan(s);
-				r[p].c.push_back(t[s]);
+				o.push_back(t[s]);
 			}
 		}
 		function<int(int)> mc{[&](int i) {
