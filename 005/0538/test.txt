@@ -1,0 +1,11 @@
+# 入力例
+1
+13
+OOIOIOIOIIOII
+2
+13
+OOIOIOIOIIOII
+0
+# 出力例
+4
+2
