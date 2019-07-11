@@ -1,7 +1,7 @@
 #include <cstdio>
 #include <cctype>
 #include <utility>
-#include <array>
+#include <vector>
 #include <climits>
 using namespace std;
 
@@ -41,26 +41,21 @@ struct range{int e,b{0},s{1};range(int _b,int _e,int _s):e(_e),b(_b),s(_s){}rang
 	it begin(){return{b, s};}it end(){return{e,s};}};
 
 template <typename T>
-using A = array<T, 3>;
+using V = vector<T>;
 
 int main() {
-	A<A<int>> a {1, 1, 1, 2, 1, 0, 3, 0, 0};
-	A<int> t;
+	V<V<int>> a {{1, 1, 1}, {2, 1},{3}};
+	V<int> t(3);
 	for (int Q {in()}; Q; Q--) {
 		for (int &i: t)
 			i = in();
 		int r {};
 		for (auto &i: a) {
+			range $(i.size());
 			int m {INT_MAX};
-			for (int j: range(2, -1, -1))
-				if (i[j]) {
-					if (t[j] < i[j]) {
-						m = 0;
-						break;
-					} else
-						m = min(m, t[j] / i[j]);
-				}
-			for (int j: range(3))
+			for (int j: $)
+				m = min(m, t[j] / i[j]);
+			for (int j: $)
 				t[j] -= i[j] * m;
 			r += m;
 		}
