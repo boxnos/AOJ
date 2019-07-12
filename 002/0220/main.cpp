@@ -3,7 +3,7 @@
 #include <utility>
 #include <string>
 #include <cmath>
-#include <deque>
+#include <vector>
 using namespace std;
 
 #define _gp(l) const auto gcu{getchar##l}; const auto pcu{putchar##l}
@@ -43,25 +43,21 @@ struct range{int e,b{0},s{1};range(int _b,int _e,int _s):e(_e),b(_b),s(_s){}rang
 
 int main() {
 	for (double n; scanf("%lf", &n), n >= 0;) {
-		deque<int> a, b;
-		for (int i: range(8)) {
-			int r = fmod(n / (1 << i), 2.0);
-			n -= r * (1 << i);
-			a.push_front(r);
-		}
-		for (int i: range(1, 5)) {
-			int r = fmod(n * (1 << i), 2.0);
-			n -= (double) r / (1 << i);
-			b.push_back(r);
+		vector<int> a;
+		double b = 1.0 / (1 << 7);
+		for (int i {}; i < 12; i++, b *= 2) {
+			int r = fmod(n * b, 2.0);
+			n -= r / b;
+			a.push_back(r);
 		}
 		if (n)
 			outl("NA");
 		else {
-			for (int i: a)
-				out(i);
-			out('.');
-			for (int i: b)
-				out(i);
+			for (int i: range(12)) {
+				if (i == 8)
+					out('.');
+				out(a[i]);
+			}
 			outl();
 		}
 	}
