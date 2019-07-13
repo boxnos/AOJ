@@ -53,9 +53,7 @@ int main() {
 				break;
 			}
 			int c {'a' + s * 5 + r};
-			if (c > 'z')
-				c = ".?! "[c - '{'];
-			b.push_back(c);
+			b.push_back(c > 'z' ? ".?! "[c - '{'] : c);
 		}
 		outl(b);
 	}
