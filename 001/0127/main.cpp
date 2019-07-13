@@ -37,7 +37,7 @@ _HT _OUT(H&& h, T&&... t){out(h);out(move(t)...);}
 template <typename... T> _OUTL(T&&... t){out(move(t)...);outl();}
 struct range{int e,b{0},s{1};range(int _b,int _e,int _s):e(_e),b(_b),s(_s){}range(int _b,int _e):e(_e),b(_b){}range(int _e):e(_e){}
 	struct it{int v,s;it(int _v,int _s):v(_v),s(_s){}operator int()const{return v;}operator int&(){return v;}int operator*()const{return v;}it& operator++(){v+=s;return *this;}};
-	it begin(){return{b, s};}it end(){return{e,s};}};
+	it begin(){return{b, s};}it end(){return{e,s};}bool inner(int n){return b<=n&&n<e;}};
 
 int main() {
 	for (string a; scan(a);) {
@@ -48,7 +48,7 @@ int main() {
 		string b;
 		for (auto i {begin(a)}; i != end(a); i += 2) {
 			int r = i[1] - '1', s {*i - '1'};
-			if (r < 0 || r > 4 || s < 0 || s > 5) {
+			if (!(range(5).inner(r) && range(6).inner(s))) {
 				b = "NA";
 				break;
 			}
