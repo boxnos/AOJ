@@ -1,0 +1,20 @@
+# Sample Input
+341143514535
+314
+143565553551655311343411652235654535651124615163
+551544654451431564
+4
+3411
+6363636363
+153414
+01
+# Output for the Sample Input
+naruto
+NA
+do you wanna go to aizu?
+yes sure!
+NA
+na
+?????
+end
+NA
