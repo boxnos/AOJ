@@ -1,0 +1,27 @@
+# Sample Input
+1
+2
+3
+4
+6
+12
+16
+28
+33550336
+99999998
+99999999
+100000000
+0
+# Output for the Sample Input
+deficient number
+deficient number
+deficient number
+deficient number
+perfect number
+abundant number
+deficient number
+perfect number
+perfect number
+deficient number
+deficient number
+abundant number
