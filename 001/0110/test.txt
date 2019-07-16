@@ -1,0 +1,16 @@
+# my
+11+21=3X
+1XX+X=1XX
+100+X200=2300
+# my
+2
+0
+2
+# Sample Input
+123+4X6=X79
+12X+4X6=X79
+XX22+89=X2XX
+# Output for the Sample Input
+5
+NA
+1
