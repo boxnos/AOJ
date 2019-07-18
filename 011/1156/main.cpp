@@ -5,6 +5,7 @@
 #include <array>
 #include <complex>
 #include <queue>
+#include <climits>
 using namespace std;
 
 #define _gp(l) const auto gcu{getchar##l}; const auto pcu{putchar##l}
@@ -61,7 +62,7 @@ int main() {
 	range r4(4);
 	for (int w, h; w = in(), h = in();) {
 		V<V<int>> m(h + 2, V<int>(w + 2));
-		V<V<A<bool>>> v(h + 2, V<A<bool>>(w + 2));
+		V<V<A<int>>> v(h + 2, V<A<int>>(w + 2, {INT_MAX, INT_MAX, INT_MAX, INT_MAX}));
 		for (int i: range(1, h + 1))
 			m[i][0] = m[i][w + 1] = -1;
 		for (int i: range(m[0].size()))
@@ -84,14 +85,17 @@ int main() {
 				outl(n.c);
 				break;
 			}
-			if (exchange(pos(v, n.p)[n.d], true))
+			if (exchange(pos(v, n.p)[n.d], n.c) < n.c)
 				continue;
 			int o = pos(m, n.p);
 			for (int i: r4) {
 				int d {(n.d + i) % 4};
 				P t {n.p + r[d]};
-				if (!(pos(m, t) < 0 || pos(v, t)[d]))
-					q.emplace(n.c + (i == o ? 0 : c[i]), d, t);
+				int cost = n.c + (i == o ? 0 : c[i]);
+				if (pos(m, t) >= 0 && cost < pos(v, t)[d]) {
+					pos(v, t)[d] = cost;
+					q.emplace(cost, d, t);
+				}
 			}
 		}
 	}
