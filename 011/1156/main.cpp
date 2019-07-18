@@ -52,6 +52,7 @@ using P = complex<int>;
 #define pos(o, p) o[imag(p)][real(p)]
 struct N {
 	int c, d; P p;
+	N (int ct, int dt, P pt) : c{ct}, d{dt}, p{pt} {}
 	bool operator < (N a) const {return c > a.c;}
 };
 
@@ -73,11 +74,12 @@ int main() {
 			i = in();
 
 		priority_queue<N> q;
-		q.push({0, 0, {1, 1}});
+		q.emplace(0, 0, P{1, 1});
+		P e {w, h};
 		while (!q.empty()) {
 			N n = q.top();
 			q.pop();
-			if (n.p == P{w, h}) {
+			if (n.p == e) {
 				outl(n.c);
 				break;
 			}
@@ -88,7 +90,7 @@ int main() {
 				int d {(n.d + i) % 4};
 				P t {n.p + r[d]};
 				if (!(pos(m, t) < 0 || pos(v, t)[d]))
-					q.push({n.c + (i == o ? 0 : c[i]), d, t});
+					q.emplace(n.c + (i == o ? 0 : c[i]), d, t);
 			}
 		}
 	}
