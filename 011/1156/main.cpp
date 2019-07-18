@@ -60,16 +60,10 @@ int main() {
 	for (int w, h; w = in(), h = in();) {
 		V<V<int>> m(h + 2, V<int>(w + 2));
 		V<V<A<bool>>> v(h + 2, V<A<bool>>(w + 2));
-		for (int i: range(1, h + 1)) {
+		for (int i: range(1, h + 1))
 			m[i][0] = m[i][w + 1] = -1;
-			for (int j: range(4))
-				v[i][0][j] = v[i][w + 1][j] = true;
-		}
-		for (int i: range(m[0].size())) {
+		for (int i: range(m[0].size()))
 			m[0][i] = m[h + 1][i] = -1;
-			for (int j: range(4))
-				v[0][i][j] = v[h + 1][i][j] = true;
-		}
 		A<int> c;
 
 		for (int i: range(1, h + 1))
@@ -93,9 +87,8 @@ int main() {
 			for (int i: range(4)) {
 				int d {(n.d + i) % 4};
 				P t {n.p + r[d]};
-				if (pos(m, t) < 0 || pos(v, t)[d])
-					continue;
-				q.push({n.c + (i == o ? 0 : c[i]), d,t});
+				if (!(pos(m, t) < 0 || pos(v, t)[d]))
+					q.push({n.c + (i == o ? 0 : c[i]), d, t});
 			}
 		}
 	}
