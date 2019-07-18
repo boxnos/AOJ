@@ -62,11 +62,11 @@ int main() {
 	range r4(4);
 	for (int w, h; w = in(), h = in();) {
 		V<V<int>> m(h + 2, V<int>(w + 2));
-		V<V<A<int>>> v(h + 2, V<A<int>>(w + 2, {INT_MAX, INT_MAX, INT_MAX, INT_MAX}));
 		for (int i: range(1, h + 1))
 			m[i][0] = m[i][w + 1] = -1;
 		for (int i: range(m[0].size()))
 			m[0][i] = m[h + 1][i] = -1;
+		V<V<V<int>>> v(h + 2, V<V<int>>(w + 2, V<int>(4, INT_MAX)));
 		A<int> c;
 
 		for (int i: range(1, h + 1))
