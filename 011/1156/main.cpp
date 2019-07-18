@@ -53,11 +53,12 @@ using P = complex<int>;
 struct N {
 	int c, d; P p;
 	N (int ct, int dt, P pt) : c{ct}, d{dt}, p{pt} {}
-	bool operator < (N a) const {return c > a.c;}
+	bool operator < (const N a) const {return c > a.c;}
 };
 
 int main() {
 	const A<P> r {P{1, 0}, P{0, 1}, P{-1, 0}, P{0, -1}};
+	range r4(4);
 	for (int w, h; w = in(), h = in();) {
 		V<V<int>> m(h + 2, V<int>(w + 2));
 		V<V<A<bool>>> v(h + 2, V<A<bool>>(w + 2));
@@ -75,7 +76,7 @@ int main() {
 
 		priority_queue<N> q;
 		q.emplace(0, 0, P{1, 1});
-		P e {w, h};
+		const P e {w, h};
 		while (!q.empty()) {
 			N n = q.top();
 			q.pop();
@@ -86,7 +87,7 @@ int main() {
 			if (exchange(pos(v, n.p)[n.d], true))
 				continue;
 			int o = pos(m, n.p);
-			for (int i: range(4)) {
+			for (int i: r4) {
 				int d {(n.d + i) % 4};
 				P t {n.p + r[d]};
 				if (!(pos(m, t) < 0 || pos(v, t)[d]))
