@@ -1,7 +1,8 @@
 #include <cstdio>
 #include <cctype>
 #include <utility>
-#include <vector>
+#include <array>
+#include <algorithm>
 using namespace std;
 
 #define _gp(l) const auto gcu{getchar##l}; const auto pcu{putchar##l}
@@ -43,21 +44,27 @@ struct range{
 	struct it { int v, s; it (int _v, int _s) : v(_v), s(_s) {} operator int()const{return v;} operator int&(){return v;} int operator*()const{return v;}
 		it& operator++(){v+=s;return *this;} }; it begin() {return {b, s};} it end() {return {e, s};}};
 
-void rec(int n, vector<int> r) {
+using A = array<int, 100>;
+using I = A::iterator;
+
+void rec(int n, I b, I i) {
 	if (!n) {
-		outl(r);
+		out(*b);
+		for_each(b + 1, i + 1, [&](int i){out(" ", i);});
+		outl();
 		return;
 	}
-	for (int i = min(n, r.size() ? r.back() : n); i > 0; i--) {
-		r.push_back(i);
-		rec(n - i, r);
-		r.pop_back();
+	for (int j = min(n, *i ? *i++ : n); j > 0; j--) {
+		*i = j;
+		rec(n - j, b, i);
 	}
 }
 
 int main() {
-	for (int n; (n = in());)
-		rec(n, {});
+	for (int n; (n = in());) {
+		A a {};
+		rec(n, begin(a), begin(a));
+	}
 }
 
 /* vim: set ts=4 noet: */
