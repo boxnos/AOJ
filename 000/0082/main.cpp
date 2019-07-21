@@ -1,7 +1,7 @@
 #include <cstdio>
 #include <cctype>
 #include <utility>
-#include <array>
+#include <deque>
 #include <climits>
 using namespace std;
 
@@ -44,36 +44,30 @@ struct range{
 	struct it { int v, s; it (int _v, int _s) : v(_v), s(_s) {} operator int()const{return v;} operator int&(){return v;} int operator*()const{return v;}
 		it& operator++(){v+=s;return *this;} }; it begin() {return {b, s};} it end() {return {e, s};}};
 
-using A = array<int, 8>;
-int to_int(A a, int s) {
-	int r {};
-	for (int i: range(8)) {
-		r *= 10;
-		r += a[(i + s) % 8];
-	}
-	return r;
-}
+using D = deque<int>;
 
 int main() {
-	A p, c {4, 1, 4, 1, 2, 1, 2, 1};
+	D p(8), c {4, 1, 4, 1, 2, 1, 2, 1}, r;
 	range r8(8);
 	for (;;) {
-		for (int i: r8)
-			if(!scan(p[i]))
+		for (int &i: p)
+			if(!scan(i))
 				return 0;
-		int m {INT_MAX}, r {};
-		for (int i: r8) {
+		int m {INT_MAX};
+		for (int i {}; i < 8; i++) {
 			int a {};
+			c.push_front(c.back());
+			c.pop_back();
 			for (int j: r8)
-				a += max(0, p[j] - c[(j + i) % 8]);
+				a += max(0, p[j] - c[j]);
 			if (a < m) {
 				m = a;
-				r = i;
-			} else if (a == m && to_int(c, i) < to_int(c, r))
-				r = i;
+				r = c;
+			} else if (a == m && c < r)
+				r = c;
 		}
 		for (int i: r8)
-			out(c[(i + r) % 8], " \n"[i == 7]);
+			out(r[i], " \n"[i == 7]);
 	}
 }
 
