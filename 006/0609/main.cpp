@@ -48,15 +48,9 @@ int main() {
 	vector<int> v(M), p(N);
 	for (int &i: v)
 		i = in() - 1;
-	for (int i: range(M)) {
-		int t {};
+	for (int i: range(M))
 		for (int j: range(N))
-			if (v[i] == in() - 1)
-				p[j]++;
-			else
-				t++;
-		p[v[i]] += t;
-	}
+			p[v[i] == in() - 1 ? j : v[i]]++;
 	for (int i: p)
 		outl(i);
 }
