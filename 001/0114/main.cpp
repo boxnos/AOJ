@@ -44,19 +44,20 @@ struct range{
 	struct it { int v, s; it (int _v, int _s) : v(_v), s(_s) {} operator int()const{return v;} operator int&(){return v;} int operator*()const{return v;}
 		it& operator++(){v+=s;return *this;} }; it begin() {return {b, s};} it end() {return {e, s};}};
 
+
 long lcm(long a, long b) {
 	return a * b / __gcd(a, b);
 }
 
 int main() {
-	array<long, 3> s;
+	array<int, 3> s;
 	for (;;) {
 		for (auto &i: s) {
-			long a {in()}, m {in()};
+			int a {in()}, m {in()};
 			if (!a)
 				return 0;
 			i = 1;
-			for (long t = a; t != 1; t = t * a % m)
+			for (int t = a; t != 1; t = t * a % m)
 				i++;
 		}
 		outl(lcm(lcm(s[0], s[1]), s[2]));
