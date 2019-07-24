@@ -50,9 +50,8 @@ int main() {
 	for (int n; (n = in());) {
 		P m {DBL_MAX, 0};
 		while (n--) {
-			int p {in()};
-			double h = in() / 100.0;
-			m = min(m, {abs(22 - in() / h / h), p});
+			int p {in()}, h {in()};
+			m = min(m, {abs(22 - in() * 10000. / h / h), p});
 		}
 		outl(m.second);
 	}
