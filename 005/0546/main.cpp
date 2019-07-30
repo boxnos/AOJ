@@ -57,14 +57,13 @@ int main() {
 				s.insert(x);
 				return;
 			}
-			for (int j: range(n)) {
+			for (int j: range(n))
 				if (!(v & (1 << j))) {
 					int t {x};
 					for (int k {c[j]}; k; k /= 10)
 						t = t * 10 + k % 10;
 					check(i + 1, t, v | (1 << j));
 				}
-			}
 		};
 		check(0, 0, 0);
 		outl((int) s.size());
