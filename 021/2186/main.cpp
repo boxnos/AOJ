@@ -59,8 +59,8 @@ bool operator < (P a, P b) {
 
 int main() {
 	for (int n {in()}; n; n--) {
-		P g {read()}, s {g + P{2, 2}};
-		V<V<int>> r(y(s), V<int>(x(s), 3)), dp(y(s), V<int>(x(s)));
+		P g {read()}, s {g + P{1, 1}};
+		V<V<int>> r(y(s), V<int>(x(s), 3)), dp(y(s) + 1, V<int>(x(s) + 1));
 		for (int p {in()}; p; p--) {
 			P s {read()}, e {read()};
 			if (e < s)
@@ -69,8 +69,8 @@ int main() {
 			r[y(s)][x(s)] &= x(d) ? ~1 : ~2;
 		}
 		dp[0][0] = 1;
-		for (int i: range(y(g) + 1))
-			for (int j: range(x(g) + 1)) {
+		for (int i: range(y(s)))
+			for (int j: range(x(s))) {
 				if(r[i][j] & 1)
 					dp[i][j + 1] += dp[i][j];
 				if(r[i][j] >> 1 & 1)
