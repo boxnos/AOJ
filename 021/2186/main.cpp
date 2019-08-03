@@ -49,7 +49,7 @@ template <typename T>
 using V = vector<T>;
 using P = complex<int>;
 P read() {
-	return {in() + 1, in() + 1};
+	return {in(), in()};
 }
 #define x(o) real(o)
 #define y(o) imag(o)
@@ -59,19 +59,23 @@ bool operator < (P a, P b) {
 
 int main() {
 	for (int n {in()}; n; n--) {
-		P g {read()}, s {g + P{1, 1}};
+		P g {read()}, s {g + P{2, 2}};
 		V<V<int>> r(y(s), V<int>(x(s), 3)), dp(y(s), V<int>(x(s)));
 		for (int p {in()}; p; p--) {
 			P s {read()}, e {read()};
 			if (e < s)
 				swap(s, e);
 			P d = e - s;
-			r[y(e)][x(e)] &= x(d) ? ~1 : ~2;
+			r[y(s)][x(s)] &= x(d) ? ~1 : ~2;
 		}
-		dp[1][0] = 1;
-		for (int i: range(1, y(s)))
-			for (int j: range(1, x(s)))
-				dp[i][j] = (r[i][j] & 1 ? dp[i][j - 1] : 0) + (r[i][j] >> 1 & 1 ? dp[i - 1][j] : 0);
+		dp[0][0] = 1;
+		for (int i: range(y(g) + 1))
+			for (int j: range(x(g) + 1)) {
+				if(r[i][j] & 1)
+					dp[i][j + 1] += dp[i][j];
+				if(r[i][j] >> 1 & 1)
+					dp[i + 1][j] += dp[i][j];
+			}
 		if (dp[y(g)][x(g)])
 			outl(dp[y(g)][x(g)]);
 		else
