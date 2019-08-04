@@ -1,0 +1,8 @@
+# Sample Input 1
+10 5
+# Sample Output 1
+2
+# Sample Input 2
+7 4
+# Sample Output 2
+4
