@@ -58,15 +58,15 @@ int main() {
 			i = {x, y};
 		}
 		sort(begin(v), end(v), [](P a, P b) {return real(a) == real(b) ? imag(a) < imag(b) : real(a) < real(b);});
-		auto f = [&](int b, int e, int s, size_t st) {
-			for (int i: range(b, e, s)) {
-				while (t.size() > st && imag((t.back() - *(end(t) - 2)) * conj(v[i] - t.back())) <= 0)
+		auto f {[&](auto i, auto e, size_t s) {
+			for (;i != e; i++) {
+				while (t.size() > s && imag((t.back() - *(end(t) - 2)) * conj(*i - t.back())) <= 0)
 					t.pop_back();
-				t.push_back(v[i]);
+				t.push_back(*i);
 			}
-		};
-		f(0, n, 1, 1);
-		f(n - 2, -1, -1, t.size());
+		}};
+		f(begin(v), end(v), 1);
+		f(rbegin(v) + 2, rend(v), t.size());
 		outl(n - t.size() + 1);
 	}
 }
