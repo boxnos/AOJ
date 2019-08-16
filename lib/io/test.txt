@@ -1,0 +1,16 @@
+# in
+123
+-123
+a A
+-1.234
+hello world
+456
+# out
+123
+-123
+a
+A
+-1.234000
+hello
+world
+456
