@@ -1,5 +1,4 @@
 #include <cstdio>
-#include <cctype>
 #include <utility>
 #include <string>
 using namespace std;
@@ -13,42 +12,17 @@ _gp();
 #define _DEF(r, n, ...) inline r n(__VA_ARGS__) noexcept
 #define _T template <typename T>
 #define _HT template <typename H,typename... T>
+#define _OP(t) inline operator t()
 struct _in {
 #ifdef _GLIBCXX_STRING
-	operator string () {
-		string s;
-		for(char c;c=gcu(), c != ' ' && c!= '\n';)
-			s += c;
-		return s;
-	}
+	_OP(string){string s;for(char c;c=gcu(),c!=' '&&c!='\n';)s+=c;return s;}
 #endif
-	operator char () {
-		char c = gcu(); gcu();
-		return c;
-	}
-	operator double () {
-		double d;
-		scanf("%lf", &d);
-		gcu();
-		return d;
-	}
-	_T operator T () {
-        T n{}, m{1}, c;
-		if((c = gcu()) =='-')
-			m=-1,c=gcu();
-		do{n=10*n+(c-'0'),c=gcu();}while(c>='0'&&c<='9');
-		return move(m*n);
-	}
+	_OP(char){char c=gcu();gcu();return c;}
+	_OP(double){double d; scanf("%lf",&d); gcu();return d;}
+	_T _OP(T){T n{},m{1},c;if((c=gcu())=='-')m=-1,c=gcu();do{n=10*n+(c-'0'),c=gcu();}while(c>='0'&&c<='9');return m*n;}
 } in;
 #define _SCAN(...) _DEF(bool,scan,__VA_ARGS__)
-_T _SCAN(T &o) {
-	int c {gcu()};
-	if (c == EOF)
-		return false;
-	ungetc(c, stdin);
-	o = in;
-	return true;
-}
+_T _SCAN(T &o) {int c{gcu()};return c==EOF?false:ungetc(c,stdin),o=in,true;}
 _HT _SCAN(H &h,T&&... t){return scan(h)&&scan(t...);}
 #define _OUT(...) _DEF(void,out,__VA_ARGS__)
 #define _OUTL(...) _DEF(void,outl,__VA_ARGS__)
