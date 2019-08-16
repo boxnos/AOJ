@@ -49,29 +49,24 @@ struct range{
 
 using P = complex<double>;
 
-P read() {
-	double x, y;
-	scanf("%lf,%lf", &x, &y);
-	return {x, y};
-}
-
 int main() {
 	for (int n; (n = IN);) {
 		vector<P> v(n), t;
-		for (P &i: v)
-			i = read();
+		for (P &i: v) {
+			double x, y;
+			scanf("%lf,%lf", &x, &y);
+			i = {x, y};
+		}
 		sort(begin(v), end(v), [](P a, P b) {return real(a) == real(b) ? imag(a) < imag(b) : real(a) < real(b);});
-		for (int i: range(n)) {
-			while (t.size() > 1 && imag((t.back() - *(end(t) - 2)) * conj(v[i] - t.back())) <= 0)
-				t.pop_back();
-			t.push_back(v[i]);
-		}
-		size_t e = t.size();
-		for (int i: range(n - 2, -1, -1)) {
-			while (t.size() > e && imag((t.back() - *(end(t) - 2)) * conj(v[i] - t.back())) <= 0)
-				t.pop_back();
-			t.push_back(v[i]);
-		}
+		auto f = [&](int b, int e, int s, size_t st) {
+			for (int i: range(b, e, s)) {
+				while (t.size() > st && imag((t.back() - *(end(t) - 2)) * conj(v[i] - t.back())) <= 0)
+					t.pop_back();
+				t.push_back(v[i]);
+			}
+		};
+		f(0, n, 1, 1);
+		f(n - 2, -1, -1, t.size());
 		outl(n - t.size() + 1);
 	}
 }
