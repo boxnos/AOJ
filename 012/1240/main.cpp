@@ -51,28 +51,24 @@ int main() {
 		for (auto i {rbegin(k)}; i != rend(k); i++)
 			switch(*i) {
 			case 'C':
-				s += s.front();
-				s.erase(begin(s));
+				s = s.substr(1, s.size()) + s.front();
 				break;
 			case 'J':
-				s = s.back() + s;
-				s.pop_back();
+				s = s.back() + s.substr(0, s.size() - 1);
 				break;
 			case 'E':
 				for (int j: range(s.size() / 2))
 					swap(s[j], s[j + (s.size() + 1) / 2]);
 				break;
 			case 'P':
-				for (char &j: s) {
+				for (char &j: s)
 					if (isdigit(j))
 						j = (j - '0' + 9) % 10 + '0';
-				}
 				break;
 			case 'M':
-				for (char &j: s) {
+				for (char &j: s)
 					if (isdigit(j))
 						j = (j - '0' + 1) % 10 + '0';
-				}
 				break;
 			case 'A':
 				reverse(begin(s), end(s));
