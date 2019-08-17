@@ -1,0 +1,24 @@
+# test
+1
+E
+decab
+# out
+abcde
+# Sample Input
+5
+AJMP
+aB23d
+E
+86AE
+AM
+6
+JPEM
+WaEaETC302Q
+CP
+rTurnAGundam1isdefferentf
+# Output for the Sample Input
+32Bad
+AE86
+7
+EC302QTWaEa
+TurnAGundam0isdefferentfr
