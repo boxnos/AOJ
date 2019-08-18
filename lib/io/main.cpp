@@ -37,7 +37,7 @@ _OUTL(){out('\n');}
 _T _OUT(vector<T> v){for(T &x:v)out(&x == &v[0]?"":" "),out(x);}
 #endif
 _HT _OUT(H&& h, T&&... t){out(h);out(move(t)...);}
-template <typename... T> _OUTL(T&&... t){out(move(t)...);outl();}
+template <typename... T> _OUTL(T... t){out(t...);outl();}
 struct range{
 	int e,b=0,s=1; range(int _b,int _e,int _s):e(_e),b(_b),s(_s){} range(int _b,int _e): e(_e), b(_b){} range(int _e):e(_e){}
 	struct it { int v, s; it (int _v, int _s) : v(_v), s(_s) {} operator int()const{return v;} operator int&(){return v;} int operator*()const{return v;}
@@ -56,6 +56,7 @@ int main() {
 	outl(d);
 	printf("%f\n", e);
 	outl(f);
+	outl(g);
 	outl(g);
 	scan(a, b, c);
 	outl(a);
