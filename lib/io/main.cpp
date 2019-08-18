@@ -1,6 +1,7 @@
 #include <cstdio>
 #include <utility>
 #include <string>
+#include <vector>
 using namespace std;
 
 #define _gp(l) const auto gcu{getchar##l}; const auto pcu{putchar##l}
@@ -28,15 +29,15 @@ _HT _SCAN(H &h,T&&... t){return scan(h)&&scan(t...);}
 #define _OUTL(...) _DEF(void,outl,__VA_ARGS__)
 _OUT(bool b){pcu('0'+b);} _OUT(const char *s){while(*s)pcu(*s++);} _OUT(char c){pcu(c);}
 #ifdef _GLIBCXX_STRING
-_OUT(string s){for(char c:s)pcu(c);}
+_OUT(string &s){for(char c:s)pcu(c);}
 #endif
 _T _OUT(T n){static char b[20];char *p=b;T m=n<0?pcu('-'),-1:1;
 	if(!n)*p++='0';else while(n)*p++=(char)(n%10*m+'0'),n/=10;while(p!=b)pcu(*--p);}
 _OUTL(){out('\n');}
 #ifdef _GLIBCXX_VECTOR
-_T _OUT(vector<T> v){for(T &x:v)out(&x == &v[0]?"":" "),out(x);}
+_T _OUT(vector<T> &v){for(T &x:v)out(&x == &v[0]?"":" "),out(x);}
 #endif
-_HT _OUT(H&& h, T&&... t){out(h);out(move(t)...);}
+_HT _OUT(H &h, T... t){out(h);out(t...);}
 template <typename... T> _OUTL(T... t){out(t...);outl();}
 struct range{
 	int e,b=0,s=1; range(int _b,int _e,int _s):e(_e),b(_b),s(_s){} range(int _b,int _e): e(_e), b(_b){} range(int _e):e(_e){}
@@ -45,21 +46,24 @@ struct range{
 
 int main() {
 	unsigned long a(in);
+	outl(a);
 	long b(in);
+	outl(b);
 	char c(in), d(in);
+	outl(c);
+	outl(d);
 	double e(in);
 	string f = in;
 	string g = in;
-	outl(a);
-	outl(b);
-	outl(c);
-	outl(d);
 	printf("%f\n", e);
-	outl(f);
-	outl(g);
-	outl(g);
+	out(f, ' ',g);
+	outl();
+	out(f, ' ',g);
+	outl();
 	scan(a, b, c);
 	outl(a);
+	vector<int> h {1, 2, 3};
+	outl(h);
 }
 
 /* vim: set ts=4 noet: */
