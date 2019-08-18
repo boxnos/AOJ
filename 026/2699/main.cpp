@@ -49,7 +49,7 @@ int main() {
 	for (int D, E; D = in, E = in;) {
 		double m {DBL_MAX};
 		for (int i: range(D/2 + 1))
-			m = min(m, abs(sqrt(i * i + (D - i) * (D - i)) - E));
+			m = min(m, abs(hypot(i, (D - i)) - E));
 		printf("%.10f\n", m);
 	}
 }
