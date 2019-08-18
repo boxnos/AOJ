@@ -27,7 +27,9 @@ _T _SCAN(T &o) {int c{gcu()};return c==EOF?false:ungetc(c,stdin),o=in,true;}
 _HT _SCAN(H &h,T&&... t){return scan(h)&&scan(t...);}
 #define _OUT(...) _DEF(void,out,__VA_ARGS__)
 #define _OUTL(...) _DEF(void,outl,__VA_ARGS__)
-_OUT(bool b){pcu('0'+b);} _OUT(const char *s){while(*s)pcu(*s++);} _OUT(char c){pcu(c);}
+_OUT(bool b){pcu('0'+b);}
+_OUT(const char *s){while(*s)pcu(*s++);}
+_OUT(char c){pcu(c);}
 #ifdef _GLIBCXX_STRING
 _OUT(string &s){for(char c:s)pcu(c);}
 #endif
@@ -37,7 +39,7 @@ _OUTL(){out('\n');}
 #ifdef _GLIBCXX_VECTOR
 _T _OUT(vector<T> &v){for(T &x:v)out(&x == &v[0]?"":" "),out(x);}
 #endif
-_HT _OUT(H &h, T... t){out(h);out(t...);}
+_HT _OUT(H &&h, T... t){out(h);out(t...);}
 template <typename... T> _OUTL(T... t){out(t...);outl();}
 struct range{
 	int e,b=0,s=1; range(int _b,int _e,int _s):e(_e),b(_b),s(_s){} range(int _b,int _e): e(_e), b(_b){} range(int _e):e(_e){}
@@ -64,6 +66,7 @@ int main() {
 	outl(a);
 	vector<int> h {1, 2, 3};
 	outl(h);
+	outl("hoge ", "moge");
 }
 
 /* vim: set ts=4 noet: */
