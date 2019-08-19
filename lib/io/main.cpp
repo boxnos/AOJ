@@ -22,7 +22,7 @@ struct _in {
 	_T _OP(T){T n{},m{1},c;if((c=gcu())=='-')m=-1,c=gcu();do{n=10*n+(c-'0'),c=gcu();}while(c>='0'&&c<='9');return m*n;}
 } in;
 #define _SCAN(...) _DEF(bool,scan,__VA_ARGS__)
-_T _SCAN(T &o) {int c{gcu()};return c==EOF?false:ungetc(c,stdin),o=in,true;}
+_T _SCAN(T &o) {int c{gcu()};return c==EOF?false:(ungetc(c,stdin),o=in,true);}
 _HT _SCAN(H &h,T&&... t){return scan(h)&&scan(t...);}
 #define _OUT(...) _DEF(void,out,__VA_ARGS__)
 #define _OUTL(...) _DEF(void,outl,__VA_ARGS__)
