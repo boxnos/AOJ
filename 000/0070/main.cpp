@@ -3,7 +3,6 @@
 #include <numeric>
 #include <functional>
 #include <array>
-#include <unordered_map>
 using namespace std;
 
 #define _gp(l) const auto gcu{getchar##l}; const auto pcu{putchar##l}
@@ -52,7 +51,7 @@ using L = deque<int>;
 
 int main() {
 	L l(10);
-	array<unordered_map<int, int>, 10> m;
+	array<array<int, 10001>, 10> m {};
 	iota(begin(l), end(l), 0);
 	function<void(int, int, L &)> f = [&](int i, int a, L &l) {
 		for (int j = l.size(); j; j--) {
