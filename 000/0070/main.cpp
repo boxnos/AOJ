@@ -1,4 +1,5 @@
 #include <cstdio>
+#include <deque>
 #include <numeric>
 #include <functional>
 #include <array>
@@ -47,20 +48,23 @@ struct range{
 	struct it { int v, s; it (int _v, int _s) : v(_v), s(_s) {} operator int()const{return v;} operator int&(){return v;} int operator*()const{return v;}
 		it& operator++(){v+=s;return *this;} }; it begin() {return {b, s};} it end() {return {e, s};}};
 
+using L = deque<int>;
+
 int main() {
-	array<int, 10> l;
+	L l(10);
 	array<unordered_map<int, int>, 10> m;
 	iota(begin(l), end(l), 0);
-	function<void(int, int, int)> f = [&](int i, int a, int b) {
-		for (int j: range(10))
-			if (!(b >> j & 1)) {
-				int t {l[j]}, x {a + (i + 1) * t};
-				m[i][x]++;
-				if (i < 9)
-					f(i + 1, x, b | 1 << j);
-			}
+	function<void(int, int, L &)> f = [&](int i, int a, L &l) {
+		for (int j = l.size(); j; j--) {
+			int t {l.front()}, b {a + (i + 1) * t};
+			l.pop_front();
+			m[i][b]++;
+			if (i < 9)
+				f(i + 1, b, l);
+			l.push_back(t);
+		}
 	};
-	f(0, 0, 0);
+	f(0, 0, l);
 	for (int n, s; scan(n, s);)
 		outl(m[n - 1][s]);
 }
