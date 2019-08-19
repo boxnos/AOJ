@@ -1,5 +1,4 @@
 #include <cstdio>
-#include <list>
 #include <numeric>
 #include <functional>
 #include <array>
@@ -48,23 +47,20 @@ struct range{
 	struct it { int v, s; it (int _v, int _s) : v(_v), s(_s) {} operator int()const{return v;} operator int&(){return v;} int operator*()const{return v;}
 		it& operator++(){v+=s;return *this;} }; it begin() {return {b, s};} it end() {return {e, s};}};
 
-using L = list<int>;
-
 int main() {
-	L l(10);
+	array<int, 10> l;
 	array<unordered_map<int, int>, 10> m;
 	iota(begin(l), end(l), 0);
-	function<void(int, int, L)> f = [&](int i, int a, L l) {
-		for (auto j {begin(l)}; j != end(l); j++) {
-			int t {*j}, b {a + (i + 1) * t};
-			j = l.erase(j);
-			m[i][b]++;
-			if (i < 9)
-				f(i + 1, b, l);
-			j = l.insert(j, t);
-		}
+	function<void(int, int, int)> f = [&](int i, int a, int b) {
+		for (int j: range(10))
+			if (!(b >> j & 1)) {
+				int t {l[j]}, x {a + (i + 1) * t};
+				m[i][x]++;
+				if (i < 9)
+					f(i + 1, x, b | 1 << j);
+			}
 	};
-	f(0, 0, l);
+	f(0, 0, 0);
 	for (int n, s; scan(n, s);)
 		outl(m[n - 1][s]);
 }
