@@ -1,0 +1,6 @@
+# Sample Input
+3 10
+3 1
+# Output for the Sample Input
+8
+0
