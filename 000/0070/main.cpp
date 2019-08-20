@@ -3,6 +3,7 @@
 #include <numeric>
 #include <functional>
 #include <array>
+#include <unordered_map>
 using namespace std;
 
 #define _gp(l) const auto gcu{getchar##l}; const auto pcu{putchar##l}
@@ -47,25 +48,23 @@ struct range{
 	struct it { int v, s; it (int _v, int _s) : v(_v), s(_s) {} operator int()const{return v;} operator int&(){return v;} int operator*()const{return v;}
 		it& operator++(){v+=s;return *this;} }; it begin() {return {b, s};} it end() {return {e, s};}};
 
-using L = deque<int>;
-
 int main() {
-	L l(10);
-	array<array<int, 10001>, 10> m {};
-	iota(begin(l), end(l), 0);
-	function<void(int, int, L &)> f = [&](int i, int a, L &l) {
-		for (int j = l.size(); j; j--) {
-			int t {l.front()}, b {a + (i + 1) * t};
-			l.pop_front();
-			m[i][b]++;
-			if (i < 9)
-				f(i + 1, b, l);
-			l.push_back(t);
-		}
-	};
-	f(0, 0, l);
+	array<unordered_map<int, int>, 1 << 10> m;
+	array<array<int, 10001>, 11> r {};
+	m[0][0] = 1;
+	for (int i: range(1, 1 << 10)) {
+		int c {__builtin_popcount(i)};
+		for (int j: range(10))
+			if (i >> j & 1) {
+				for (auto k: m[i & ~(1 << j)]) {
+					int x = k.first + c * j;
+					m[i][x] += k.second;
+					r[c][x] += k.second;
+				}
+			}
+	}
 	for (int n, s; scan(n, s);)
-		outl(m[n - 1][s]);
+		outl(r[n][s]);
 }
 
 /* vim: set ts=4 noet: */
