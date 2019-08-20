@@ -4,6 +4,7 @@
 a A
 -1.234
 hello world
+scan
 456
 # out
 123
