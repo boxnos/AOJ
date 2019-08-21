@@ -48,29 +48,27 @@ struct range{
 
 int main() {
 	int N {in};
-	vector<array<array<int ,3>, 2>> v(N + 1, {-1, -1, -1, -1, -1, -1});
+	vector<array<array<int ,3>, 2>> v(N, {-1, -1, -1, -1, -1, -1});
 	range r3(3);
 	for (int K {in}; K; K--) {
-		int A {in}, B {(int) in - 1};
+		int A {(int)in - 1}, B {(int)in - 1};
 		for (int i: r3)
 			if (B != i)
 				v[A][0][i] = v[A][1][i] = 0;
 	}
-	for (int i: r3) {
-		v[0][0][i] = v[0][1][i] = 0;
-		if (v[1][0][i] < 0) {
-			v[1][0][i] = 1;
-			v[1][1][i] = 0;
+	for (int i: r3)
+		if (v[0][0][i] < 0) {
+			v[0][0][i] = 1;
+			v[0][1][i] = 0;
 		}
-	}
-	for (int i: range(2, N + 1))
+	for (int i: range(1, N))
 		for (int j: r3)
 			if (v[i][0][j] < 0) {
 				v[i][0][j] = 0;
 				for (int k: r3)
 					if (j != k)
 						v[i][0][j] = (v[i][0][j] + v[i - 1][0][k] + v[i - 1][1][k]) % 10000;
-				v[i][1][j] = v[i - 1][0][j] % 10000;
+				v[i][1][j] = v[i - 1][0][j];
 			}
 	int r {};
 	for (int i: r3)
