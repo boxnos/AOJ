@@ -23,7 +23,8 @@ struct _in {
 	_T _OP(T){T n{},m{1},c;if((c=gcu())=='-')m=-1,c=gcu();do{n=10*n+(c-'0'),c=gcu();}while(c>='0'&&c<='9');return m*n;}
 } in;
 #define _SCAN(...) _DEF(bool,scan,__VA_ARGS__)
-_T _SCAN(T &o) {int c{gcu()};if(c==EOF)return false;else{ungetc(c,stdin);T t=move(in);o=move(t);return true;}}
+_SCAN(string &o) {int c{gcu()};if(c==EOF)return false;else{ungetc(c,stdin);string t=move(in);o=t;return true;}}
+_T _SCAN(T &o) {int c{gcu()};return c==EOF?false:(ungetc(c,stdin),o=in,true);}
 _HT _SCAN(H &h,T&&... t){return scan(h)&&scan(t...);}
 #define _OUT(...) _DEF(void,out,__VA_ARGS__)
 #define _OUTL(...) _DEF(void,outl,__VA_ARGS__)
@@ -42,9 +43,10 @@ _T _OUT(vector<T> &v){for(T &x:v)out(&x == &v[0]?"":" "),out(x);}
 _HT _OUT(H &&h, T... t){out(h);out(t...);}
 template <typename... T> _OUTL(T... t){out(t...);outl();}
 struct range{
-	int e,b=0,s=1; range(int _b,int _e,int _s):e(_e),b(_b),s(_s){} range(int _b,int _e): e(_e), b(_b){} range(int _e):e(_e){}
-	struct it { int v, s; it (int _v, int _s) : v(_v), s(_s) {} operator int()const{return v;} operator int&(){return v;} int operator*()const{return v;}
-		it& operator++(){v+=s;return *this;} }; it begin() {return {b, s};} it end() {return {e, s};}};
+	int e,b=0,s=1;range(int _b,int _e,int _s):e(_e),b(_b),s(_s){} range(int _b,int _e): e(_e), b(_b){} range(int _e):e(_e){}
+	struct it{int v,s; it(int _v,int _s):v(_v),s(_s){} operator int()const{return v;} operator int&(){return v;}int operator*()const{return v;}
+		it& operator++(){v+=s;return *this;} }; it begin(){return {b,s};} it end(){return {e,s};}};
+#define times(i, n) for(int i{},i##_e{n};i<i##_e;i++)
 
 int main() {
 	unsigned long a(in);
