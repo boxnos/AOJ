@@ -17,13 +17,16 @@ _gp();
 struct _in {
 #ifdef _GLIBCXX_STRING
 	_OP(string){string s;for(char c;c=gcu(),c!=' '&&c!='\n';)s+=c;return s;}
+#define _S
 #endif
 	_OP(char){char c=gcu();gcu();return c;}
 	_OP(double){double d; scanf("%lf",&d); gcu();return d;}
 	_T _OP(T){T n{},m{1},c;if((c=gcu())=='-')m=-1,c=gcu();do{n=10*n+(c-'0'),c=gcu();}while(c>='0'&&c<='9');return m*n;}
 } in;
 #define _SCAN(...) _DEF(bool,scan,__VA_ARGS__)
+#ifdef _S
 _SCAN(string &o) {int c{gcu()};if(c==EOF)return false;else{ungetc(c,stdin);string t=move(in);o=t;return true;}}
+#endif
 _T _SCAN(T &o) {int c{gcu()};return c==EOF?false:(ungetc(c,stdin),o=in,true);}
 _HT _SCAN(H &h,T&&... t){return scan(h)&&scan(t...);}
 #define _OUT(...) _DEF(void,out,__VA_ARGS__)
@@ -31,7 +34,7 @@ _HT _SCAN(H &h,T&&... t){return scan(h)&&scan(t...);}
 _OUT(bool b){pcu('0'+b);}
 _OUT(const char *s){while(*s)pcu(*s++);}
 _OUT(char c){pcu(c);}
-#ifdef _GLIBCXX_STRING
+#ifdef _S
 _OUT(string &s){for(char c:s)pcu(c);}
 #endif
 _T _OUT(T n){static char b[20];char *p=b;T m=n<0?pcu('-'),-1:1;
@@ -46,7 +49,7 @@ struct range{
 	int e,b=0,s=1;range(int _b,int _e,int _s):e(_e),b(_b),s(_s){} range(int _b,int _e): e(_e), b(_b){} range(int _e):e(_e){}
 	struct it{int v,s; it(int _v,int _s):v(_v),s(_s){} operator int()const{return v;} operator int&(){return v;}int operator*()const{return v;}
 		it& operator++(){v+=s;return *this;} }; it begin(){return {b,s};} it end(){return {e,s};}};
-#define times(i, n) for(int i{},i##_e{n};i<i##_e;i++)
+#define times(i, n) for(int i = n;i;i--)
 
 int main() {
 	unsigned long a(in);
