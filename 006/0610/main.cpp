@@ -53,13 +53,8 @@ int main() {
 	int H {in}, W {in};
 	times(i, H) {
 		int a {-1};
-		for (int j: range(W)) {
-			if (gcu() == 'c')
-				a = 0;
-			else if (a >= 0)
-				a++;
-			out(j ? " " : "", a);
-		}
+		for (int j: range(W))
+			out(j ? " " : "", a = gcu() == 'c' ? 0 : a >= 0 ? a + 1 : -1);
 		gcu();
 		outl();
 	}
