@@ -1,6 +1,7 @@
 #include <cstdio>
 #include <utility>
 #include <vector>
+#include <algorithm>
 using namespace std;
 
 #define _gp(l) const auto gcu{getchar##l}; const auto pcu{putchar##l}
@@ -55,13 +56,9 @@ int main() {
 		vector<int> J(n);
 		for (int &i: J)
 			i = in;
-		for (int o {32}, i {};;) {
+		for (int o {32}, i {}; o;) {
 			outl(o -= (o - 1) % 5);
-			if (o == 1) {
-				outl(0);
-				break;
-			} else
-				outl(o -= J[i++ % n]);
+			outl(o -= min(o, J[i++ % n]));
 		}
 	}
 }
