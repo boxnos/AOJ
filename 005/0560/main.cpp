@@ -1,6 +1,7 @@
 #include <cstdio>
 #include <utility>
 #include <vector>
+#include <array>
 using namespace std;
 
 #define _gp(l) const auto gcu{getchar##l}; const auto pcu{putchar##l}
@@ -52,12 +53,13 @@ _T _OUT(T n){static char b[20];char *p=b;T m=n<0?pcu('-'),-1:1;
 
 template<typename T>
 using V = vector<T>;
+using A = array<int, 3>;
 
 int main() {
 	int M {in}, N {in}, K {in};
-	V<V<V<int>>> dp(M + 1, V<V<int>>(N + 1, V<int>(3)));
+	V<V<array<int, 3>>> dp(M + 1, V<array<int, 3>>(N + 1));
 	for (int i: range(1, M + 1)) {
-		V<int> a(3);
+		A a {};
 		for (int j: range(1, N + 1)) {
 			char c = gcu();
 			a[c == 'J' ? 0: c == 'O' ? 1 : 2]++;
