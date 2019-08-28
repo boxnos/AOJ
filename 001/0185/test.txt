@@ -1,0 +1,11 @@
+# Sample Input
+134
+4330
+34808
+98792
+0
+# Output for the Sample Input
+6
+72
+274
+607
