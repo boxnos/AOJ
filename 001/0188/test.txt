@@ -1,0 +1,28 @@
+# in
+2
+50
+70
+40
+0
+# out
+1
+# Sample Input
+7
+11
+15
+23
+36
+51
+61
+86
+51
+4
+1
+2
+3
+5
+4
+0
+# Output for the Sample Input
+3
+3
