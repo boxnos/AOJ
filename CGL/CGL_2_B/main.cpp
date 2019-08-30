@@ -63,7 +63,6 @@ int ccw(P a, P b, P c) {
 }
 
 bool intersection(P &p0, P &p1, P &p2, P &p3) {
-	P l0 {p1 - p0}, l1 {p3 - p2};
 	return (ccw(p1, p0, p2) * ccw(p1, p0, p3) <= 0) && (ccw(p3, p2, p0) * ccw(p3, p2, p1) <= 0);
 }
 int main() {
