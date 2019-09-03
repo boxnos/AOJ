@@ -2,8 +2,7 @@
 #include <utility>
 #include <string>
 #include <queue>
-#include <set>
-#include <algorithm>
+#include <unordered_set>
 using namespace std;
 
 #define _gp(l) const auto gcu{getchar##l}; const auto pcu{putchar##l}
@@ -54,12 +53,16 @@ _T _OUT(T n){static char b[20];char *p=b;T m=n<0?pcu('-'),-1:1;
 #define times(i,n) for(int i=n;i;i--)
 
 struct N {
-	string s;
-	int n;
+	int s, n;
 };
 
-int flag(char c) {
-	return c == 'r' ? 3 : c == 'g' ? 5 : 6;
+bool all(int n) {
+	int c = n & 7;
+	n >>= 3;
+	for (; n; n >>= 3)
+		if ((n & 7) != c)
+			return false;
+	return true;
 }
 
 int main() {
@@ -68,20 +71,26 @@ int main() {
 		if (s == "0")
 			return 0;
 		int r = [&] {
-			set<string> m;
-			m.insert(s);
+			unordered_set<int> m;
+			int t {};
+			for (char c: s) {
+				t <<= 3;
+				t |= c == 'r' ? 1 : c == 'g' ? 2 : 4;
+			}
+			m.insert(t);
 			queue<N> q;
-			q.push({s, 0});
+			q.push({t, 0});
 			while (!q.empty()) {
 				N f {q.front()};
 				q.pop();
-				if(all_of(begin(f.s) + 1, end(f.s), [&](char c) {return c == f.s[0];}))
+				if (all(f.s))
 					return f.n;
-				m.insert(f.s);
-				for (int i: range(1, f.s.size())) {
-					if (f.s[i - 1] != f.s[i]) {
-						string t = f.s;
-						t[i - 1] = t[i] = "0bg0r"[flag(f.s[i - 1]) & flag(f.s[i])];
+				for (int i: range(1, s.size())) {
+					if (((f.s >> (i - 1) * 3) & 7) != ((f.s >> i * 3) & 7)) {
+						int t = f.s,
+							g = 7 & ~(((t >> (i - 1) * 3) & 7) | ((t >> i * 3) & 7));
+						t &= ~(63 << (i - 1) * 3);
+						t |= (g | g << 3) << (i - 1) * 3;
 						if (!m.count(t)) {
 							m.insert(t);
 							q.push({t, f.n + 1});
