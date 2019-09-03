@@ -71,27 +71,28 @@ int main() {
 		string s = in;
 		if (s == "0")
 			return 0;
-		int r = [&] {
-			vector<bool> m(1 << s.size() * 2);
-			int t {};
-			for (char c: s) {
-				t <<= 2;
-				t |= c == 'r' ? 1 : c == 'g' ? 2 : 3;
-			}
-			m[t] = true;
-			queue<N> q;
-			q.push({t, 0});
+		vector<bool> m(1 << s.size() * 2);
+		int t {};
+		for (char c: s)
+			t = t << 2 | (c == 'r' ? 1 : c == 'g' ? 2 : 3);
+		m[t] = true;
+		queue<N> q;
+		q.push({t, 0});
+		[&] {
 			while (!q.empty()) {
 				N f {q.front()};
 				q.pop();
-				if (all(f.s))
-					return f.n;
+				if (all(f.s)) {
+					outl(f.n);
+					return;
+				}
 				for (int i: range(1, s.size())) {
-					if (((f.s >> (i - 1) * 2) & 3) != ((f.s >> i * 2) & 3)) {
-						int t = f.s,
-							g = ((t >> (i - 1) * 2) & 3) ^ ((t >> i * 2) & 3);
-						t &= ~(15 << (i - 1) * 2);
-						t |= (g | g << 2) << (i - 1) * 2;
+					int x = (i - 1) * 2,
+						m0 = f.s >> x & 3,
+						m1 = f.s >> i * 2 & 3;
+					if (m0 != m1) {
+						int g = m0 ^ m1,
+							t = (f.s & ~(15 << x)) | (g | g << 2) << x;
 						if (!m[t]) {
 							m[t] = true;
 							q.push({t, f.n + 1});
@@ -99,12 +100,8 @@ int main() {
 					}
 				}
 			}
-			return -1;
-		}();
-		if (r == -1)
 			outl("NA");
-		else
-			outl(r);
+		}();
 	}
 }
 
