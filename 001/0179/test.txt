@@ -1,0 +1,19 @@
+# Sample Input
+rbgrg
+rbbgbbr
+bgr
+bgrbrgbr
+bggrgbgrr
+gbrggrbggr
+rrrrr
+bgbr
+0
+# Output for the Sample Input
+5
+7
+1
+6
+NA
+8
+0
+4
