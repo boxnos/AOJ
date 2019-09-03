@@ -3,6 +3,7 @@
 #include <string>
 #include <queue>
 #include <unordered_set>
+#include <climits>
 using namespace std;
 
 #define _gp(l) const auto gcu{getchar##l}; const auto pcu{putchar##l}
@@ -57,10 +58,10 @@ struct N {
 };
 
 bool all(int n) {
-	int c = n & 7;
-	n >>= 3;
-	for (; n; n >>= 3)
-		if ((n & 7) != c)
+	int c = n & 3;
+	n >>= 2;
+	for (; n; n >>= 2)
+		if ((n & 3) != c)
 			return false;
 	return true;
 }
@@ -71,13 +72,13 @@ int main() {
 		if (s == "0")
 			return 0;
 		int r = [&] {
-			unordered_set<int> m;
+			bool m[1 << 20] {};
 			int t {};
 			for (char c: s) {
-				t <<= 3;
-				t |= c == 'r' ? 1 : c == 'g' ? 2 : 4;
+				t <<= 2;
+				t |= c == 'r' ? 1 : c == 'g' ? 2 : 3;
 			}
-			m.insert(t);
+			m[t] = true;
 			queue<N> q;
 			q.push({t, 0});
 			while (!q.empty()) {
@@ -86,13 +87,13 @@ int main() {
 				if (all(f.s))
 					return f.n;
 				for (int i: range(1, s.size())) {
-					if (((f.s >> (i - 1) * 3) & 7) != ((f.s >> i * 3) & 7)) {
+					if (((f.s >> (i - 1) * 2) & 3) != ((f.s >> i * 2) & 3)) {
 						int t = f.s,
-							g = 7 & ~(((t >> (i - 1) * 3) & 7) | ((t >> i * 3) & 7));
-						t &= ~(63 << (i - 1) * 3);
-						t |= (g | g << 3) << (i - 1) * 3;
-						if (!m.count(t)) {
-							m.insert(t);
+							g = ((t >> (i - 1) * 2) & 3) ^ ((t >> i * 2) & 3);
+						t &= ~(15 << (i - 1) * 2);
+						t |= (g | g << 2) << (i - 1) * 2;
+						if (!m[t]) {
+							m[t] = true;
 							q.push({t, f.n + 1});
 						}
 					}
