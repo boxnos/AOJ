@@ -2,8 +2,8 @@
 #include <utility>
 #include <string>
 #include <queue>
-#include <unordered_set>
 #include <climits>
+#include <vector>
 using namespace std;
 
 #define _gp(l) const auto gcu{getchar##l}; const auto pcu{putchar##l}
@@ -72,7 +72,7 @@ int main() {
 		if (s == "0")
 			return 0;
 		int r = [&] {
-			bool m[1 << 20] {};
+			vector<bool> m(1 << s.size() * 2);
 			int t {};
 			for (char c: s) {
 				t <<= 2;
