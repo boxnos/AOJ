@@ -53,37 +53,23 @@ _T _OUT(T n){static char b[20];char *p=b;T m=n<0?pcu('-'),-1:1;
 
 struct T {
 	struct N {
-		int g;
+		int p;
 		bool m;
-		vector<int> c;
 	};
 	vector<N> t;
 	T (int n) {
 		t.resize(n);
-		t[0] = {0, true, {}};
+		t[0] = {0, true};
 		for (int i: range(1, n))
-			t[(int) in - 1].c.push_back(i);
+			t[i].p = (int) in - 1;
 	}
 	int Q (int v) {
-		return t[v].g + 1;
+		for (; !t[v].m; v = t[v].p)
+			;
+		return v + 1;
 	}
 	void M (int v) {
 		t[v].m = true;
-		t[v].g = v;
-		function<void(int)> loop = [&](int i) {
-			for (int j: t[i].c)
-				if (!t[j].m) {
-					t[j].g = v;
-					loop(j);
-				}
-		};
-		loop(v);
-	}
-	void out() {
-		for (int i: range(t.size())) {
-			outl(i, " ", t[i].g, " ", (int) t[i].m);
-			outl(t[i].c);
-		}
 	}
 };
 
