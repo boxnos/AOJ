@@ -1,7 +1,8 @@
 #include <cstdio>
 #include <utility>
 #include <vector>
-#include <functional>
+#include <deque>
+#include <climits>
 using namespace std;
 
 #define _gp(l) const auto gcu{getchar##l}; const auto pcu{putchar##l}
@@ -53,39 +54,47 @@ _T _OUT(T n){static char b[20];char *p=b;T m=n<0?pcu('-'),-1:1;
 
 struct T {
 	struct N {
-		int p;
-		bool m;
+		int p, m;
 	};
 	vector<N> t;
 	T (int n) {
 		t.resize(n);
-		t[0] = {0, true};
+		t[0] = {0, 0};
 		for (int i: range(1, n))
-			t[i].p = (int) in - 1;
+			t[i] = {(int) in - 1, INT_MAX};
 	}
-	int Q (int v) {
-		for (; !t[v].m; v = t[v].p)
-			;
-		return v + 1;
+	int Q (int v, int i) {
+		if (t[v].m < i)
+			return v;
+		else
+			return t[v].p = Q(t[v].p, i);
 	}
-	void M (int v) {
-		t[v].m = true;
+	void M (int v, int i) {
+		if (t[v].m == INT_MAX)
+			t[v].m = i;
 	}
 };
 
 
+struct Q {
+	int v, i;
+};
+
 int main() {
 	for (int N, M; N = in, M = in;) {
 		T t(N);
-		long r {};
-		times(i, M) {
+		deque<Q> q;
+		for(int i: range(1, M + 1)) {
 			char c {in};
 			int v {in};
-			if (c == 'Q') {
-				r += t.Q(v - 1);
-			} else
-				t.M(v - 1);
+			if (c == 'Q')
+				q.push_front({v - 1, i});
+			else
+				t.M(v - 1, i);
 		}
+		long r {};
+		for (auto i: q)
+			r += t.Q(i.v, i.i) + 1;
 		outl(r);
 	}
 }
