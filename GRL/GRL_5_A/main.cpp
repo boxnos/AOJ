@@ -63,7 +63,7 @@ struct T {
 			t[b].push_back({a, w});
 		}
 	}
-	N depth (int i, int p) {
+	N depth (int i, int p = -1) {
 		N r {i, 0};
 		for (N j: t[i])
 			if (j.t != p) {
@@ -78,8 +78,7 @@ struct T {
 
 int main() {
 	T t((int) in);
-	auto a {t.depth(0, -1)}, b {t.depth(a.t, -1)};
-	outl(b.w);
+	outl(t.depth(t.depth(0).t).w);
 }
 
 /* vim: set ts=4 noet: */
