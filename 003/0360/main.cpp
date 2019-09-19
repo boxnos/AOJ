@@ -53,21 +53,16 @@ _OUTL(){out('\n');}
 			it& operator++(){v+=s;return *this;} }; it begin(){return {b,s};} it end(){return {e,s};}};
 #define times(i,n) for(int i=n;i;i--)
 
-struct T {
-	int s, e;
-	bool operator < (T a) const {
-		return s < a.s;
-	}
-};
-
 int main() {
-	T q {in, in};
-	vector<T> v((int) in);
-	for (T &i: v)
-		i = {in, in};
-	sort(begin(v), end(v));
-	auto r = lower_bound(begin(v), end(v), q, [](T a, T b) {return a.s < b.e;});
-	outl(r == begin(v) ? 0 : (r - 1)->e > q.s);
+	int a {in}, b {in};
+	outl([&] {
+		 times(i, in) {
+			 int s {in}, f {in};
+			 if (a < f && s < b)
+				return 1;
+			 }
+		 return 0;
+	}());
 }
 
 /* vim: set ts=4 noet: */
