@@ -1,0 +1,16 @@
+# my
+1
+11:59
+# my
+alert
+# Sample Input
+4
+02:15
+06:01
+11:55
+10:40
+# Output for the Sample Input
+alert
+safe
+alert
+warning
