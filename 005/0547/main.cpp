@@ -59,16 +59,14 @@ struct N {
 
 int main() {
 	vector<vector<N>> d(101, vector<N>(101));
-	d[1][1] = {0, 1, 0, 1, 1};
+	d[1][0].y = d[0][1].x = 1;
 	int m = 100000;
 	for (int i: range(1, 101))
 		for (int j: range(1, 101)) {
 			auto &t {d[i][j]}, l {d[i][j - 1]}, b {d[i - 1][j]};
-			t = {(l.x + l.x1) % m,
-				 (t.x1 + l.y) % m,
-				 (b.y + b.y1) % m,
-				 (t.y1 + b.x) % m, 0};
-			t.t  = (t.x + t.x1 + t.y + t.y1) % m;
+			t = {(l.x + l.x1) % m, l.y,
+				 (b.y + b.y1) % m, b.x, 0};
+			t.t = (t.x + t.x1 + t.y + t.y1) % m;
 		}
 	for (int w, h; w = in, h = in;)
 		outl(d[h][w].t);
