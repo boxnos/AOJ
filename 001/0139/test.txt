@@ -1,0 +1,9 @@
+# Sample Input
+3
+>'======#======~
+>^Q=Q=Q=Q=Q=Q=Q=Q=Q=~~
+>'===#====~
+# Output for the Sample Input
+A
+B
+NA
