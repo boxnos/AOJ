@@ -56,6 +56,7 @@ _OUTL(){out('\n');}
 #define times(i,n) for(int i=n;i;i--)
 
 struct P { int c, i; };
+auto cmp = [](auto a, auto b) {return a.second.c == b.second.c ? a.first < b.first : a.second.c < b.second.c;};
 
 int main() {
 	for (int n; (n = in);) {
@@ -64,18 +65,14 @@ int main() {
 		for (int &i: h)
 			i = in;
 		for (int i: range(n)) {
-			int t {h[i + 1] - h[i]};
-			d[t].c++, d[t].i = i;
+			auto &t {d[h[i + 1] - h[i]]};
+			t = {t.c + 1, i};
 		}
 		if (d.size() == 2) {
-			auto m = min_element(begin(d), end(d), [](auto a, auto b) {return a.second.c < b.second.c;});
-			if (m->second.c == 2)
-				outl(h[m->second.i]);
-			else
-				outl(m->second.i == 0 ? h[0] : h[m->second.i + 1]);
+			auto t = min_element(begin(d), end(d), cmp)->second;
+			outl(t.c == 2 ? h[t.i] : t.i == 0 ? h[0] : h[t.i + 1]);
 		} else {
-			auto m = max_element(begin(d), end(d), [](auto a, auto b) {return a.second.c < b.second.c;});
-			d.erase(m);
+			d.erase(max_element(begin(d), end(d), cmp));
 			int i {};
 			for (auto j: d)
 				i = max(i, j.second.i);
