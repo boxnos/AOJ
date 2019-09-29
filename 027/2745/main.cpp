@@ -2,6 +2,7 @@
 #include <utility>
 #include <cctype>
 #include <cmath>
+#include <algorithm>
 using namespace std;
 
 #ifdef __linux
@@ -54,8 +55,8 @@ _OUTL(){out('\n');}
 #define times(i,n) for(int i=n;i;i--)
 
 int main() {
-	for (double R0, W0, C, R; R0 = in, W0 = in, C = in, R = in;)
-		outl(C <= R0 / W0 ? 0 : (int) ceil((C * W0  - R0) / R));
+	for (int R0, W0, C, R; R0 = in, W0 = in, C = in, R = in;)
+		outl(max(0, (C * W0  - R0 + R - 1) / R));
 }
 
 /* vim: set ts=4 noet: */
