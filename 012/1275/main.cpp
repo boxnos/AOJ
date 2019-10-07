@@ -54,15 +54,13 @@ _OUTL(){out('\n');}
 			it& operator++(){v+=s;return *this;} }; it begin(){return {b,s};} it end(){return {e,s};}};
 #define times(i,n) for(int i=n;i;i--)
 
+int j(int n, int k) {
+	return n == 1 ? 0 : (j(n - 1, k) + k) % n;
+}
+
 int main() {
-	for (int n, k, m; n = in, k = in, m = in;) {
-		deque<int> q(n);
-		iota(begin(q), end(q), 1);
-		m--;
-		for (; q.size() != 1; m = (m + k - 1) % q.size())
-			q.erase(begin(q) + m);
-		outl(q[0]);
-	}
+	for (int n, k, m; n = in, k = in, m = in;)
+		outl((j(n - 1, k) + m) % n + 1);
 }
 
 /* vim: set ts=4 noet: */
