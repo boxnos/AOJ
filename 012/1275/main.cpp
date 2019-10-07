@@ -55,7 +55,16 @@ _OUTL(){out('\n');}
 #define times(i,n) for(int i=n;i;i--)
 
 int j(int n, int k) {
-	return n == 1 ? 0 : (j(n - 1, k) + k) % n;
+	if (n == 1)
+		return 0;
+	else if (k == 1)
+		return n - 1;
+	else if (n < k)
+		return (j(n - 1, k) + k) % n;
+	else {
+		int r = j(n - n / k, k) - n % k;
+		return r < 0 ? r + n : r + r / (k - 1);
+	}
 }
 
 int main() {
