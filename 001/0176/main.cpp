@@ -58,7 +58,6 @@ _OUTL(){out('\n');}
 #define times(i,n) for(int i=n;i;i--)
 
 struct C {
-	string s;
 	int r, g, b;
 };
 
@@ -67,15 +66,9 @@ int sq(int n) {
 }
 
 int main() {
-	vector<C> t(8);
-	t[0] = C{"black", 0x00, 0x00, 0x00};
-	t[1] = C{"blue", 0x00, 0x00, 0xff};
-	t[2] = C{"lime", 0x00, 0xff, 0x00};
-	t[3] = C{"aqua", 0x00, 0xff, 0xff};
-	t[4] = C{"red", 0xff, 0x00, 0x00},
-	t[5] = C{"fuchsia", 0xff, 0x00, 0xff};
-	t[6] = C{"yellow", 0xff, 0xff, 0x00};
-	t[7] = C{"white", 0xff, 0xff, 0xff};
+	vector<C> t {{0x00, 0x00, 0x00}, {0x00, 0x00, 0xff}, {0x00, 0xff, 0x00}, {0x00, 0xff, 0xff},
+		{0xff, 0x00, 0x00}, {0xff, 0x00, 0xff}, {0xff, 0xff, 0x00}, {0xff, 0xff, 0xff}};
+	vector<string> S{"black", "blue", "lime", "aqua", "red", "fuchsia", "yellow", "white"};
 	for (int r, g, b; scanf("#%2x%2x%2x\n", &r, &g, &b);) {
 		double m {DBL_MAX}, i {};
 		for (int j: range(t.size())) {
@@ -83,7 +76,7 @@ int main() {
 			if (s < m)
 				m = s, i = j;
 		}
-		outl(t[i].s);
+		outl(S[i]);
 	}
 }
 
