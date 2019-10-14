@@ -1,0 +1,11 @@
+# Sample Input
+#ffe085
+#787878
+#decade
+#ff55ff
+0
+# Output for the Sample Input
+white
+black
+white
+fuchsia
