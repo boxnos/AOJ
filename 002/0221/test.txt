@@ -22,7 +22,7 @@ Buzz
 Fizz
 13
 14
-Fizz
+FizzBuzz
 0 0
 # Output for the Sample Input
 2 3 4 5
