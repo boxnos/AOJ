@@ -1,6 +1,7 @@
 #include <cstdio>
 #include <utility>
 #include <cctype>
+#include <vector>
 #include <list>
 #include <numeric>
 #include <string>
@@ -56,6 +57,9 @@ _OUTL(){out('\n');}
 #define times(i,n) for(int i=n;i;i--)
 
 int main() {
+	vector<string> fb(10001);
+	for (int i: range(1, 10001))
+		fb[i] = (i % 15 ? i % 3 ? i % 5 ? to_string(i) : "Buzz" : "Fizz" : "FizzBuzz");
 	for (int m, n; m = in, n = in;) {
 		list<int> p(m);
 		iota(begin(p), end(p), 1);
@@ -64,7 +68,7 @@ int main() {
 			string s = in;
 			if (next(begin(p), 1) == end(p))
 				continue;
-			if (s != (i % 15 ? i % 3 ? i % 5 ? to_string(i) : "Buzz" : "Fizz" : "FizzBuzz"))
+			if (s != fb[i])
 				q = p.erase(q);
 			else
 				q++;
