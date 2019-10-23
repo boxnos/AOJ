@@ -1,0 +1,16 @@
+# Sample Input 1
+10 10 5
+# Output for the Sample Input 1
+5
+# Sample Input 2
+50 40 51
+# Output for the Sample Input 2
+111
+# Sample Input 3
+20 20 20
+# Output for the Sample Input 3
+20
+# Sample Input 4
+30 30 40
+# Output for the Sample Input 4
+-1
