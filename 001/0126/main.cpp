@@ -67,18 +67,15 @@ int main() {
 			for (auto &j: i)
 				j = (int) in - 1;
 		for (int i: r9) {
-			A<int> t {};
-			for (int j: r9)
+			A<int> t {}, s {};
+			for (int j: r9) {
 				t[p[i][j]]++;
-			for (int j: r9)
+				s[p[j][i]]++;
+			}
+			for (int j: r9) {
 				b[i][j] |= t[p[i][j]] != 1;
-		}
-		for (int j: r9) {
-			A<int> t {};
-			for (int i: r9)
-				t[p[i][j]]++;
-			for (int i: r9)
-				b[i][j] |= t[p[i][j]] != 1;
+				b[j][i] |= s[p[j][i]] != 1;
+			}
 		}
 		for (int i: r3)
 			for (int j: r3) {
