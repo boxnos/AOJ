@@ -1,0 +1,16 @@
+# Sample Input 1
+0 2015
+# Sample Output 1
+H27
+# Sample Input 2
+0 1912
+# Sample Output 2
+T1
+# Sample Input 3
+2 1
+# Sample Output 3
+1912
+# Sample Input 4
+4 28
+# Sample Output 4
+2016
