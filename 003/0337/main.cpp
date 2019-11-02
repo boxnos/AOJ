@@ -1,6 +1,8 @@
 #include <cstdio>
 #include <utility>
 #include <cctype>
+#include <array>
+#include <algorithm>
 using namespace std;
 
 #ifdef __linux
@@ -54,29 +56,13 @@ _OUTL(){out('\n');}
 
 int main() {
 	int E {in}, Y {in};
-	switch (E) {
-	case 0:
-		if (Y >= 1989)
-			outl('H', Y - 1988);
-		else if (Y >= 1926)
-			outl('S', Y - 1925);
-		else if (Y >= 1912)
-			outl('T', Y - 1911);
-		else
-			outl('M', Y - 1867);
-		break;
-	case 1:
-		outl(Y + 1867);
-		break;
-	case 2:
-		outl(Y + 1911);
-		break;
-	case 3:
-		outl(Y + 1925);
-		break;
-	case 4:
-		outl(Y + 1988);
-		break;
+	array<int, 4> a {1868, 1912, 1926, 1989};
+	char s[] {"MTSH"};
+	if (E)
+		outl(Y + a[E - 1] - 1);
+	else {
+		auto r = upper_bound(begin(a), end(a), Y) - 1;
+		outl(s[r - begin(a)], Y - *r + 1);
 	}
 }
 
