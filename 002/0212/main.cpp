@@ -77,30 +77,31 @@ int main() {
 			v[a].push_back({b, f});
 			v[b].push_back({a, f});
 		}
-		V<V<int>> dp(c + 1, V<int>(n, INT_MAX));
-		dp[c][s] = 0;
+		V<V<int>> dp(n, V<int>(c + 1, INT_MAX / 2));
+		dp[s][c] = 0;
 		priority_queue<P> q;
 		q.push({0, s, c});
 		while (!q.empty()) {
 			P t = q.top();
 			q.pop();
-			if (dp[t.k][t.t] < t.c)
+			if (t.t == d) {
+				outl(t.c);
+				break;
+			}
+			if (dp[t.t][t.k] < t.c)
 				continue;
 			for (E e: v[t.t]) {
-				if (t.k > 0 && dp[t.k - 1][e.t] > dp[t.k][t.t] + e.c / 2) {
-					dp[t.k - 1][e.t] = dp[t.k][t.t] + e.c / 2;
-					q.push({dp[t.k - 1][e.t], e.t, t.k - 1});
-				}
-				if (dp[t.k][e.t] > dp[t.k][t.t] + e.c) {
-					dp[t.k][e.t] = dp[t.k][t.t] + e.c;
-					q.push({dp[t.k][e.t], e.t, t.k});
-				}
+				auto f = [&](int c, int k) {
+					if (dp[e.t][k] > dp[t.t][t.k] + c) {
+						dp[e.t][k] = dp[t.t][t.k] + c;
+						q.push({dp[e.t][k], e.t, k});
+					}
+				};
+				if (t.k > 0)
+					f(e.c / 2, t.k - 1);
+				f(e.c, t.k);
 			}
 		}
-		int r {INT_MAX};
-		for (auto i: dp)
-			r = min(r, i[d]);
-		outl(r);
 	}
 }
 
