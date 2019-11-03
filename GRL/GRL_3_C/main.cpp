@@ -87,18 +87,17 @@ int main() {
 			if (on[t])
 				low[a] = min(low[a], low[t]);
 		}
+		int n;
 		if (ids[a] == low[a])
-			for (int n = pop(s);;n = pop(s)) {
+			do {
+				n = pop(s);
 				on[n] = false;
 				low[n] = ids[a];
-				if (n == a)
-					break;
-			}
+			} while (n != a);
 	};
 	for (int i: range(v))
 		if (ids[i] == -1)
 			dfs(i);
-
 	times(i, in)
 		outl(low[in] == low[in]);
 }
