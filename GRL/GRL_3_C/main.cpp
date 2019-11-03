@@ -59,12 +59,6 @@ _OUTL(){out('\n');}
 template <typename T>
 using V = vector<T>;
 
-int pop(stack<int> &s) {
-	int n = s.top();
-	s.pop();
-	return n;
-}
-
 int main() {
 	int v {in}, e {in};
 	V<V<int>> g(v, V<int>());
@@ -90,7 +84,8 @@ int main() {
 		int n;
 		if (ids[a] == low[a])
 			do {
-				n = pop(s);
+				n = s.top();
+				s.pop();
 				on[n] = false;
 				low[n] = ids[a];
 			} while (n != a);
