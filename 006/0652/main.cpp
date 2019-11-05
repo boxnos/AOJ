@@ -1,6 +1,7 @@
 #include <cstdio>
 #include <utility>
 #include <cctype>
+#include <algorithm>
 using namespace std;
 
 #ifdef __linux
@@ -54,7 +55,7 @@ _OUTL(){out('\n');}
 
 int main() {
 	int A {in}, B {in}, C {in}, d {A * 7 + B};
-	outl(C / d * 7 + (C % d / A >= 7 ? 7 : (C % d + A - 1) / A));
+	outl(C / d * 7 + min(7, (C % d + A - 1) / A));
 }
 
 /* vim: set ts=4 noet: */
