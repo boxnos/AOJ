@@ -4,3 +4,7 @@
 # Output for the Sample Input
 8
 0
+# Sample Input
+10 200
+# Output for the Sample Input
+13918
