@@ -63,10 +63,10 @@ int main() {
 		V<V<int>> v(m + 2, V<int>(n + 2));
 		function<int(int, int, int)> f = [&](int i, int j, int n) {
 			static const int dx[] = {1, 0, -1, 0}, dy[] = {0, 1, 0, -1};
-			v[i][j] = 2;
+			v[i][j] = 0;
 			int r {++n};
 			for (int k: range(4))
-				if (v[i + dy[k]][j + dx[k]] == 1)
+				if (v[i + dy[k]][j + dx[k]])
 					r = max(r, f(i + dy[k], j + dx[k], n));
 			v[i][j] = 1;
 			return r;
