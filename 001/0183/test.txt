@@ -1,0 +1,30 @@
+# Sample Input
+bbw
+wbw
++b+
+bwb
+wbw
+wbw
+0
+# Output for the Sample Input
+b
+NA
+# my
+w++
+bbb
++ww
++b+
++b+
+www
+b++
++b+
+++b
+++b
++b+
+b+b
+0
+# my
+b
+w
+b
+b
