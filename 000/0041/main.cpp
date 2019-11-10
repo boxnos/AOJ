@@ -55,38 +55,37 @@ struct range{
 		it& operator++(){v+=s;return *this;} }; it begin(){return {b,s};} it end(){return {e,s};}};
 #define times(i,n) for(int i=n;i;i--)
 
-using A = array<int, 4>;
-using F = function<int(int, int)>;
-
-string op(int n, int i) {
-	return {' ', "+-*"[i ? i == 1 ? n / 3 % 3 : n / 9 : n % 3], ' '};
+char op(int i) {
+	return "+-*"[i];
 }
 
 int main() {
-	F f[] = {plus<int>(), minus<int>(), multiplies<int>()};
-	for (A a; a = {in, in, in, in}, a[0];) {
+	function<int(int, int)> f[] = {plus<int>(), minus<int>(), multiplies<int>()};
+	for (array<int, 4> a; a = {in, in, in, in}, a[0];) {
 		sort(begin(a), end(a));
-		auto h = [&](int i) {
-			return to_string(a[i]);
-		};
 		outl([&]() -> string {
 			do {
-				for (int i: range(27)) {
-					F g[] = {f[i % 3], f[i / 3 % 3], f[i / 9]};
-					if (g[0](a[0], g[2](g[1](a[1], a[2]), a[3])) == 10)
-						return "(" + h(0) + op(i, 0) + "((" + h(1) + op(i, 1) + h(2) + ")" + op(i, 2) + h(3) + "))";
-					if (g[0](a[0], g[1](a[1], g[2](a[2], a[3]))) == 10)
-						return "(" + h(0) + op(i, 0) + "(" + h(1) + op(i, 1) + "(" + h(2) + op(i, 2) + h(3) + ")))";
-					if (g[2](g[1](g[0](a[0], a[1]), a[2]), a[3]) == 10)
-						return "(((" + h(0) + op(i, 0) + h(1) + ")" + op(i, 1) + h(2) + ")" + op(i, 2) + h(3) + ")";
-					if (g[2](g[0](a[0], g[1](a[1], a[2])), a[3]) == 10)
-						return "((" + h(0) + op(i, 0) + "(" + h(1) + op(i, 1) + h(2) + "))" + op(i, 2) + h(3) + ")";
-					if (g[1](g[0](a[0], a[1]), g[2](a[2], a[3])) == 10)
-						return "((" + h(0) + op(i, 0) + h(1) + ")" + op(i, 1) + "(" + h(2) + op(i, 2) + h(3) + "))";
-				}
+				for (int i: range(3))
+					for (int j: range(3))
+						for (int k: range(3)) {
+							auto fmt = [&](const char *f) {
+								char s[100];
+								sprintf(s, f, a[0], op(i), a[1], op(j), a[2], op(k), a[3]);
+								return string(s);
+							};
+							if (f[i](a[0], f[k](f[j](a[1], a[2]), a[3])) == 10)
+								return fmt("(%d %c ((%d %c %d) %c %d))");
+							if (f[i](a[0], f[j](a[1], f[k](a[2], a[3]))) == 10)
+								return fmt("(%d %c (%d %c (%d %c %d)))");
+							if (f[k](f[j](f[i](a[0], a[1]), a[2]), a[3]) == 10)
+								return fmt("(((%d %c %d) %c %d) %c %d)");
+							if (f[k](f[i](a[0], f[j](a[1], a[2])), a[3]) == 10)
+								return fmt("((%d %c (%d %c %d)) %c %d)");
+							if (f[j](f[i](a[0], a[1]), f[k](a[2], a[3])) == 10)
+								return fmt("((%d %c %d) %c (%d %c %d))");
+						}
 			} while (next_permutation(begin(a), end(a)));
-			return "0";
-			}());
+			return "0";}());
 	}
 }
 
