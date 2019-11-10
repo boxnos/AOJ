@@ -86,7 +86,6 @@ int main() {
 						}
 			} while (next_permutation(begin(a), end(a)));
 			outl(0);
-			return;
 		}();
 }
 
