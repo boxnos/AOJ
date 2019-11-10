@@ -61,17 +61,17 @@ char op(int i) {
 
 int main() {
 	function<int(int, int)> f[] = {plus<int>(), minus<int>(), multiplies<int>()};
+	range r3(3);
 	for (array<int, 4> a; a = {in, in, in, in}, a[0];) {
 		sort(begin(a), end(a));
-		outl([&]() -> string {
+		[&]() {
 			do {
-				for (int i: range(3))
-					for (int j: range(3))
-						for (int k: range(3)) {
+				for (int i: r3)
+					for (int j: r3)
+						for (int k: r3) {
 							auto fmt = [&](const char *f) {
-								char s[100];
-								sprintf(s, f, a[0], op(i), a[1], op(j), a[2], op(k), a[3]);
-								return string(s);
+								printf(f, a[0], op(i), a[1], op(j), a[2], op(k), a[3]);
+								outl();
 							};
 							if (f[i](a[0], f[k](f[j](a[1], a[2]), a[3])) == 10)
 								return fmt("(%d %c ((%d %c %d) %c %d))");
@@ -85,7 +85,9 @@ int main() {
 								return fmt("((%d %c %d) %c (%d %c %d))");
 						}
 			} while (next_permutation(begin(a), end(a)));
-			return "0";}());
+			outl(0);
+			return;
+		}();
 	}
 }
 
