@@ -62,9 +62,9 @@ char op(int i) {
 int main() {
 	function<int(int, int)> f[] = {plus<int>(), minus<int>(), multiplies<int>()};
 	range r3(3);
-	for (array<int, 4> a; a = {in, in, in, in}, a[0];) {
-		sort(begin(a), end(a));
+	for (array<int, 4> a; a = {in, in, in, in}, a[0];)
 		[&]() {
+			sort(begin(a), end(a));
 			do {
 				for (int i: r3)
 					for (int j: r3)
@@ -88,7 +88,6 @@ int main() {
 			outl(0);
 			return;
 		}();
-	}
 }
 
 /* vim: set ts=4 noet: */
