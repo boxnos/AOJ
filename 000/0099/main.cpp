@@ -58,6 +58,9 @@ struct range{
 struct P {
 	int i, c;
 	P () : i {-1}, c {} {}
+	bool operator == (P a) const {
+		return c == a.c && i == a.i;
+	}
 	bool operator < (P a) const {
 		return c == a.c ? i < a.i : c > a.c;
 	}
@@ -76,7 +79,11 @@ struct RMQ {
 		t[i].c += v;
 		while (i > 1) {
 			i >>= 1;
-			t[i] = min(t[i << 1], t[i << 1 | 1]);
+			T n = min(t[i << 1], t[i << 1 | 1]);
+			if (t[i] == n)
+				break;
+			else
+				t[i] = n;
 		}
 	}
 };
