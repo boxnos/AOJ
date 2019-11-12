@@ -57,6 +57,8 @@ struct range{
 
 struct P {
 	int i, c;
+	P () : i {-1}, c {} {}
+	P (int a, int b) : i {a}, c {b} {}
 	bool operator < (P a) const {
 		return c == a.c ? i < a.i : c > a.c;
 	}
@@ -93,12 +95,10 @@ struct RMQ {
 int main() {
 	int n {in}, m {in};
 	RMQ<P> r(n);
-	for (int i: range(n))
-		r.update(i, {i, 0});
 	times (i, m) {
 		int a {(int) in - 1}, v {in};
 		P t = r.get(a);
-		r.update(a, {t.i, t.c + v});
+		r.update(a, {a, t.c + v});
 		outl(r.t[1].i + 1, ' ', r.t[1].c);
 	}
 }
