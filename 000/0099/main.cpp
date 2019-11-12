@@ -58,7 +58,6 @@ struct range{
 struct P {
 	int i, c;
 	P () : i {-1}, c {} {}
-	P (int a, int b) : i {a}, c {b} {}
 	bool operator < (P a) const {
 		return c == a.c ? i < a.i : c > a.c;
 	}
@@ -71,23 +70,14 @@ struct RMQ {
 	RMQ (int l) :
 		n(1 << (32 - __builtin_clz(l - 1))),
 		t(n * 2) {}
-	T get(int i) {
-		return t[i + n];
-	}
-	void update(int i, T v) {
-		i += n, t[i] = v;
+	void update(int i, int v) {
+		t[i + n].i = i;
+		i += n;
+		t[i].c += v;
 		while (i > 1) {
 			i >>= 1;
 			t[i] = min(t[i << 1], t[i << 1 | 1]);
 		}
-	}
-	T find(int a, int b) {
-		T x;
-		for (a += n, b += n; a < b; a >>= 1, b >>= 1) {
-			if (a & 1) x = min(x, t[a++]);
-			if (b & 1) x = min(x, t[--b]);
-		}
-		return x;
 	}
 };
 
@@ -97,9 +87,9 @@ int main() {
 	RMQ<P> r(n);
 	times (i, m) {
 		int a {(int) in - 1}, v {in};
-		P t = r.get(a);
-		r.update(a, {a, t.c + v});
-		outl(r.t[1].i + 1, ' ', r.t[1].c);
+		r.update(a, v);
+		P t = r.t[1];
+		outl(t.i + 1, ' ', t.c);
 	}
 }
 
