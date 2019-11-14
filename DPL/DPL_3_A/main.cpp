@@ -60,10 +60,13 @@ int main() {
 	int H {in}, W {in};
 	V<V<int>> d(H + 1, V<int>(W + 1));
 	int r = 0;
-	for(int y: range(1, H + 1))
-		for (int x: range(1, W + 1))
-			if (!((int)in))
+	for(int y: range(1, H + 1)) {
+		for (int x: range(1, W + 1)) {
+			if (gcu() == '0')
 				r = max(r, d[y][x] = min(min(d[y - 1][x - 1], d[y - 1][x]), d[y][x - 1]) + 1);
+			gcu();
+		}
+	}
 	outl(r * r);
 }
 
