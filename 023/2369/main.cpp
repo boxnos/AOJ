@@ -58,11 +58,7 @@ int main() {
 	string s = in;
 	auto i = begin(s);
 	function<bool()> is_cat = [&]() {
-		if (*i++ != 'm') {
-			i--;
-			return true;
-		}
-		return is_cat() && *i++ == 'e' && is_cat() && *i++ == 'w';
+		return *i == 'm' ? i++, is_cat() && *i++ == 'e' && is_cat() && *i++ == 'w' : true;
 	};
 	outl(is_cat() && i == end(s) ? "Cat" : "Rabbit");
 }
