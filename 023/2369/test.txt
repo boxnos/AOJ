@@ -1,0 +1,12 @@
+# Sample Input 1
+mmemewwemeww
+# Sample Output 1
+Cat
+# Sample Input 2
+mewmew
+# Sample Output 2
+Rabbit
+# my
+e
+# test
+Rabbit
