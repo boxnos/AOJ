@@ -1,7 +1,6 @@
 #include <cstdio>
 #include <utility>
 #include <cctype>
-#include <vector>
 #include <algorithm>
 using namespace std;
 
@@ -61,7 +60,7 @@ int main() {
 			int n;
 			scanf("%d", &n);
 			if (n > 1)
-				r += n >= 10 ? 10 : n;
+				r += min(10, n);
 			else if (n == 1)
 				o++;
 			else
