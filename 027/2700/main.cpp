@@ -72,32 +72,26 @@ struct tree {
 	}
 };
 
-bool is_vowel(char c) {
-	return c == 'a' || c == 'i' || c == 'u' || c == 'e' || c == 'o';
-}
-
 int main() {
 	for (int n; (n = in);) {
 		tree *t = new tree();
-		if ([&] {
+		outl([&] {
 			bool r {true};
 			times(i, n) {
 				string s = in;
-				tree *c {t->insert(s[0])};
-				bool v {is_vowel(s[0])};
-				for (auto j = s.begin() + 1; j != s.end(); j++) {
+				tree *c {t};
+				auto j {s.begin()};
+				bool v {true};
+				do {
 					if (v)
 						c = c->insert(*j);
-					v = is_vowel(*j);
-				}
+					v = *j == 'a' || *j == 'i' || *j == 'u' || *j == 'e' || *j == 'o';
+				} while (++j != s.end());
 				if (c->c.count('_'))
 					r = false;
 				c->insert('_');
 			}
-			return r;}()) {
-			outl(t->min_code(0));
-		} else
-			outl(-1);
+			return r ? t->min_code(0) : -1;}());
 	}
 }
 
