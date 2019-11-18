@@ -56,6 +56,10 @@ struct range{
 struct tree {
 	int n;
 	unordered_map<char, tree *> c;
+	~tree () {
+		for (auto i: c)
+			delete i.second;
+	}
 	tree * insert(char a) {
 		n++;
 		if (!c.count(a))
@@ -92,6 +96,7 @@ int main() {
 				c->insert('_');
 			}
 			return r ? t->min_code(0) : -1;}());
+		delete t;
 	}
 }
 
