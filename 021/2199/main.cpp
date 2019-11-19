@@ -2,7 +2,7 @@
 #include <utility>
 #include <cctype>
 #include <vector>
-#include <climits>
+#include <unordered_map>
 #include <algorithm>
 using namespace std;
 
@@ -63,18 +63,21 @@ int main() {
 		V<int> C(M);
 		for (int &i: C)
 			i = in;
-		V<V<int>> D(N + 1, V<int>(256, INT_MAX));
+		V<unordered_map<int, int>> D(N + 1);
 		D[0][128] = 0;
 		for(int i: range(N)) {
 			int x {in};
-			for (int j : range(256))
-				if (D[i][j] != INT_MAX)
-					for (int k: C) {
-						int n = min(max(j + k, 0), 255);
-						D[i + 1][n] = min(D[i + 1][n], D[i][j] + (x - n) * (x - n));
-					}
+			for (auto j : D[i])
+				for (int k: C) {
+					int n = min(max(j.first + k, 0), 255);
+					int d = j.second + (x - n) * (x - n);
+					if (D[i + 1].count(n))
+						D[i + 1][n] = min(D[i + 1][n], d);
+					else
+						D[i + 1][n] = d;
+				}
 		}
-		outl(*min_element(begin(D[N]), end(D[N])));
+		outl(min_element(begin(D[N]), end(D[N]), [](auto a, auto b){return a.second < b.second;})->second);
 	}
 }
 
