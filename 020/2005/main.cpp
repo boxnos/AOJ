@@ -4,6 +4,7 @@
 #include <vector>
 #include <algorithm>
 #include <climits>
+#include <queue>
 using namespace std;
 
 #ifdef __linux
@@ -59,27 +60,39 @@ template <typename T>
 using V = vector<T>;
 
 struct N {
-	int e, c;
+	int n, c;
+	bool operator < (N a) const {
+		return c > a.c;
+	}
 };
 
 int main() {
 	for (int n, m, s, g1, g2; n = in, m = in, s = in, g1 = in, g2 = in;) {
 		s--, g1--, g2--;
-		V<V<int>> d(n, V<int>(n, INT_MAX/4));
-		range rn(n);
-		for (int i: rn)
-			d[i][i] = 0;
+		V<V<N>> g(n), h(n);
 		times(i, m) {
 			int s {(int) in - 1}, e {(int) in - 1}, c {in};
-			d[s][e] = c;
+			g[s].push_back({e, c});
+			h[e].push_back({s, c});
 		}
-		for (int k: rn)
-			for (int i: rn)
-				for (int j: rn)
-					d[i][j] = min(d[i][j], d[i][k] + d[k][j]);
+		auto f = [&](int s, V<V<N>> &x) {
+			V<int> d(n, INT_MAX / 4);
+			d[s] = 0;
+			priority_queue<N> q;
+			q.push({s, 0});
+			while (!q.empty()) {
+				N t = q.top();
+				q.pop();
+				for (N i : x[t.n])
+					if (d[i.n] > d[t.n] + i.c)
+						q.push({i.n , d[i.n] = d[t.n] + i.c});
+			}
+			return d;
+		};
+		V<int> rs = f(s, g), r1 = f(g1, h), r2 = f(g2, h);
 		int r {INT_MAX};
-		for (int i: rn)
-			r = min(r, d[s][i] + d[i][g1] + d[i][g2]);
+		for (int i: range(n))
+			r = min(r, rs[i] + r1[i] + r2[i]);
 		outl(r);
 	}
 }
