@@ -89,7 +89,7 @@ int main() {
 			}
 			return d;
 		};
-		V<int> rs = f(s, g), r1 = f(g1, h), r2 = f(g2, h);
+		V<int> rs {f(s, g)}, r1 {f(g1, h)}, r2 {f(g2, h)};
 		int r {INT_MAX};
 		for (int i: range(n))
 			r = min(r, rs[i] + r1[i] + r2[i]);
