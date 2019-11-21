@@ -1,6 +1,7 @@
 #include <cstdio>
 #include <utility>
 #include <cctype>
+#include <tuple>
 using namespace std;
 
 #ifdef __linux
@@ -52,19 +53,17 @@ struct range{
 		it& operator++(){v+=s;return *this;} }; it begin(){return {b,s};} it end(){return {e,s};}};
 #define times(i,n) for(int i=n;i;i--)
 
-long extGCD(long a, long b, long &x, long &y) {
-	if (b == 0) {
-		x = 1, y = 0;
-		return a;
-	}
-	long d = extGCD(b, a % b, y, x);
-	y -= a / b * x;
-	return d;
+tuple<int, int, int> extGCD(int a, int b) {
+	if (b == 0)
+		return {a, 1, 0};
+	int r, x, y;
+	tie(r, x, y) = extGCD(b, a % b);
+	return {r, y, x - a / b * y};
 }
 
 int main() {
-	long a {in}, b {in}, x, y;
-	extGCD(a, b, x, y);
+	int a {in}, b {in}, r, x, y;
+	tie(r, x, y) = extGCD(a, b);
 	outl(x, ' ', y);
 }
 
