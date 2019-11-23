@@ -59,13 +59,17 @@ using V = vector<T>;
 int main() {
 	for (int n; (n = in);) {
 		int m {(int) in - 1}, s {(int) in - 1}, d {in};
-		V<V<bool>> a(d, V<bool>(n + 1));
+		V<V<bool>> a(d, V<bool>(n + 1)), memo = a;
 		auto move = [&] (int x, int y) {
 			return a[y][x] ? x - 1 : a[y][x + 1] ? x + 1 : x;
 		};
 		auto is_start = [&] (int x, int y) {
-			for (int i: range(y, -1, -1))
+			for (int i: range(y, -1, -1)) {
+				if (memo[i][x])
+					return false;
+				memo[i][x] = true;
 				x = move(x, i);
+			}
 			return x == m;
 		};
 		auto add = [&] (int x, int y) {
