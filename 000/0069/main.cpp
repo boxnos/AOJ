@@ -60,40 +60,45 @@ int main() {
 	for (int n; (n = in);) {
 		int m {(int) in - 1}, s {(int) in - 1}, d {in};
 		V<V<bool>> a(d, V<bool>(n + 1));
+		auto move = [&] (int x, int y) {
+			return a[y][x] ? x - 1 : a[y][x + 1] ? x + 1 : x;
+		};
+		auto is_start = [&] (int x, int y) {
+			for (int i: range(y, -1, -1))
+				x = move(x, i);
+			return x == m;
+		};
+		auto add = [&] (int x, int y) {
+			return !a[y][x - 1] && !a[y][x] && !a[y][x + 1];
+		};
+
 		for (auto &i: a) {
-			for (int j {1}; j < n; j++)
+			for (int j: range(1, n))
 				i[j] = gcu() - '0';
 			gcu();
 		}
-		vector<int> f(d);
+		V<int> v(d);
 		int c {s};
 		for (int i: range(d - 1, -1, -1)) {
-			f[i] = c;
-			c = a[i][c] ? c - 1 : a[i][c + 1] ? c + 1 : c;
+			v[i] = c;
+			c = move(c, i);
 		}
-		if (c == m) {
+		if (c == m)
 			outl(0);
-			continue;
-		}
-		[&] {
-			auto g = [&] (int x, int y) {
-				for (int i: range(y, -1, -1))
-					x = a[i][x] ? x - 1 : a[i][x + 1] ? x + 1 : x;
-				return x == m;
-			};
-			for (int y {}; y < d; y++) {
-				int x {f[y]};
-				if (x > 0 && !a[y][x - 1] && !a[y][x] && !a[y][x + 1] && g(x - 1, y - 1)) {
-					outl(y + 1, ' ', x);
-					return;
+		else
+			[&] {
+				for (int y: range(d)) {
+					int x {v[y]};
+					if (x > 0 && add(x, y) && is_start(x - 1, y - 1)) {
+						outl(y + 1, ' ', x);
+						return;
+					} else if ((x < n - 1 && add(x + 1, y) && is_start(x + 1, y - 1))) {
+						outl(y + 1, ' ', x + 1);
+						return;
+					}
 				}
-				if ((x < n - 1 && !a[y][x] && !a[y][x + 1] && !a[y][x + 2] && g(x + 1, y - 1))) {
-					outl(y + 1, ' ', x + 1);
-					return;
-				}
-			}
-			outl(1);
-		}();
+				outl(1);
+			}();
 	}
 }
 
