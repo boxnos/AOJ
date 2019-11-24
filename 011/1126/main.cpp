@@ -59,15 +59,6 @@ template <typename T>
 using V = vector<T>;
 using D = deque<char>;
 
-D cmp(D a, D b) {
-	while (b.size() && b[0] == '0')
-		b.pop_front();
-	if (a.size() == b.size())
-		return max(a, b);
-	else
-		return a.size() > b.size() ? a : b;
-}
-
 int main() {
 	for (int W, H; W = in, H = in;) {
 		V<V<char>> C(H + 1, V<char>(W + 1));
@@ -87,7 +78,13 @@ int main() {
 					else
 						d[i][j] = a.size() > b.size() ? a : b;
 					d[i][j].push_front(C[i][j]);
-					m = cmp(m, d[i][j]);
+					D t {d[i][j]};
+					while (t.size() && t[0] == '0')
+						t.pop_front();
+					if (m.size() == t.size() && m < t)
+						m = t;
+					else if (m.size() < t.size())
+						m = t;
 				}
 			}
 		}
