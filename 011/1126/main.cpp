@@ -57,6 +57,10 @@ struct range{
 template <typename T>
 using V = vector<T>;
 
+string cmp(string &a, string &b) {
+	return a.size() == b.size() ? max(a, b) : a.size() > b.size() ? a : b;
+}
+
 int main() {
 	for (int W, H; W = in, H = in;) {
 		V<V<char>> C(H + 1, V<char>(W + 1));
@@ -66,28 +70,17 @@ int main() {
 			gcu();
 		}
 		V<V<string>> d(H + 1, V<string>(W + 1));
-		string m {};
-		for (int i: range(H - 1, -1, -1)) {
-			for (int j: range(W - 1, -1, -1)) {
+		string r {};
+		for (int i: range(H - 1, -1, -1))
+			for (int j: range(W - 1, -1, -1))
 				if (isdigit(C[i][j])) {
 					string &a {d[i + 1][j]}, &b {d[i][j + 1]};
-					string s;
-					if (a.size() == b.size())
-						s = max(a, b);
-					else
-						s = a.size() > b.size() ? a : b;
-					d[i][j] = C[i][j] + s;
+					d[i][j] = C[i][j] + cmp(a, b);
 					string t {d[i][j]};
-					if (t.size() && t[0] != '0') {
-						if (m.size() == t.size() && m < t)
-							m = t;
-						else if (m.size() < t.size())
-							m = t;
-					}
+					if (t.size() && t[0] != '0')
+						r = cmp(r, t);
 				}
-			}
-		}
-		outl(m);
+		outl(r);
 	}
 }
 
