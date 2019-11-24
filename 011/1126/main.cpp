@@ -3,7 +3,6 @@
 #include <cctype>
 #include <vector>
 #include <deque>
-#include <functional>
 using namespace std;
 
 #ifdef __linux
@@ -79,12 +78,12 @@ int main() {
 						d[i][j] = a.size() > b.size() ? a : b;
 					d[i][j].push_front(C[i][j]);
 					D t {d[i][j]};
-					while (t.size() && t[0] == '0')
-						t.pop_front();
-					if (m.size() == t.size() && m < t)
-						m = t;
-					else if (m.size() < t.size())
-						m = t;
+					if (t.size() && t[0] != '0') {
+						if (m.size() == t.size() && m < t)
+							m = t;
+						else if (m.size() < t.size())
+							m = t;
+					}
 				}
 			}
 		}
