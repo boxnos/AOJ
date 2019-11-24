@@ -2,7 +2,7 @@
 #include <utility>
 #include <cctype>
 #include <vector>
-#include <deque>
+#include <string>
 using namespace std;
 
 #ifdef __linux
@@ -56,7 +56,6 @@ struct range{
 
 template <typename T>
 using V = vector<T>;
-using D = deque<char>;
 
 int main() {
 	for (int W, H; W = in, H = in;) {
@@ -66,18 +65,19 @@ int main() {
 				C[i][j] = gcu();
 			gcu();
 		}
-		V<V<D>> d(H + 1, V<D>(W + 1));
-		D m {};
+		V<V<string>> d(H + 1, V<string>(W + 1));
+		string m {};
 		for (int i: range(H - 1, -1, -1)) {
 			for (int j: range(W - 1, -1, -1)) {
 				if (isdigit(C[i][j])) {
-					D &a {d[i + 1][j]}, &b {d[i][j + 1]};
+					string &a {d[i + 1][j]}, &b {d[i][j + 1]};
+					string s;
 					if (a.size() == b.size())
-						d[i][j] = max(a, b);
+						s = max(a, b);
 					else
-						d[i][j] = a.size() > b.size() ? a : b;
-					d[i][j].push_front(C[i][j]);
-					D t {d[i][j]};
+						s = a.size() > b.size() ? a : b;
+					d[i][j] = C[i][j] + s;
+					string t {d[i][j]};
 					if (t.size() && t[0] != '0') {
 						if (m.size() == t.size() && m < t)
 							m = t;
@@ -87,9 +87,7 @@ int main() {
 				}
 			}
 		}
-		for (char c: m)
-			out(c);
-		outl();
+		outl(m);
 	}
 }
 
