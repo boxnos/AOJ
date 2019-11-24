@@ -70,13 +70,12 @@ int main() {
 			gcu();
 		}
 		V<V<string>> d(H + 1, V<string>(W + 1));
-		string r {};
+		string r;
 		for (int i: range(H - 1, -1, -1))
 			for (int j: range(W - 1, -1, -1))
 				if (isdigit(C[i][j])) {
-					string &a {d[i + 1][j]}, &b {d[i][j + 1]};
-					d[i][j] = C[i][j] + cmp(a, b);
-					string t {d[i][j]};
+					string &t {d[i][j]};
+					t = C[i][j] + cmp(d[i + 1][j], d[i][j + 1]);
 					if (t.size() && t[0] != '0')
 						r = cmp(r, t);
 				}
