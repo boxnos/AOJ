@@ -81,7 +81,7 @@ int main() {
 			T[y][x] = pt[p];
 		return r;
 	};
-	for (int p {}, b0 {true}, b1 {true}; b0 || b1; p ^= 1) {
+	for (int p {}, b[2]{1, 1}; b[0] || b[1]; p ^= 1) {
 		R m {};
 		for (int i: r8)
 			for (int j: r8)
@@ -100,12 +100,12 @@ int main() {
 						m = {c, j, i};
 				}
 		if (m.c) {
-			b1 = b0, b0 = true;
+			b[p] = 1;
 			T[m.y][m.x] = pt[p];
 			for (int k: range(8))
 				reverse(m.x, m.y, k, p);
 		} else
-			b1 = b0, b0 = false;
+			b[p] = 0;
 	}
 	for (int i: r8) {
 		for (int j: r8)
