@@ -65,9 +65,9 @@ int main() {
 			T[i][j] = gcu();
 		gcu();
 	}
-	int dx[] = {0, 1, 1, 1, 0, -1, -1, -1},
-		dy[] = {-1, -1, 0, 1, 1, 1, 0, -1};
-	char pt[] = {'o', 'x'};
+	int dx[] {0, 1, 1, 1, 0, -1, -1, -1},
+		dy[] {-1, -1, 0, 1, 1, 1, 0, -1};
+	char pt[] {'o', 'x'};
 	function<bool(int, int, int, int)> reverse = [&] (int x, int y, int k, int p) {
 		x += dx[k], y += dy[k];
 		if (T[y][x] != pt[!p])
