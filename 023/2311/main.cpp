@@ -90,9 +90,7 @@ int main() {
 						if (T[y][x] == pt[p])
 							c += d;
 					}
-					if (c && (c == m.c ? ((p == 0 && (i == m.y ? j < m.x : i < m.y)) ||
-										  (p == 1 && (i == m.y ? j > m.x : i > m.y))) :
-							  c > m.c))
+					if (c && ((p == 0 && c > m.c) || (p == 1 && c >= m.c)))
 						m = {c, j, i};
 				}
 		if (m.c) {
