@@ -55,10 +55,6 @@ struct range{
 		it& operator++(){v+=s;return *this;} }; it begin(){return {b,s};} it end(){return {e,s};}};
 #define times(i,n) for(int i=n;i;i--)
 
-struct R {
-	int c, x, y;
-};
-
 int main() {
 	array<array<char, 10>, 10> T;
 	range r8(1, 9);
@@ -82,7 +78,7 @@ int main() {
 		return r;
 	};
 	for (int p {}, b[2]{1, 1}; b[0] || b[1]; p ^= 1) {
-		R m {};
+		struct { int c, x, y; } m {};
 		for (int i: r8)
 			for (int j: r8)
 				if (T[i][j] == '.') {
