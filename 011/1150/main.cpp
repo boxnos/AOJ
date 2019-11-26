@@ -76,34 +76,33 @@ int main() {
 				char t = in;
 				s[i][j] = isdigit(t) ? t - '0' : t == 'T' ? 0 : t == 'S' ? S : T;
 			}
-		int m {M};
+		priority_queue<P> q;
+		V<V<V<int>>> v(h + 6, V<V<int>>(w + 6, V<int>(2, INT_MAX / 2)));
 		for (int i: rw)
-			if (s[h + 2][i] == S) {
-				for (int l: {1, -1})
-					m = min(m, [&] {
-						priority_queue<P> q;
-						V<V<V<int>>> v(h + 6, V<V<int>>(w + 6, V<int>(2, INT_MAX / 2)));
+			if (s[h + 2][i] == S)
+				for (int l: {1, -1}) {
 						v[h + 2][i][l == 1 ? 0 : 1] = 0;
 						q.push({i, h + 2, 0, l});
-						while (!q.empty()) {
-							P t {q.top()};
-							q.pop();
-							int vi {t.l == 1 ? 0 : 1};
-							if (!s[t.y][t.x])
-								return t.c;
-							for (int dy: range(-2, 3))
-								for (int dx {1}; dx <= 3 - abs(dy); dx++) {
-									int x {t.x + dx * t.l}, y {t.y + dy * t.l}, a = v[t.y][t.x][vi] + s[y][x];
-									if (s[y][x] < 10 && v[y][x][!vi] > a) {
-										v[y][x][!vi] = a;
-										q.push({x, y, a, t.l * -1});
-									}
-								}
-						}
-						return static_cast<int>(M);
-					}());
 				}
-		outl(m == M ? -1 : m);
+		int r = [&] {
+			while (!q.empty()) {
+				P t {q.top()};
+				q.pop();
+				int vi {t.l == 1 ? 0 : 1};
+				if (!s[t.y][t.x])
+					return t.c;
+				for (int dy: range(-2, 3))
+					for (int dx {1}; dx <= 3 - abs(dy); dx++) {
+						int x {t.x + dx * t.l}, y {t.y + dy * t.l}, a = v[t.y][t.x][vi] + s[y][x];
+						if (s[y][x] < 10 && v[y][x][!vi] > a) {
+							v[y][x][!vi] = a;
+							q.push({x, y, a, t.l * -1});
+						}
+					}
+				}
+				return static_cast<int>(M);
+		}();
+		outl(r == M ? -1 : r);
 	}
 }
 
