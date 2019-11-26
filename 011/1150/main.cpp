@@ -52,8 +52,8 @@ _HT _OUT(H &&h, T... t){out(h);out(t...);}
 template <typename... T> _OUTL(T... t){out(t...);outl();}
 #define dbg(...) fprintf(stderr,__VA_ARGS__);
 struct range{
-	int e,b=0,s=1;range(int _b,int _e,int _s):e(_e),b(_b),s(_s){} range(int _b,int _e): e(_e), b(_b){} range(int _e):e(_e){}
-	struct it{int v,s; it(int _v,int _s):v(_v),s(_s){} operator int()const{return v;} operator int&(){return v;}int operator*()const{return v;}
+	int e,b=0,s=1;range(int b,int e,int s):e(e),b(b),s(s){} range(int b,int e): e(e), b(b){} range(int e):e(e){}
+	struct it{int v,s; it(int v,int s):v(v),s(s){} operator int()const{return v;} operator int&(){return v;}int operator*()const{return v;}
 		it& operator++(){v+=s;return *this;} }; it begin(){return {b,s};} it end(){return {e,s};}};
 #define times(i,n) for(int i=n;i;i--)
 
@@ -71,24 +71,23 @@ int main() {
 		enum {S = 10, T, M = INT_MAX / 2};
 		V<V<int>> s(h + 6, V<int>(w + 6, M));
 		range rw(3, w + 3), rh(3, h + 3);
+		priority_queue<P> q;
+		V<V<V<int>>> v(h + 6, V<V<int>>(w + 6, V<int>(2, INT_MAX / 2)));
 		for (int i: rh)
 			for (int j: rw) {
 				char t = in;
 				s[i][j] = isdigit(t) ? t - '0' : t == 'T' ? 0 : t == 'S' ? S : T;
+				if (t == 'S')
+					for (int k : {1, -1}) {
+						v[i][j][!(k + 1)] = 0;
+						q.push({j, i, 0, k});
+					}
 			}
-		priority_queue<P> q;
-		V<V<V<int>>> v(h + 6, V<V<int>>(w + 6, V<int>(2, INT_MAX / 2)));
-		for (int i: rw)
-			if (s[h + 2][i] == S)
-				for (int l: {1, -1}) {
-						v[h + 2][i][l == 1 ? 0 : 1] = 0;
-						q.push({i, h + 2, 0, l});
-				}
 		int r = [&] {
 			while (!q.empty()) {
 				P t {q.top()};
 				q.pop();
-				int vi {t.l == 1 ? 0 : 1};
+				int vi {!(t.l + 1)};
 				if (!s[t.y][t.x])
 					return t.c;
 				for (int dy: range(-2, 3))
