@@ -62,9 +62,7 @@ _T using V = vector<T>;
 struct P {
 	int x, y, c, l;
 	bool operator < (P a) const {
-		return c > a.c;
-	}
-};
+		return c > a.c; } };
 
 int main() {
 	for (int w, h; w = in, h = in;) {
@@ -98,8 +96,8 @@ int main() {
 							q.push({x, y, a, t.l * -1});
 						}
 					}
-				}
-				return static_cast<int>(M);
+			}
+			return static_cast<int>(M);
 		}();
 		outl(r == M ? -1 : r);
 	}
