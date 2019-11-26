@@ -1,8 +1,9 @@
 #include <cstdio>
 #include <utility>
 #include <cctype>
-#include <array>
-#include <functional>
+#include <vector>
+#include <queue>
+#include <cmath>
 #include <climits>
 using namespace std;
 
@@ -49,62 +50,60 @@ _OUTL(){out('\n');}
 #endif
 _HT _OUT(H &&h, T... t){out(h);out(t...);}
 template <typename... T> _OUTL(T... t){out(t...);outl();}
+#define dbg(...) fprintf(stderr,__VA_ARGS__);
 struct range{
 	int e,b=0,s=1;range(int _b,int _e,int _s):e(_e),b(_b),s(_s){} range(int _b,int _e): e(_e), b(_b){} range(int _e):e(_e){}
 	struct it{int v,s; it(int _v,int _s):v(_v),s(_s){} operator int()const{return v;} operator int&(){return v;}int operator*()const{return v;}
 		it& operator++(){v+=s;return *this;} }; it begin(){return {b,s};} it end(){return {e,s};}};
 #define times(i,n) for(int i=n;i;i--)
 
+_T using V = vector<T>;
+
+struct P {
+	int x, y, c, l;
+	bool operator < (P a) const {
+		return c > a.c;
+	}
+};
+
 int main() {
-	array<array<char, 10>, 10> T;
-	range r8(1, 9);
-	for (int i: range(10))
-		T[0][i] = T[9][i] = T[i][0] = T[i][9] = ' ';
-	for (auto i: r8) {
-		for (char j: r8)
-			T[i][j] = gcu();
-		gcu();
-	}
-	int dx[] {0, 1, 1, 1, 0, -1, -1, -1},
-		dy[] {-1, -1, 0, 1, 1, 1, 0, -1};
-	char pt[] {'o', 'x'};
-	function<bool(int, int, int, int)> flip{[&] (int x, int y, int k, int p) {
-		x += dx[k], y += dy[k];
-		if (T[y][x] != pt[!p])
-			return T[y][x] == pt[p];
-		bool r = flip(x, y, k, p);
-		if (r)
-			T[y][x] = pt[p];
-		return r;
-	}};
-	for (int p {}, b[2]{1, 1}; b[0] || b[1]; p ^= 1) {
-		struct { int c, x, y; } m {};
-		for (int i: r8)
-			for (int j: r8)
-				if (T[i][j] == '.') {
-					int c {};
-					for (int k: range(8)) {
-						int d {}, x {j + dx[k]}, y {i + dy[k]};
-						for (; T[y][x] == pt[!p]; x += dx[k], y += dy[k])
-							d++;
-						if (T[y][x] == pt[p])
-							c += d;
-					}
-					if (c && ((p == 0 && c > m.c) || (p == 1 && c >= m.c)))
-						m = {c, j, i};
+	for (int w, h; w = in, h = in;) {
+		enum {S = 10, T, M = INT_MAX};
+		V<V<int>> s(h + 6, V<int>(w + 6, M));
+		range rw(3, w + 3), rh(3, h + 3);
+		for (int i: rh)
+			for (int j: rw) {
+				char t = in;
+				s[i][j] = isdigit(t) ? t - '0' : t == 'T' ? 0 : t == 'S' ? S : T;
+			}
+		int m {M};
+		for (int i: rw)
+			if (s[h + 2][i] == S) {
+				for (int l: {1, -1})
+					m = min(m, [&] {
+						priority_queue<P> q;
+						V<V<V<bool>>> v(h + 6, V<V<bool>>(w + 6, V<bool>(2)));
+						q.push({i, h + 2, 0, l});
+						while (!q.empty()) {
+							P t {q.top()};
+							q.pop();
+							int vi {t.l == 1 ? 0 : 1};
+							if (!s[t.y][t.x])
+								return t.c;
+							if (v[t.y][t.x][vi])
+								continue;
+							v[t.y][t.x][vi] = true;
+							for (int dy: range(-2, 3))
+								for (int dx {1}; dx <= 3 - abs(dy); dx++) {
+									int x {t.x + dx * t.l}, y {t.y + dy * t.l};
+									if (!v[y][x][!vi] && s[y][x] < 10)
+										q.push({x, y, t.c + s[y][x], t.l * -1});
+								}
+						}
+						return static_cast<int>(M);
+					}());
 				}
-		if (m.c) {
-			b[p] = 1;
-			T[m.y][m.x] = pt[p];
-			for (int k: range(8))
-				flip(m.x, m.y, k, p);
-		} else
-			b[p] = 0;
-	}
-	for (int i: r8) {
-		for (int j: r8)
-			out(T[i][j]);
-		outl();
+		outl(m == M ? -1 : m);
 	}
 }
 
