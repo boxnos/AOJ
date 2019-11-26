@@ -68,7 +68,7 @@ struct P {
 
 int main() {
 	for (int w, h; w = in, h = in;) {
-		enum {S = 10, T, M = INT_MAX};
+		enum {S = 10, T, M = INT_MAX / 2};
 		V<V<int>> s(h + 6, V<int>(w + 6, M));
 		range rw(3, w + 3), rh(3, h + 3);
 		for (int i: rh)
@@ -82,7 +82,8 @@ int main() {
 				for (int l: {1, -1})
 					m = min(m, [&] {
 						priority_queue<P> q;
-						V<V<V<bool>>> v(h + 6, V<V<bool>>(w + 6, V<bool>(2)));
+						V<V<V<int>>> v(h + 6, V<V<int>>(w + 6, V<int>(2, INT_MAX / 2)));
+						v[h + 2][i][l == 1 ? 0 : 1] = 0;
 						q.push({i, h + 2, 0, l});
 						while (!q.empty()) {
 							P t {q.top()};
@@ -90,14 +91,13 @@ int main() {
 							int vi {t.l == 1 ? 0 : 1};
 							if (!s[t.y][t.x])
 								return t.c;
-							if (v[t.y][t.x][vi])
-								continue;
-							v[t.y][t.x][vi] = true;
 							for (int dy: range(-2, 3))
 								for (int dx {1}; dx <= 3 - abs(dy); dx++) {
-									int x {t.x + dx * t.l}, y {t.y + dy * t.l};
-									if (!v[y][x][!vi] && s[y][x] < 10)
-										q.push({x, y, t.c + s[y][x], t.l * -1});
+									int x {t.x + dx * t.l}, y {t.y + dy * t.l}, a = v[t.y][t.x][vi] + s[y][x];
+									if (s[y][x] < 10 && v[y][x][!vi] > a) {
+										v[y][x][!vi] = a;
+										q.push({x, y, a, t.l * -1});
+									}
 								}
 						}
 						return static_cast<int>(M);
