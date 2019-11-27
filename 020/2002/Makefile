@@ -9,6 +9,7 @@ dl = 1
 
 test: in_0 $(target)
 	time $(make) $(addprefix test-,$(shell ls -v in*))
+	wc $(target).cpp
 
 test-in%:
 	cat in$(call rm_prefix,$@)

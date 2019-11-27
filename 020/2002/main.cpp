@@ -83,16 +83,22 @@ int main() {
 			gcu();
 		}
 		auto find = [&] {
-			for (auto p: m)
-				if ([&] {
+			for (auto p: m) {
+				int r = [&] {
 					M t = p.second;
 					for (int i: range(t.t, t.b + 1))
 						for (int j: range(t.l, t.r + 1))
-							if (S[i][j] != p.first && S[i][j] != '?')
-								return false;
-					return true;
-				}())
+							if (S[i][j] == '.')
+								return -1;
+							else if (S[i][j] != p.first && S[i][j] != '?')
+								return 0;
+					return 1;
+				}();
+				if (r == 1)
 					return p.first;
+				else if (r == -1)
+					return '.';
+			}
 			return '.';
 		};
 		outl([&] {
