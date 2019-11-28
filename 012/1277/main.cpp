@@ -56,39 +56,35 @@ struct range{
 #define times(i,n) for(int i=n;i;i--)
 
 _T using V = vector<T>;
+using M = unordered_map<int, double>;
 
 int main() {
 	for (int N, T, L, B; N = in, T = in, L = in, B = in, N;) {
 		V<double> d(N + 1);
 		d[0] = 1.;
 		V<char> c(N + 1, ' ');
-		unordered_map<int, double> m;
+		M m;
 		times(i, L)
 			c[in] = 'L';
 		times(i, B)
 			c[in] = 'B';
 		times(i, T) {
 			V<double> t(N + 1);
-			unordered_map<int, double> tm;
-			auto put = [&](int i, double x) {
-				int n = min(i, N) - max(0, i - N);
-				if (c[n] == 'B')
-					t[0] += x;
-				else if (c[n] == 'L')
-					tm[n] += x;
-				else
-					t[n] += x;
-			};
+			M tm;
 			t[N] = d[N];
-			for (int j: range(N))
-				for (int k: range(6))
-					put(j + k + 1, d[j] / 6);
+			for (int j: range(N)) {
+				double x {d[j] / 6};
+				for (int k: range(j + 1, j + 7)) {
+					int n = k < N ? k : 2 * N - k;
+					(c[n] == 'L' ? tm[n] : t[c[n] == 'B' ? 0 : n]) += x;
+				}
+			}
 			for (auto j: m)
 				t[j.first] += j.second;
-			d = t;
-			m = tm;
+			d = move(t);
+			m = move(tm);
 		}
-		printf("%.10f\n", d[N]);
+		printf("%f\n", d[N]);
 	}
 }
 
