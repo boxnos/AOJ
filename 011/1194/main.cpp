@@ -56,17 +56,25 @@ struct range{
 		it& operator++(){v+=s;return *this;} }; it begin(){return {b,s};} it end(){return {e,s};}};
 #define times(i,n) for(int i=n;i;i--)
 
+struct pos {
+	vector<int> p;
+	pos(int n) : p(n) {};
+	int& operator [] (int n) {
+		return p[p.size() / 2 + n];
+	}
+};
+
 int main() {
 	for (int r, n; r = in, n = in, r || n;) {
-	 	vector<int> b(50);
+		pos b(50);
 		times(i, n) {
 			int xl {in}, xr {in}, h {in};
 			for (int j: range(xl, xr))
-				b[j + 25] = max(b[j + 25], h);
+				b[j] = max(b[j], h);
 		}
 		double a {DBL_MAX};
 		for (int i: range(-r + 1, r))
-			a = min(a, r - sqrt(r * r - i * i) + min(b[i + 24], b[i + 25]));
+			a = min(a, r - sqrt(r * r - i * i) + min(b[i - 1], b[i]));
 		printf("%f\n", a);
 	}
 }
