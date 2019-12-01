@@ -80,21 +80,21 @@ struct RMQ {
 int main() {
 	int n {in};
 	V<V<int>> t(n);
-	V<int> eu(n), n_o, v;
+	V<int> eu(n), n_o(n), v;
 	for (int i: range(n))
 		times(j, in)
 			t[i].push_back(in);
+	int a {};
 	function<void(int, int)> e = [&] (int i, int p){
-		int a = n_o.size();
-		n_o.push_back(i);
+		int n {a++};
+		n_o[n] = i;
 		eu[i] = v.size();
-		v.push_back(a);
-		for (int j: t[i]) {
+		v.push_back(n);
+		for (int j: t[i])
 			if (j != p) {
 				e(j, i);
-				v.push_back(a);
+				v.push_back(n);
 			}
-		}
 	};
 	e(0, -1);
 	RMQ rmq(v);
