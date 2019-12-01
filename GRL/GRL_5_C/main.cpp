@@ -64,11 +64,10 @@ inline int log2(int n) {
 
 struct RMQ {
 	V<V<int>> st;
-	RMQ(V<int> &v) {
-		st.assign(log2(v.size()) + 1, vector<int>(v.size()));
+	RMQ(V<int> &v) : st(log2(v.size()) + 1, vector<int>(v.size())) {
 		st[0] = v;
-		for (int i : range(1, st.size()))
-			for (int j {}; j + (1 << i) <= (int) v.size(); j++)
+		for (size_t i : range(1, st.size()))
+			for (size_t j {}; j + (1 << i) <= v.size(); j++)
 				st[i][j] = min(st[i - 1][j], st[i - 1][j + (1 << (i - 1))]);
 	}
 	int query(int l, int r) {
@@ -100,7 +99,9 @@ int main() {
 	RMQ rmq(v);
 	times(i, in) {
 		int a {eu[(int) in]}, b {eu[(int) in]};
-		outl(n_o[rmq.query(min(a, b), max(a, b) + 1)]);
+		if (a > b)
+			swap(a, b);
+		outl(n_o[rmq.query(a, b + 1)]);
 	}
 }
 
