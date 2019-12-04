@@ -56,15 +56,8 @@ struct range{
 #define times(i,n) for(int i=n;i;i--)
 
 _T using V = vector<T>;
-
 using P = complex<int>;
-namespace std {
-	template<> struct hash<P> {
-		size_t operator()(P const &a) const {
-			return ((long) real(a) << 32) + (long) imag(a);
-		}
-	};
-}
+
 int square (int a) {
 	return a * a;
 }
