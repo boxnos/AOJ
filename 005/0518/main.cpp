@@ -2,7 +2,7 @@
 #include <utility>
 #include <cctype>
 #include <complex>
-#include <unordered_set>
+#include <vector>
 using namespace std;
 
 #ifdef __linux
@@ -55,6 +55,8 @@ struct range{
 		it& operator++(){v+=s;return *this;} }; it begin(){return {b,s};} it end(){return {e,s};}};
 #define times(i,n) for(int i=n;i;i--)
 
+_T using V = vector<T>;
+
 using P = complex<int>;
 namespace std {
 	template<> struct hash<P> {
@@ -69,15 +71,23 @@ int square (int a) {
 
 int main() {
 	for (int n; (n = in);) {
-		unordered_set<P> m;
-		times(i, n)
-			m.insert(P{in, in});
+		V<P> v(n);
+		V<V<bool>> m(5001, V<bool>(5001));
+		for (int i: range(n)) {
+			int x {in}, y {in};
+			v[i] = {x, y};
+			m[y][x] = true;
+		}
+		auto check = [&](P a) {
+			int x {real(a)}, y {imag(a)};
+			return x >= 0 && x < 5001 && y >= 0 && y < 5001 && m[y][x];
+		};
 		int r {};
-		for (P p1: m)
-			for (P p2: m)
+		for (P p1: v)
+			for (P p2: v)
 				if (p1 != p2) {
 					P d {(p2 - p1) * P{0, 1}};
-					if (m.count(p2 + d) && m.count(p1 + d))
+					if (check(p2 + d) && check(p1 + d))
 						r = max(r, square(real(d)) + square(imag(d)));
 				}
 		outl(r);
