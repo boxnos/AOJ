@@ -83,11 +83,11 @@ int main() {
 			return x >= 0 && x < 5001 && y >= 0 && y < 5001 && m[y][x];
 		};
 		int r {};
-		for (P p1: v)
-			for (P p2: v)
+		for (auto p1 {begin(v)}; p1 != end(v); p1++)
+			for (auto p2 {next(p1)}; p2 != end(v); p2++)
 				if (p1 != p2) {
-					P d {(p2 - p1) * P{0, 1}};
-					if (check(p2 + d) && check(p1 + d))
+					P d {(*p1 - *p2) * P{0, 1}};
+					if (check(*p1 + d) && check(*p2 + d))
 						r = max(r, square(real(d)) + square(imag(d)));
 				}
 		outl(r);
