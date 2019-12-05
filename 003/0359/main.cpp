@@ -40,8 +40,8 @@ struct range{int e,b{0},s{1};range(int _b,int _e,int _s):e(_e),b(_b),s(_s){}rang
 	it begin(){return{b, s};}it end(){return{e,s};}};
 
 int main() {
-	const string s[] {"mon", "tue", "wed", "thu", "fri", "sat", "sun"};
-	outl(s[(in() + 3) % 7]);
+	const string s {"thufrisatsunmontuewed"};
+	outl(s.substr(in() % 7 * 3, 3));
 }
 
 /* vim: set ts=4 noet: */
