@@ -41,12 +41,11 @@ struct range{int e,b{0},s{1};range(int _b,int _e,int _s):e(_e),b(_b),s(_s){}rang
 	it begin(){return{b, s};}it end(){return{e,s};}};
 
 int main() {
-	array<int, 6> s;
+	array<int, 4> s;
 	int a {};
 	for (int &i: s)
 		a += i = in();
-	auto b {begin(s)};
-	outl(a - *min_element(b, b + 4) - min(s[4], s[5]));
+	outl(a - *min_element(begin(s), end(s)) + max(in(), in()));
 }
 
 /* vim: set ts=4 noet: */
