@@ -45,8 +45,8 @@ struct range{
 	struct it { int v, s; it (int _v, int _s) : v(_v), s(_s) {} operator int()const{return v;} operator int&(){return v;} int operator*()const{return v;}
 		it& operator++(){v+=s;return *this;} }; it begin() {return {b, s};} it end() {return {e, s};}};
 
-int p (int n, int a, int b) {
-	return (n / a + !!(n % a)) * b;
+int p(int n, int a, int b) {
+	return (n + a - 1) / a * b;
 }
 
 int main() {
