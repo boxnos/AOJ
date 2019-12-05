@@ -55,11 +55,10 @@ int main() {
 		if (m)
 			outl();
 		array<array<bool, 5>, 7> a {};
-		for (int i {}, t = 10000; t > 0; t /= 10, i++) {
+		for (int i {}, t = 10000; t > 0; n %= t, t /= 10, i++) {
 			int k = n / t;
 			a[!(k / 5)][i] = true;
-			a[(k % 5) + 2][i] = true;
-			n %= t;
+			a[k % 5 + 2][i] = true;
 		}
 		for (int i: range(7)) {
 			if (i == 2)
