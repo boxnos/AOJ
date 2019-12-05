@@ -78,12 +78,6 @@ int main() {
 			}
 			return 0;}()};
 		deque<int>::iterator it[3][2];
-		auto q {[&] {
-			for (auto i: it)
-				if (i[0] != i[1])
-					return true;
-			return false;
-		}};
 		[&] {
 			for (int i: range(3))
 				it[i][1] = end(a[i]);
@@ -92,7 +86,7 @@ int main() {
 					it[j][0] = begin(a[j]);
 				int c {};
 				if ([&] {
-					while (q()) {
+					while (it[2][0] != it[2][1]) {
 						int t = c + guess(it[0], i) + guess(it[1], i);
 						if (t % 10 != guess(it[2], i))
 							return false;
