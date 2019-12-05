@@ -72,18 +72,16 @@ int main() {
 		}
 		V<V<int>> s(m + 1);
 		for (auto i: v) {
-			int a {};
-			if (i.c == '+') {
-				for (int j: s[i.n + 1])
-					a += j;
-				s[i.n + 1] = {};
-			} else if (i.c == '*') {
-				a = 1;
-				for (int j: s[i.n + 1])
-					a *= j;
-				s[i.n + 1] = {};
-			} else
+			int a;
+			if (isdigit(i.c))
 				a = i.c - '0';
+			else {
+				a = i.c == '*';
+				auto o = i.c == '*' ? [](int a, int b) {return a * b;} : [](int a, int b) {return a + b;};
+				for (int j: s[i.n + 1])
+					a = o(a, j);
+				s[i.n + 1] = {};
+			}
 			s[i.n].push_back(a);
 		}
 		outl(s[0]);
