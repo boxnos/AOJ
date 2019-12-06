@@ -1,6 +1,7 @@
 #include <cstdio>
 #include <utility>
 #include <cctype>
+#include <complex>
 using namespace std;
 
 #ifdef __linux
@@ -53,19 +54,21 @@ struct range{
 		it& operator++(){v+=s;return *this;} }; it begin(){return {b,s};} it end(){return {e,s};}};
 #define times(i,n) for(int i=n;i;i--)
 
+_T using C = complex<T>;
+#define R real
+#define I imag
+
 struct Q {
-	int x, y, z, w;
-	Q () : x {in}, y {in}, z {in}, w {in} {}
-	Q (int x, int y, int z, int w) : x {x}, y {y}, z {z}, w {w} {}
-	Q operator * (Q b) {
+	C<C<int>> q;
+	Q (C<int> a, C<int> b) : q {a, b} { }
+	Q () : q {} { q = {{in, in}, {in, in}}; }
+	Q operator * (Q a) {
 		return {
-			x * b.x - y * b.y - z * b.z - w * b.w,
-			x * b.y + y * b.x + z * b.w - w * b.z,
-			x * b.z - y * b.w + z * b.x + w * b.y,
-			x * b.w + y * b.z - z * b.y + w * b.x};
+			R(q) * R(a.q) - I(q) * conj(I(a.q)),
+			R(q) * I(a.q) + I(q) * conj(R(a.q))};
 	}
 	void dump() {
-		outl(x, ' ', y, ' ', z, ' ', w);
+		outl(R(R(q)), ' ', I(R(q)), ' ', R(I(q)), ' ',I(I(q)));
 	}
 };
 
