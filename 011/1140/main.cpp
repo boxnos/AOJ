@@ -96,7 +96,7 @@ int main() {
 			queue<PP> q;
 			q.push({x(i), 0});
 			v[y(x(i))][x(x(i))] = true;
-			while (!q.empty()) {
+			do {
 				PP a = q.front();
 				q.pop();
 				P u {x(a)};
@@ -110,7 +110,7 @@ int main() {
 						q.push({t ,y(a) + 1});
 					}
 				} while ((d *= P{0, 1}) != P{1, 0});
-			}
+			} while (!q.empty());
 		}
 		for (int i: range(n))
 			di[i][0] = 0;
