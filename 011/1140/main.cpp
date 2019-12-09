@@ -91,26 +91,42 @@ int main() {
 		}
 		int inf {INT_MAX / 2}, n = d.size();
 		V<V<int>> di(n, V<int>(n, inf)), dp(1 << n, V<int>(n, INT_MAX / 2));
-		for (PP i: d) {
-			V<V<bool>> v(y(s) + 2, V<bool>(x(s) + 2));
-			queue<PP> q;
-			q.push({x(i), 0});
-			v[y(x(i))][x(x(i))] = true;
-			do {
-				PP a = q.front();
-				q.pop();
-				P u {x(a)};
-				if (y(a) && m[y(u)][x(u)] == '*')
-					di[y(i)][d[u]] = y(a);
-				P d {1, 0};
-				do {
-					P t = u + d;
-					if (!v[y(t)][x(t)] && m[y(t)][x(t)] != 'x') {
-						v[y(t)][x(t)] = true;
-						q.push({t ,y(a) + 1});
-					}
-				} while ((d *= P{0, 1}) != P{1, 0});
-			} while (!q.empty());
+		bool r = [&] {
+			for (PP i: d) {
+				int c {1};
+				V<V<bool>> v(y(s) + 2, V<bool>(x(s) + 2));
+				queue<PP> q;
+				q.push({x(i), 0});
+				v[y(x(i))][x(x(i))] = true;
+				bool r = [&] {
+					do {
+						PP a = q.front();
+						q.pop();
+						P u {x(a)};
+						if (y(a) && m[y(u)][x(u)] == '*') {
+							di[y(i)][d[u]] = y(a);
+							if (++c == n)
+								return true;
+						}
+						P d {1, 0};
+						do {
+							P t = u + d;
+							if (!v[y(t)][x(t)] && m[y(t)][x(t)] != 'x') {
+								v[y(t)][x(t)] = true;
+								q.push({t ,y(a) + 1});
+							}
+						} while ((d *= P{0, 1}) != P{1, 0});
+					} while (!q.empty());
+					return false;
+				}();
+				if (!r)
+					return false;
+			}
+			return true;
+		}();
+		if (!r) {
+			outl(-1);
+			continue;
 		}
 		for (int i: range(n))
 			di[i][0] = 0;
@@ -121,7 +137,7 @@ int main() {
 					if (!(S >> u & 1))
 						dp[S][v] = min(dp[S][v], dp[S | 1 << u][u] + di[v][u]);
 		}
-		outl(dp[0][0] == inf ? -1 : dp[0][0]);
+		outl(dp[0][0]);
 	}
 }
 
