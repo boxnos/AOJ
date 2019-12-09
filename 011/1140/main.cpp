@@ -65,7 +65,6 @@ int x(P a) {return real(a);};
 int y(P a) {return imag(a);};
 template <typename T, typename U> T x(pair<T, U> a) {return a.first;};
 template <typename T, typename U> U y(pair<T, U> a) {return a.second;};
-
 namespace std {
 	bool operator < (P a, P b) {
 		return x(a) == x(b) ? y(a) < y(b) : x(a) < x(b);
@@ -90,15 +89,15 @@ int main() {
 			gcu();
 		}
 		int inf {INT_MAX / 2}, n = d.size();
-		V<V<int>> di(n, V<int>(n, inf)), dp(1 << n, V<int>(n, INT_MAX / 2));
-		bool r = [&] {
+		V<V<int>> di(n, V<int>(n, inf)), dp(1 << n, V<int>(n, inf));
+		if (![&] {
 			for (PP i: d) {
 				int c {1};
 				V<V<bool>> v(y(s) + 2, V<bool>(x(s) + 2));
 				queue<PP> q;
 				q.push({x(i), 0});
 				v[y(x(i))][x(x(i))] = true;
-				bool r = [&] {
+				if (![&] {
 					do {
 						PP a = q.front();
 						q.pop();
@@ -118,22 +117,21 @@ int main() {
 						} while ((d *= P{0, 1}) != P{1, 0});
 					} while (!q.empty());
 					return false;
-				}();
-				if (!r)
+					}())
 					return false;
 			}
 			return true;
-		}();
-		if (!r) {
+		}()) {
 			outl(-1);
 			continue;
 		}
-		for (int i: range(n))
+		range rn(n);
+		for (int i: rn)
 			di[i][0] = 0;
 		dp[(1 << n) - 1][0] = 0;
 		for (int S = (1 << n) - 2; S >= 0; S--) {
-			for (int v: range(n))
-				for (int u: range(n))
+			for (int v: rn)
+				for (int u: rn)
 					if (!(S >> u & 1))
 						dp[S][v] = min(dp[S][v], dp[S | 1 << u][u] + di[v][u]);
 		}
