@@ -1,6 +1,8 @@
 #include <cstdio>
 #include <utility>
 #include <cctype>
+#include <vector>
+#include <functional>
 using namespace std;
 
 #ifdef __linux
@@ -54,18 +56,18 @@ struct range{
 		_I it& operator++(){v+=s;return *this;} }; it begin(){return {b,s};} it end(){return {e,s};}};
 #define times(i,n) for(int i=n;i;i--)
 
-int f(int n, int s, int t) {
-	if (t == 4)
-		return n == 0;
-	int r {};
-	for (;s * s <= n; s++)
-		r += f(n - s * s, s, t + 1);
-	return r;
-}
+_T using V = vector<T>;
 
 int main() {
+	int N = 1 << 15;
+	V<int> m(N);
+	for (int i {}; i * i < N; i++)
+		for (int j {i}; i * i + j * j < N; j++)
+			for (int k {j}; i * i + j * j + k * k < N; k++)
+				for (int l {k}; i * i + j * j + k * k + l * l < N; l++)
+					m[i * i + j * j + k * k + l * l]++;
 	for (int n; (n = in);)
-		outl(f(n, 0, 0));
+		outl(m[n]);
 }
 
 /* vim: set ts=4 noet: */
