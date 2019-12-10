@@ -20,7 +20,8 @@ using namespace std;
 #define _DEF(r, n, ...) inline r n(__VA_ARGS__) noexcept
 #define _T template <typename T>
 #define _HT template <typename H,typename... T>
-#define _OP(t) inline operator t()
+#define _I inline
+#define _OP(t) _I operator t()
 struct _in {
 #ifdef _GLIBCXX_STRING
 	_OP(string){string s;char c;while(isspace(c = gcu()));do{s+=c;}while(c=gcu(),c!=' '&&c!='\n'&&c!=EOF);return s;}
@@ -55,8 +56,8 @@ template <typename... T> _OUTL(T... t){out(t...);outl();}
 #define dbg(...) fprintf(stderr,__VA_ARGS__)
 struct range{
 	int e,b=0,s=1;range(int b,int e,int s):e(e),b(b),s(s){} range(int b,int e): e(e), b(b){} range(int e):e(e){}
-	struct it{int v,s; it(int v,int s):v(v),s(s){} operator int()const{return v;} inline operator int&(){return v;}int operator*()const{return v;}
-		inline it& operator++(){v+=s;return *this;} }; it begin(){return {b,s};} it end(){return {e,s};}};
+	struct it{int v,s; it(int v,int s):v(v),s(s){} operator int()const{return v;} _I operator int&(){return v;}int operator*()const{return v;}
+		_I it& operator++(){v+=s;return *this;} }; it begin(){return {b,s};} it end(){return {e,s};}};
 #define times(i,n) for(int i=n;i;i--)
 
 _T using V = vector<T>;
@@ -131,11 +132,10 @@ int main() {
 			continue;
 		}
 		range rn(n);
-		for (int i: rn)
-			di[i][0] = 0;
 		int N = 1 << n;
-		dp[1][0] = 0;
-		for (int S: range(N)) {
+		for (int i: rn)
+			dp[1 << i][0] = 0;
+		for (int S: range(1, N)) {
 			for (int v: rn)
 				if (S & (1 << v))
 					for (int u: rn)
