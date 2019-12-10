@@ -6,6 +6,7 @@
 #include <map>
 #include <queue>
 #include <climits>
+#include <algorithm>
 using namespace std;
 
 #ifdef __linux
@@ -54,8 +55,8 @@ template <typename... T> _OUTL(T... t){out(t...);outl();}
 #define dbg(...) fprintf(stderr,__VA_ARGS__)
 struct range{
 	int e,b=0,s=1;range(int b,int e,int s):e(e),b(b),s(s){} range(int b,int e): e(e), b(b){} range(int e):e(e){}
-	struct it{int v,s; it(int v,int s):v(v),s(s){} operator int()const{return v;} operator int&(){return v;}int operator*()const{return v;}
-		it& operator++(){v+=s;return *this;} }; it begin(){return {b,s};} it end(){return {e,s};}};
+	struct it{int v,s; it(int v,int s):v(v),s(s){} operator int()const{return v;} inline operator int&(){return v;}int operator*()const{return v;}
+		inline it& operator++(){v+=s;return *this;} }; it begin(){return {b,s};} it end(){return {e,s};}};
 #define times(i,n) for(int i=n;i;i--)
 
 _T using V = vector<T>;
@@ -91,8 +92,11 @@ int main() {
 		int inf {INT_MAX / 2}, n = d.size();
 		V<V<int>> di(n, V<int>(n, inf)), dp(1 << n, V<int>(n, inf));
 		if (![&] {
+			int b {};
 			for (PP i: d) {
-				int c {1};
+				if (b == n - 1)
+					return true;
+				int c {++b};
 				V<V<bool>> v(y(s) + 2, V<bool>(x(s) + 2));
 				queue<PP> q;
 				q.push({x(i), 0});
@@ -102,8 +106,9 @@ int main() {
 						PP a = q.front();
 						q.pop();
 						P u {x(a)};
-						if (y(a) && m[y(u)][x(u)] == '*') {
+						if (y(a) && m[y(u)][x(u)] == '*' && di[y(i)][d[u]] == inf) {
 							di[y(i)][d[u]] = y(a);
+							di[d[u]][y(i)] = y(a);
 							if (++c == n)
 								return true;
 						}
@@ -128,14 +133,15 @@ int main() {
 		range rn(n);
 		for (int i: rn)
 			di[i][0] = 0;
-		dp[(1 << n) - 1][0] = 0;
-		for (int S = (1 << n) - 2; S >= 0; S--) {
+		int N = 1 << n;
+		dp[1][0] = 0;
+		for (int S: range(N)) {
 			for (int v: rn)
-				for (int u: rn)
-					if (!(S >> u & 1))
-						dp[S][v] = min(dp[S][v], dp[S | 1 << u][u] + di[v][u]);
+				if (S & (1 << v))
+					for (int u: rn)
+						dp[S | (1 << u)][u] = min(dp[S | (1 << u)][u], dp[S][v] + di[v][u]);
 		}
-		outl(dp[0][0]);
+		outl(dp[N - 1][min_element(begin(dp[N - 1]), end(dp[N - 1])) - begin(dp[N - 1])]);
 	}
 }
 
