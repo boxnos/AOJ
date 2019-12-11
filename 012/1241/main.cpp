@@ -60,14 +60,17 @@ _T using V = vector<T>;
 
 int main() {
 	int N = 1 << 15;
-	V<int> m(N);
-	for (int i {}; i * i < N; i++)
-		for (int j {i}; i * i + j * j < N; j++)
-			for (int k {j}; i * i + j * j + k * k < N; k++)
-				for (int l {k}; i * i + j * j + k * k + l * l < N; l++)
-					m[i * i + j * j + k * k + l * l]++;
-	for (int n; (n = in);)
-		outl(m[n]);
+	V<V<int>> d(4, V<int>(N));
+	for (int i {1}, t {i}; d[0][t = i * i]++, i * i < N; i++)
+		for (int j: range(1, 4))
+			for (int k: range(t, N))
+				d[j][k] += d[j - 1][k - t];
+	for (int n; (n = in);) {
+		int r {};
+		for (int i: range(4))
+			r += d[i][n];
+		outl(r);
+	}
 }
 
 /* vim: set ts=4 noet: */
