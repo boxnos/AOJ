@@ -2,8 +2,7 @@
 #include <cstdio>
 #include <utility>
 #include <cctype>
-#include <algorithm>
-#include <array>
+#include <unordered_map>
 using namespace std;
 
 #ifdef __linux
@@ -62,11 +61,14 @@ struct range{
 #define tee(s,v) ({dbg(s,v);v;})
 
 int main() {
-	array<int, 4> e;
-	for (int &i: e)
-		i = in;
-	sort(begin(e), end(e));
-	outl(e[0] == e[1] && e[2] == e[3] ? "yes" : "no");
+	unordered_map<int, int> m;
+	Range(i, 4)
+		m[in]++;
+	outl([&]{
+		 for (auto i: m)
+			if(i.second % 2)
+				return "no";
+		return "yes";}());
 }
 
 /* vim: set ts=4 noet: */
